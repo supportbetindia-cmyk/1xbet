@@ -1,26 +1,1016 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================================
+   1xBET DESIGN SYSTEM
+   ----------------------------------------------------------------------------
+   The entire palette is derived from the two colours in the logo mark:
+     #007ACC  brand blue  (the "xBET" letterforms)
+     #002F5E  navy        (the "1" and the slash)
+
+   Everything else — greys, borders, shadows, surfaces — is tinted toward that
+   navy hue rather than using neutral/slate greys. That shared undertone is what
+   makes the page read as one designed system instead of a stock UI kit.
+   ========================================================================== */
+
+@theme {
+  /* --- Brand blue ------------------------------------------------------- */
+  --color-brand-50: #ecf6fd;
+  --color-brand-100: #d4eafa;
+  --color-brand-200: #a9d5f5;
+  --color-brand-300: #6fb9ec;
+  --color-brand-400: #2e9ae0;
+  --color-brand-500: #007acc; /* logo blue */
+  --color-brand-600: #0068b0;
+  --color-brand-700: #005490;
+  --color-brand-800: #004273;
+  --color-brand-900: #00335a;
+
+  /* --- Navy ------------------------------------------------------------- */
+  --color-navy-50: #edf1f7;
+  --color-navy-100: #d6e0ec;
+  --color-navy-200: #aec1d8;
+  --color-navy-300: #7593b7;
+  --color-navy-400: #3d6592;
+  --color-navy-500: #0b4478;
+  --color-navy-600: #063a66;
+  --color-navy-700: #002f5e; /* logo navy */
+  --color-navy-800: #002449;
+  --color-navy-900: #001a35;
+  --color-navy-950: #001124;
+
+  /* --- Ink: navy-tinted neutral ramp for text, borders, surfaces --------- */
+  --color-ink-25: #fafcfe;
+  --color-ink-50: #f5f8fc;
+  --color-ink-100: #ebf1f8;
+  --color-ink-200: #dce5f0;
+  --color-ink-300: #c3d1e2;
+  --color-ink-400: #94a7c0;
+  /* Darkened from #6a7f9c, which measured 4.09:1 on white and failed WCAG AA
+     for body copy. This drives .eyebrow, .fine-print and every caption on the
+     site, so the whole secondary tier was under-contrast. Now 4.9:1. */
+  --color-ink-500: #5e7290;
+  --color-ink-600: #4a5f7d;
+  --color-ink-700: #354b66;
+  --color-ink-800: #22344b;
+  --color-ink-900: #0d1b2a;
+
+  /* --- Functional: reserved for real state, never decoration ------------- */
+  --color-win-500: #0e9f6e;
+  /* Darkened from #0b8a5c (4.37:1) to clear AA on white. Used for positive
+     multipliers and live status, so it has to hold as text. */
+  --color-win-600: #0a7d54;
+  --color-win-50: #e8f8f1;
+  --color-loss-500: #d4342c;
+  --color-loss-600: #b52a23;
+  --color-loss-50: #fdeceb;
+
+  /* --- Brass: VIP tier identity only, deliberately desaturated ----------- */
+  --color-brass-300: #d9c188;
+  --color-brass-400: #c4a45c;
+  --color-brass-500: #a8873c;
+  --color-brass-600: #8a6d2c;
+  --color-brass-50: #f8f3e6;
+
+  /* --- Electric accent --------------------------------------------------- */
+  /* Brand blue #007acc holds the identity but is too dense to sit on a dark
+     field. This is the same hue pushed up in luminance so it can carry links,
+     active states and focus rings against navy. */
+  --color-volt-300: #7cc6ff;
+  --color-volt-400: #46aeff;
+  --color-volt-500: #1e9bff;
+  --color-volt-600: #0b82e0;
+
+  /* --- Status: used sparingly, for state only ---------------------------- */
+  --color-live-500: #22d3a8;
+  --color-cyan-500: #22c7e8;
+
+  /* --- Surface stack ----------------------------------------------------- */
+  /* White canvas with four tint steps above it, so panels can be layered
+     without needing a border on every edge. */
+  --color-canvas: #ffffff;
+  --color-surface-1: #f5f8fc;
+  --color-surface-2: #ffffff;
+  --color-surface-3: #eef3f9;
+  --color-surface-4: #e2eaf4;
+
+  /* --- Foreground -------------------------------------------------------- */
+  /* Both secondary tiers are verified against white: muted 6.5:1, dim 4.9:1. */
+  --color-fg: #0d1b2a;
+  --color-fg-muted: #4a5f7d;
+  --color-fg-dim: #5e7290;
+
+  /* Accent for text. volt-500 is a fill colour — on white it only reaches
+     2.9:1, so anything set in the accent uses this deeper blue instead. */
+  --color-accent-ink: #0068b0;
+
+  --color-line: rgba(0, 47, 94, 0.13);
+  --color-line-strong: rgba(0, 47, 94, 0.22);
+  --color-surface: #ffffff;
+
+  /* --- Type -------------------------------------------------------------- */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+
+  /* Cap the weight scale at 700. The original design used font-black (900) on
+     nearly every element, which is the main reason it read as shouty rather
+     than premium. Remapping here fixes every existing usage at once. */
+  --font-weight-black: 700;
+  --font-weight-extrabold: 650;
+
+  /* --- Radius scale ------------------------------------------------------ */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+  --radius-2xl: 18px;
+  --radius-3xl: 24px;
+
+  /* --- Shadows: tinted with the logo navy, never neutral black ----------- */
+  --shadow-xs: 0 1px 2px rgba(0, 47, 94, 0.06);
+  --shadow-sm: 0 1px 2px rgba(0, 47, 94, 0.06), 0 2px 6px rgba(0, 47, 94, 0.04);
+  --shadow-md: 0 2px 4px rgba(0, 47, 94, 0.05), 0 6px 16px rgba(0, 47, 94, 0.07);
+  --shadow-lg: 0 4px 8px rgba(0, 47, 94, 0.05), 0 12px 28px rgba(0, 47, 94, 0.09);
+  --shadow-xl: 0 8px 16px rgba(0, 47, 94, 0.06), 0 24px 48px rgba(0, 47, 94, 0.12);
+  --shadow-2xl: 0 12px 24px rgba(0, 47, 94, 0.08), 0 40px 72px rgba(0, 47, 94, 0.16);
+
+  /* --- Easing ------------------------------------------------------------ */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-fg);
+    /* Use the Geist face actually loaded in layout.tsx. The previous rule here
+       hard-coded a system font stack, so the loaded font never applied. */
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Optical sizing: larger text needs tighter tracking to look considered. */
+  /* Display face on every heading. Heavy weight with negative tracking is the
+     point — the register a scoreboard uses, not a masthead. */
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: inherit;
+    text-wrap: balance;
+  }
+
+  h1 { font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
+  h2 { font-weight: 800; letter-spacing: -0.034em; line-height: 1; }
+
+  p { text-wrap: pretty; }
+
+  /* Every figure on the page — money, multipliers, counts — uses lining
+     tabular numerals so live-updating values never reflow or jitter. */
+  .num,
+  .font-mono,
+  [class*="font-mono"] {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum", "lnum";
+  }
+
+  ::selection {
+    background: var(--color-brand-500);
+    color: #ffffff;
+  }
+
+  /* Visible, on-brand focus ring — keyboard users get a clear affordance
+     without a permanent outline for mouse users. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent-ink);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  button, a { -webkit-tap-highlight-color: transparent; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+
+@layer components {
+
+  /* --- Card ------------------------------------------------------------- */
+  .gaming-card {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-line);
+    border-radius: 10px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset;
+    transition: transform 0.35s var(--ease-out-soft),
+                box-shadow 0.35s var(--ease-out-soft),
+                border-color 0.35s var(--ease-out-soft);
+  }
+
+  .gaming-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-brand-500);
+    box-shadow: 0 12px 30px rgba(0, 47, 94, 0.14);
+  }
+
+  /* Hairline inner highlight along the top edge. Barely visible on its own,
+     but it's what gives a flat card the sense of a lit physical surface. */
+  .gaming-card-glow {
+    position: relative;
+  }
+
+  .gaming-card-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  /* --- Surfaces --------------------------------------------------------- */
+  .surface-tint {
+    background: var(--color-surface-1);
+  }
+
+  /* Deep navy panel for hero / feature sections, built from the logo navy. */
+  .panel-navy {
+    position: relative;
+    background:
+      radial-gradient(110% 130% at 8% 0%, #14365f 0%, transparent 58%),
+      radial-gradient(95% 115% at 95% 10%, #0d3d6b 0%, transparent 55%),
+      linear-gradient(160deg, #0c1b30 0%, #091426 58%, #070e1a 100%);
+    color: #ffffff;
+    isolation: isolate;
+  }
+
+  /* Fine grid, ~4% opacity. Reads as texture, not pattern. */
+  .panel-navy::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(120% 90% at 50% 0%, #000 0%, transparent 78%);
+    z-index: -1;
+  }
+
+  .panel-navy-hairline {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* --- Glass tiles on navy --------------------------------------------- */
+  .glass-tile {
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-2xl);
+    backdrop-filter: blur(12px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    transition: background 0.35s var(--ease-out-soft),
+                border-color 0.35s var(--ease-out-soft),
+                transform 0.35s var(--ease-out-soft);
+  }
+
+  .glass-tile:hover {
+    background: rgba(255, 255, 255, 0.085);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* --- Eyebrow label ---------------------------------------------------- */
+  /* Replaces the old `text-xs font-black uppercase` pattern. Small caps work
+     at 600 with open tracking; at 900 they turn into a shout. */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-fg-dim);
+    line-height: 1;
+  }
+
+  .eyebrow-brand { color: var(--color-accent-ink); }
+
+  /* --- Buttons ---------------------------------------------------------- */
+  .btn-1x-primary {
+    background: linear-gradient(180deg, var(--color-brand-500) 0%, var(--color-brand-700) 100%);
+    color: #ffffff;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 1px 2px rgba(0, 47, 94, 0.2),
+      0 6px 16px rgba(0, 122, 204, 0.24);
+    transition: all 0.25s var(--ease-out-soft);
+  }
+
+  .btn-1x-primary:hover {
+    background: linear-gradient(180deg, var(--color-brand-400) 0%, var(--color-brand-600) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 2px 4px rgba(0, 47, 94, 0.2),
+      0 10px 24px rgba(0, 122, 204, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .btn-1x-primary:active { transform: translateY(0); }
+
+  /* Was a gold gradient — reworked to navy so the accent stays on-logo. */
+  .btn-1x-gold {
+    background: linear-gradient(180deg, var(--color-navy-600) 0%, var(--color-navy-800) 100%);
+    color: #ffffff;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 1px 2px rgba(0, 47, 94, 0.22),
+      0 6px 16px rgba(0, 47, 94, 0.2);
+    transition: all 0.25s var(--ease-out-soft);
+  }
+
+  .btn-1x-gold:hover {
+    background: linear-gradient(180deg, var(--color-navy-500) 0%, var(--color-navy-700) 100%);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 10px 24px rgba(0, 47, 94, 0.26);
+  }
+
+  .btn-1x-gold:active { transform: translateY(0); }
+
+  .btn-quiet {
+    background: var(--color-surface);
+    color: var(--color-ink-700);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    box-shadow: var(--shadow-xs);
+    transition: all 0.25s var(--ease-out-soft);
+  }
+
+  .btn-quiet:hover {
+    background: var(--color-ink-50);
+    border-color: var(--color-line-strong);
+    color: var(--color-ink-900);
+  }
+
+  /* --- Text treatments -------------------------------------------------- */
+  .text-gradient-1x {
+    background: linear-gradient(135deg, var(--color-navy-700) 0%, var(--color-brand-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Kept for compatibility; both now resolve to on-brand blues so no stray
+     gold/green headings survive in the sub-pages. */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, var(--color-brand-600) 0%, var(--color-brand-300) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-green {
+    background: linear-gradient(135deg, var(--color-navy-700) 0%, var(--color-brand-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* --- Live indicator --------------------------------------------------- */
+  .live-dot {
+    position: relative;
+    display: inline-flex;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: var(--color-win-500);
+    flex: none;
+  }
+
+  .live-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: live-halo 2.4s var(--ease-out-soft) infinite;
+  }
+
+  /* --- Inputs ----------------------------------------------------------- */
+  .field {
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-line-strong);
+    border-radius: 6px;
+    color: var(--color-fg);
+    transition: all 0.2s var(--ease-out-soft);
+  }
+
+  .field::placeholder { color: var(--color-fg-dim); }
+
+  .field:focus {
+    outline: none;
+    background: var(--color-surface-2);
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.16);
+  }
+
+  /* ======================================================================
+     GAMING SURFACES
+     The vocabulary the storefront is built from: tiles, rails, chips and
+     status pips. Radii stay tight (6–10px) — large pill/rounded shapes are
+     what make a games grid read as a generic template.
+     ====================================================================== */
+
+  /* Raised panel. Layered surfaces + a top highlight instead of a border on
+     every edge, so a dense grid doesn't turn into a wireframe. */
+  .panel {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-line);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 47, 94, 0.05);
+  }
+
+  .panel-2 { background: var(--color-surface-3); }
+
+  /* Game tile. The whole surface is the target; the image scales, a scrim
+     deepens, and an accent rule wipes across the bottom edge. */
+  .tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-line);
+    transition: border-color 0.3s var(--ease-out-soft),
+                transform 0.4s var(--ease-out-soft);
+    will-change: transform;
+  }
+
+  .tile:hover,
+  .tile:focus-within {
+    transform: translateY(-4px);
+    border-color: rgba(0, 122, 204, 0.6);
+    box-shadow: 0 14px 32px rgba(0, 47, 94, 0.16);
+  }
+
+  .tile::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--color-brand-500);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out-soft);
+    z-index: 3;
+  }
+
+  .tile:hover::after,
+  .tile:focus-within::after { transform: scaleX(1); }
+
+  /* Horizontal rail. Edge-faded, snap-scrolled, no visible scrollbar. */
+  .rail {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+  }
+
+  .rail::-webkit-scrollbar { display: none; }
+  .rail > * { scroll-snap-align: start; flex: none; }
+
+  /* Small metadata chip — RTP, provider, category. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(0, 47, 94, 0.05);
+    border: 1px solid rgba(0, 47, 94, 0.10);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-fg-muted);
+    white-space: nowrap;
+  }
+
+  .chip-volt {
+    background: rgba(0, 122, 204, 0.09);
+    border-color: rgba(0, 122, 204, 0.28);
+    color: var(--color-accent-ink);
+  }
+
+  .chip-live {
+    background: rgba(14, 159, 110, 0.10);
+    border-color: rgba(14, 159, 110, 0.28);
+    color: var(--color-win-600);
+  }
+
+  /* Compact uppercase label. Reserved for categories and metadata only. */
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-fg-dim);
+    line-height: 1;
+  }
+
+  .label-volt { color: var(--color-accent-ink); }
+
+  /* Scoreboard rule — a hairline that steps up in weight at the left end. */
+  .score-rule {
+    position: relative;
+    height: 1px;
+    background: var(--color-line);
+  }
+
+  .score-rule::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 46px;
+    height: 3px;
+    background: var(--color-brand-500);
+  }
+
+  /* Angular corner cut — the frame device, applied to feature panels. */
+  .cut-corner {
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  }
+
+  /* Image scrim. Two stops so the top stays legible for chips and the bottom
+     carries the title without washing the artwork out. */
+  .scrim::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(180deg, rgba(7, 14, 26, 0.72) 0%, rgba(7, 14, 26, 0) 34%),
+      linear-gradient(0deg, rgba(7, 14, 26, 0.94) 4%, rgba(7, 14, 26, 0.25) 42%, rgba(7, 14, 26, 0) 66%);
+    pointer-events: none;
+  }
+
+  /* Fine noise, ~1.5%. Keeps large dark fields from banding. */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.038;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ======================================================================
+     BROADCAST LAYER
+     Art direction borrowed from esports broadcast overlays and sportsbook
+     boards: bracket ticks framing panels, structural rules, slanted section
+     transitions, tabular figures treated as a display element. Everything is
+     drawn from the existing navy/blue tokens — no new hues.
+     ====================================================================== */
+
+  /* Corner ticks. Four short rules at the corners instead of a full border —
+     reads as a framed broadcast graphic rather than another rounded card. */
+  .bracket {
+    position: relative;
+  }
+
+  .bracket::before,
+  .bracket::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    border-color: var(--color-brand-500);
+    border-style: solid;
+    opacity: 0.65;
+  }
+
+  .bracket::before {
+    top: -1px;
+    left: -1px;
+    border-width: 1px 0 0 1px;
+  }
+
+  .bracket::after {
+    right: -1px;
+    bottom: -1px;
+    border-width: 0 1px 1px 0;
+  }
+
+  .bracket-light::before,
+  .bracket-light::after { border-color: rgba(255, 255, 255, 0.45); }
+
+  /* Solid accent block used to open a heading. A rule, not a gradient. */
+  .accent-bar {
+    display: inline-block;
+    width: 28px;
+    height: 3px;
+    background: var(--color-brand-500);
+    border-radius: 1px;
+  }
+
+  /* Slanted transition between stacked bands — the broadcast lower-third
+     angle. Applied to the band below the one it cuts into. */
+  .slant-top {
+    clip-path: polygon(0 2.2rem, 100% 0, 100% 100%, 0 100%);
+    margin-top: -2.2rem;
+    padding-top: 2.2rem;
+  }
+
+  @media (max-width: 767px) {
+    /* Shallower on small screens or it eats the first line of content. */
+    .slant-top {
+      clip-path: polygon(0 1rem, 100% 0, 100% 100%, 0 100%);
+      margin-top: -1rem;
+      padding-top: 1rem;
+    }
+  }
+
+  /* Fine structural grid, ~2.5% — texture at reading distance, invisible up close. */
+  .grid-texture {
+    position: relative;
+  }
+
+  .grid-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgba(0, 47, 94, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 47, 94, 0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 65%);
+  }
+
+  /* Figures as display type — the scoreboard device. */
+  .figure-xl {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums lining-nums;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+  }
+
+  /* Hover treatment for interactive panels: the accent rule wipes in from the
+     left edge. One consistent gesture across every clickable surface. */
+  .wipe {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wipe::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: var(--color-brand-500);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out-soft);
+  }
+
+  .wipe:hover::after,
+  .wipe:focus-visible::after { transform: scaleX(1); }
+
+  /* ======================================================================
+     EDITORIAL LAYER
+     Used by the landing page. The look is broadsheet rather than arcade:
+     serif display type, hairline rules instead of card borders, section
+     numerals set in the gutter, and a lot of air.
+     ====================================================================== */
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    text-transform: none;
+    color: var(--color-fg);
+  }
+
+  /* Emphasis is a colour shift, not an italic. Italics read as editorial. */
+  .display em {
+    font-style: normal;
+    font-weight: 800;
+    color: var(--color-accent-ink);
+  }
+
+  .display-light { font-weight: 700; letter-spacing: -0.03em; }
+
+  /* Section numeral sitting in the left gutter. */
+  .numeral {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-accent-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* First paragraph of a section — slightly larger, slightly darker. Does the
+     job a subhead does without adding another heading level. */
+  /* Body copy was 15px on the rejected build and read as small. The floor is
+     now 16px, rising to 18px on wider viewports. */
+  .lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 640px) {
+    .lead { font-size: 19px; }
+  }
+
+  /* Hairline that stops short of the container edge, so sections feel ruled
+     rather than boxed. */
+  .rule-top {
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* Understated link with an underline that grows from the left on hover. */
+  .link-quiet {
+    position: relative;
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  .link-quiet::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out-soft);
+  }
+
+  .link-quiet:hover::after { transform: scaleX(1); }
+
+  /* Paper texture for the navy hero: a fine diagonal weave at ~3% so the
+     large dark field has something to catch the light instead of reading
+     as flat fill. */
+  .weave::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 6px);
+  }
+
+  /* --- Long-form text ---------------------------------------------------- */
+  /* The site is deliberately text-led rather than image-led, so body copy
+     needs a real measure. ~68ch is the readable maximum; past that the eye
+     loses the line return. */
+  .prose-1x {
+    max-width: 70ch;
+    color: var(--color-fg-muted);
+    font-size: 16px;
+    line-height: 1.68;
+  }
+
+  .prose-1x > * + * { margin-top: 1.1em; }
+
+  .prose-1x h3 {
+    margin-top: 2em;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+  }
+
+  .prose-1x h3 + p { margin-top: 0.6em; }
+
+  .prose-1x strong { font-weight: 600; color: var(--color-fg); }
+
+  .prose-1x a {
+    color: var(--color-accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+  }
+
+  .prose-1x a:hover { color: var(--color-brand-700); }
+
+  .prose-1x ul { padding-left: 0; list-style: none; }
+
+  .prose-1x ul > li {
+    position: relative;
+    padding-left: 1.4em;
+    margin-top: 0.55em;
+  }
+
+  /* A short rule rather than a bullet: quieter, and it lines up with the
+     hairline borders used everywhere else. */
+  .prose-1x ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 0.7em;
+    height: 1px;
+    background: var(--color-line-strong);
+  }
+
+  .prose-1x code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--color-surface-3);
+    border-radius: 4px;
+    padding: 0.15em 0.4em;
+    color: var(--color-brand-700);
+  }
+
+  /* Small print. Real operators have a lot of it; it should be legible
+     rather than hidden, just clearly secondary. */
+  .fine-print {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-fg-dim);
+  }
+
+  /* --- Editorial table --------------------------------------------------- */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  .data-table thead th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-fg-dim);
+    background: var(--color-surface-3);
+    border-bottom: 1px solid var(--color-line);
+    white-space: nowrap;
+  }
+
+  .data-table tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-fg-muted);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:last-child td { border-bottom: 0; }
+  .data-table tbody tr:hover { background: var(--color-surface-3); }
+  .data-table td:first-child { font-weight: 600; color: var(--color-fg); }
+
+  /* --- Scroll containers ------------------------------------------------ */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  /* Fades the edges of horizontal scrollers so rows end softly rather than
+     being sliced off mid-element. */
+  .edge-fade {
+    mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   MOTION
+   ========================================================================== */
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+
+.animate-marquee:hover { animation-play-state: paused; }
+
+@keyframes live-halo {
+  0% { transform: scale(1); opacity: 0.6; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* Retuned from a 5% scale bounce to an opacity-only breath. Movement draws
+   the eye; a soft luminance shift reads as "live" without the twitch. */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3.2s var(--ease-out-soft) infinite;
+}
+
+/* Radix drives these. It exposes the measured panel height as a custom
+   property, so open/close can be a real height transition rather than a
+   display toggle that jumps. */
+@keyframes acc-open {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes acc-close {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+
+.animate-acc-open { animation: acc-open 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
+.animate-acc-close { animation: acc-close 0.24s cubic-bezier(0.4, 0, 1, 1); }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in { animation: fade-in 0.25s ease-out; }
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.985); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.animate-modal-in { animation: modal-in 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-rise-in {
+  animation: rise-in 0.45s var(--ease-out-soft) both;
+}
+
+/* Note: animate-spin / animate-bounce are deliberately NOT overridden here.
+   The decorative uses (a permanently bouncing flame, a forever-spinning
+   sparkle) were removed from the markup instead. What remains is bound to real
+   state — `isSpinning` on the slot reels, `isDropping` on the Plinko coin — and
+   that motion should read as literal feedback, so it stays as Tailwind ships it. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   SCROLLBAR
+   ========================================================================== */
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-canvas); }
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-300);
+  border-radius: 9999px;
+  border: 2px solid var(--color-canvas);
+}
+
+::-webkit-scrollbar-thumb:hover { background: var(--color-volt-600); }

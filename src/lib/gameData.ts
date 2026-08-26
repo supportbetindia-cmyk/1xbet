@@ -1,0 +1,303 @@
+import { GameItem, LiveWin, VIPTier, Quest } from './types';
+
+export const FEATURED_GAMES: GameItem[] = [
+  {
+    id: '1x-crash-pro',
+    title: '1xCrash: Neon Orbit',
+    category: 'crash',
+    provider: '1xGames Exclusive',
+    rtp: '99.0%',
+    volatility: 'Very High',
+    image: 'linear-gradient(135deg, #002f5e 0%, #007acc 50%, #00e599 100%)',
+    badge: '1x EXCLUSIVE',
+    isHot: true,
+    playsCount: '489.2K',
+    description: 'Watch the rocket climb to cosmic multipliers up to 10,000x! Cash out before the pulse explodes.',
+    minBet: 0.10,
+    maxMultiplier: '10,000x'
+  },
+  {
+    id: 'cyber-spin-deluxe',
+    title: 'Cyber Wheel VIP',
+    category: 'exclusives',
+    provider: '1xGames Lab',
+    rtp: '98.5%',
+    volatility: 'Medium',
+    image: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #f43f5e 100%)',
+    badge: 'DAILY FREE SPIN',
+    isHot: true,
+    playsCount: '312.8K',
+    description: 'Spin the high-tech wheel daily to unlock crypto drops, bonus balance, and VIP XP boosts.',
+    minBet: 1.00,
+    maxMultiplier: '5,000x'
+  },
+  {
+    id: 'quantum-jackpot-megaways',
+    title: 'Quantum 1xMegaways',
+    category: 'slots',
+    provider: 'Pragmatic 1x',
+    rtp: '96.8%',
+    volatility: 'High',
+    jackpot: '$2,489,120.45',
+    image: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%)',
+    badge: 'MEGA JACKPOT',
+    isHot: true,
+    playsCount: '890.5K',
+    description: '117,649 ways to win with tumbling reels, electric wild multipliers, and four progressive jackpots.',
+    minBet: 0.20,
+    maxMultiplier: '25,000x'
+  },
+  {
+    id: 'neon-roulette-vip',
+    title: 'Neon Live Roulette 3D',
+    category: 'live',
+    provider: 'Evolution Live',
+    rtp: '97.3%',
+    volatility: 'Medium',
+    image: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)',
+    badge: 'LIVE 4K',
+    isNew: true,
+    playsCount: '154.2K',
+    description: 'High-roller European roulette with lightning multipliers up to 500x and live interactive dealers.',
+    minBet: 0.50,
+    maxMultiplier: '500x'
+  },
+  {
+    id: 'mines-cyber-pulse',
+    title: '1xMines: Cyber Grid',
+    category: 'crash',
+    provider: '1xGames Originals',
+    rtp: '98.8%',
+    volatility: 'High',
+    image: 'linear-gradient(135deg, #064e3b 0%, #059669 50%, #34d399 100%)',
+    badge: 'POPULAR',
+    isHot: true,
+    playsCount: '620.1K',
+    description: 'Uncover cyber crystals on the 5x5 grid. Dodge the security mines to multiply your stake exponentially.',
+    minBet: 0.10,
+    maxMultiplier: '100,000x'
+  },
+  {
+    id: 'dragon-olympus-1000',
+    title: 'Gates of 1xOlympus 1000',
+    category: 'slots',
+    provider: 'Pragmatic 1x',
+    rtp: '96.5%',
+    volatility: 'Very High',
+    jackpot: '$940,300.00',
+    image: 'linear-gradient(135deg, #78350f 0%, #d97706 50%, #fbbf24 100%)',
+    badge: '1000x MULTIS',
+    isHot: true,
+    playsCount: '1.2M',
+    description: 'Zeus strikes with orb multipliers up to 1000x, tumbling wins, and instant bonus buys.',
+    minBet: 0.20,
+    maxMultiplier: '15,000x'
+  },
+  {
+    id: 'cyber-blackjack-elite',
+    title: 'Infinite Cyber Blackjack',
+    category: 'table',
+    provider: '1xLive Studios',
+    rtp: '99.5%',
+    volatility: 'Low',
+    image: 'linear-gradient(135deg, #18181b 0%, #27272a 50%, #3f3f46 100%)',
+    badge: 'RTP 99.5%',
+    isNew: false,
+    playsCount: '275.9K',
+    description: 'Unlimited seats, 21+3 side bets, Perfect Pairs, and auto-split assistance for serious players.',
+    minBet: 1.00,
+    maxMultiplier: '100x'
+  },
+  {
+    id: 'plinko-turbo-1x',
+    title: 'Plinko Turbo Ultra',
+    category: 'crash',
+    provider: '1xGames Originals',
+    rtp: '99.0%',
+    volatility: 'High',
+    image: 'linear-gradient(135deg, #831843 0%, #be185d 50%, #f472b6 100%)',
+    badge: 'HIGH RTP',
+    isHot: true,
+    playsCount: '445.6K',
+    description: 'Drop neon balls down the peg pyramid with 16 rows and extreme 1,000x edge pockets.',
+    minBet: 0.10,
+    maxMultiplier: '1,000x'
+  },
+  {
+    id: 'sweet-1xbonanza',
+    title: 'Sweet 1xBonanza Xmas',
+    category: 'slots',
+    provider: 'Pragmatic 1x',
+    rtp: '96.6%',
+    volatility: 'High',
+    jackpot: '$512,900.10',
+    image: 'linear-gradient(135deg, #881337 0%, #e11d48 50%, #fb7185 100%)',
+    badge: 'FREE SPINS',
+    isHot: false,
+    playsCount: '780.4K',
+    description: 'Cluster pays candy wonderland with explosive 100x candy bombs during free spins round.',
+    minBet: 0.20,
+    maxMultiplier: '21,100x'
+  },
+  {
+    id: 'baccarat-speed-super',
+    title: 'Super 1x Baccarat 6',
+    category: 'live',
+    provider: 'Evolution Live',
+    rtp: '98.9%',
+    volatility: 'Medium',
+    image: 'linear-gradient(135deg, #022c22 0%, #047857 50%, #10b981 100%)',
+    badge: 'FAST ROUNDS',
+    isNew: true,
+    playsCount: '198.3K',
+    description: '15-second lightning rounds with Banker 6 super payouts and live roadmaps (Big Road, Cockroach).',
+    minBet: 1.00,
+    maxMultiplier: '200x'
+  },
+  {
+    id: 'mega-ball-hyper',
+    title: 'Mega Ball 100x Hyper',
+    category: 'live',
+    provider: '1xGames Studio',
+    rtp: '95.4%',
+    volatility: 'High',
+    image: 'linear-gradient(135deg, #581c87 0%, #9333ea 50%, #c084fc 100%)',
+    badge: 'GAME SHOW',
+    isHot: true,
+    playsCount: '340.1K',
+    description: 'Live interactive bingo-lottery with up to 1,000,000x payout multipliers on the final golden ball.',
+    minBet: 0.10,
+    maxMultiplier: '1,000,000x'
+  },
+  {
+    id: 'dice-duel-crypto',
+    title: '1xDice: High Roller',
+    category: 'table',
+    provider: '1xGames Originals',
+    rtp: '99.0%',
+    volatility: 'Medium',
+    image: 'linear-gradient(135deg, #1e293b 0%, #334155 50%, #64748b 100%)',
+    badge: 'INSTANT WIN',
+    isNew: false,
+    playsCount: '210.7K',
+    description: 'Select your win probability from 1% to 98%, slide the target, and roll instant crypto returns.',
+    minBet: 0.05,
+    maxMultiplier: '990x'
+  }
+];
+
+export const LIVE_WINS_FEED: LiveWin[] = [
+  { id: 'w1', player: 'Alex***7', avatar: '⚡', game: '1xCrash: Neon Orbit', bet: '$50.00', multiplier: '28.45x', payout: '$1,422.50', time: '1s ago', currency: 'USD' },
+  { id: 'w2', player: 'Cyber***9', avatar: '👑', game: 'Gates of 1xOlympus', bet: '$20.00', multiplier: '500.00x', payout: '$10,000.00', time: '4s ago', currency: 'USD' },
+  { id: 'w3', player: 'Vortex***X', avatar: '🚀', game: 'Plinko Turbo Ultra', bet: '0.005 BTC', multiplier: '130.00x', payout: '0.650 BTC', time: '8s ago', currency: 'BTC' },
+  { id: 'w4', player: 'Elena***2', avatar: '💎', game: 'Quantum 1xMegaways', bet: '$100.00', multiplier: '45.20x', payout: '$4,520.00', time: '12s ago', currency: 'USD' },
+  { id: 'w5', player: 'Satoshi***K', avatar: '🎯', game: '1xMines: Cyber Grid', bet: '150 USDT', multiplier: '18.90x', payout: '2,835 USDT', time: '15s ago', currency: 'USDT' },
+  { id: 'w6', player: 'Lucky***8', avatar: '🍀', game: 'Cyber Wheel VIP', bet: '$10.00', multiplier: '250.00x', payout: '$2,500.00', time: '19s ago', currency: 'USD' },
+  { id: 'w7', player: 'MaxBet***1', avatar: '🔥', game: '1xCrash: Neon Orbit', bet: '$200.00', multiplier: '14.80x', payout: '$2,960.00', time: '23s ago', currency: 'USD' },
+  { id: 'w8', player: 'Night***0', avatar: '🐺', game: 'Neon Live Roulette', bet: '0.02 ETH', multiplier: '36.00x', payout: '0.72 ETH', time: '27s ago', currency: 'ETH' }
+];
+
+export const VIP_TIERS: VIPTier[] = [
+  {
+    level: 1,
+    name: 'Bronze Starter',
+    color: '#cd7f32',
+    minXP: 0,
+    maxXP: 1000,
+    cashback: '5%',
+    rakeback: '2%',
+    levelBonus: '$10 Cash',
+    benefits: ['Daily Lucky Spin', 'Standard Support', 'Instant Crypto Withdrawals']
+  },
+  {
+    level: 2,
+    name: 'Silver Prodigy',
+    color: '#94a3b8',
+    minXP: 1001,
+    maxXP: 5000,
+    cashback: '8%',
+    rakeback: '4%',
+    levelBonus: '$50 Cash + 50 FS',
+    benefits: ['2x Daily Wheel Spins', 'Priority Withdrawal Queue', 'Weekly Reload Bonus']
+  },
+  {
+    level: 3,
+    name: 'Gold High-Roller',
+    color: '#f59e0b',
+    minXP: 5001,
+    maxXP: 20000,
+    cashback: '12%',
+    rakeback: '7%',
+    levelBonus: '$250 Cash + 100 FS',
+    benefits: ['Dedicated VIP Host', 'Higher Bet Limits', 'Zero Deposit Fees', 'Birthday Gift']
+  },
+  {
+    level: 4,
+    name: 'Platinum Master',
+    color: '#06b6d4',
+    minXP: 20001,
+    maxXP: 100000,
+    cashback: '16%',
+    rakeback: '10%',
+    levelBonus: '$1,000 Crypto Drop',
+    benefits: ['Custom VIP Tournaments', 'Personal Concierge 24/7', 'Luxury Merchandise']
+  },
+  {
+    level: 5,
+    name: '1x Elite Diamond',
+    color: '#a855f7',
+    minXP: 100001,
+    maxXP: 500000,
+    cashback: '22%',
+    rakeback: '15%',
+    levelBonus: '$5,000 All-Access Pass',
+    benefits: ['Exclusive Supercar Giveaways', 'No Max Withdrawal Cap', 'Custom Table Limits']
+  }
+];
+
+export const DAILY_QUESTS: Quest[] = [
+  {
+    id: 'q1',
+    title: 'Cosmic Pilot',
+    description: 'Play 5 rounds of 1xCrash with minimum $1 bet',
+    reward: '25 Free Spins',
+    xpReward: 150,
+    progress: 3,
+    target: 5,
+    isClaimed: false,
+    iconName: 'Rocket'
+  },
+  {
+    id: 'q2',
+    title: 'Wheel Master',
+    description: 'Spin the Daily Lucky Wheel once today',
+    reward: '$10 Instant Bonus',
+    xpReward: 200,
+    progress: 1,
+    target: 1,
+    isClaimed: false,
+    iconName: 'Disc'
+  },
+  {
+    id: 'q3',
+    title: 'Slot Explorer',
+    description: 'Hit a 20x or higher multiplier on any Slot game',
+    reward: '$50 VIP Credits',
+    xpReward: 300,
+    progress: 1,
+    target: 1,
+    isClaimed: true,
+    iconName: 'Sparkles'
+  },
+  {
+    id: 'q4',
+    title: 'High Roller Challenge',
+    description: 'Wager a total of $500 across any 1xGames',
+    reward: 'Level Up Mystery Box',
+    xpReward: 500,
+    progress: 340,
+    target: 500,
+    isClaimed: false,
+    iconName: 'Trophy'
+  }
+];
