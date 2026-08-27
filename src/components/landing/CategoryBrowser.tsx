@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useLayoutEffect, useRef } from 'react';
+import Link from 'next/link';
 import { AUTHENTIC_GAMES, AuthenticGame } from '@/lib/authenticGames';
 import { GameTile } from '@/components/game/GameTile';
 import { gsap, prefersReducedMotion } from '@/lib/gsap';
@@ -56,18 +57,38 @@ export const CategoryBrowser: React.FC<CategoryBrowserProps> = ({ onSelectGame }
     <section className="relative border-t border-line bg-surface-1 py-14 sm:py-16 lg:py-20">
       <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
 
-        <div className="flex flex-wrap items-end justify-between gap-5">
-          <div>
-            <span className="label label-volt">Browse by category</span>
-            <h2 className="mt-3 text-[clamp(1.7rem,3.4vw,2.6rem)] uppercase">
-              Find what you&rsquo;re looking for
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-line">
+          <div className="max-w-3xl">
+            <span className="label label-volt">Sports &amp; Games</span>
+            <h2 className="mt-3 text-[clamp(1.7rem,3.4vw,2.6rem)] uppercase text-fg font-extrabold">
+              Find What You&rsquo;re Looking For
             </h2>
+            <p className="mt-3 text-[16px] font-medium text-fg">
+              Sports and online games are at the heart of the 1xBet platform.
+            </p>
+            <p className="mt-2 text-[15px] leading-relaxed text-fg-muted">
+              Browse available sporting events, review the markets displayed for each event and explore the gaming categories currently available to you. The selection may include different sports, events and online gaming options depending on your location and the platform&rsquo;s current availability.
+            </p>
+            <p className="mt-2 text-[15px] leading-relaxed text-fg-muted">
+              Rather than filling the homepage with every available category, 1xBet keeps the main experience focused on helping users reach the section they&rsquo;re looking for.
+            </p>
           </div>
-          <p className="max-w-md text-[15px] leading-relaxed text-fg-muted">
-            Rather than filling the homepage with every available category, 1xBet keeps the
-            main experience focused on helping users reach the section they&rsquo;re looking
-            for.
-          </p>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Link
+              href="/lobby"
+              className="inline-flex min-h-[46px] cursor-pointer items-center gap-2 rounded-[8px] bg-brand-500 px-6 text-[14px] font-bold text-white shadow-md shadow-brand-500/25 transition-all hover:bg-brand-600"
+            >
+              <span>View Sports</span>
+            </Link>
+
+            <Link
+              href="/1xgames"
+              className="inline-flex min-h-[46px] cursor-pointer items-center gap-2 rounded-[8px] border border-line-strong bg-canvas px-6 text-[14px] font-bold text-fg transition-all hover:border-brand-500 hover:bg-surface-3"
+            >
+              <span>Explore 1xBet Games</span>
+            </Link>
+          </div>
         </div>
 
         {/* Tab strip */}

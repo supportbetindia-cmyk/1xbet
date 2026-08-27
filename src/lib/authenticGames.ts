@@ -113,7 +113,8 @@ export const AUTHENTIC_GAMES: AuthenticGame[] = [
     description: 'Set your target win probability from 1% to 98%, roll the verifiable dice, and take instant crypto profits.',
     posterBg: 'linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%)',
     iconSymbol: '🎲',
-    accentColor: '#0284c7'
+    accentColor: '#0284c7',
+    imageUrl: '/images/games/crystal-deluxe.jpg'
   },
 
   // Iconic Top Slots
@@ -282,7 +283,8 @@ export const AUTHENTIC_GAMES: AuthenticGame[] = [
     description: 'European roulette supercharged with chain lightning and double strikes delivering multipliers up to 2,000x.',
     posterBg: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1e38 100%)',
     iconSymbol: '⚡',
-    accentColor: '#f59e0b'
+    accentColor: '#f59e0b',
+    imageUrl: '/images/games/lightning-roulette.jpg'
   },
   {
     id: 'monopoly-big-baller',
@@ -300,7 +302,8 @@ export const AUTHENTIC_GAMES: AuthenticGame[] = [
     description: 'Live riverboat bingo game where Mr. Monopoly walks the 3D board collecting houses, hotels, and multipliers.',
     posterBg: 'linear-gradient(135deg, #166534 0%, #14532d 50%, #052e16 100%)',
     iconSymbol: '🎩',
-    accentColor: '#22c55e'
+    accentColor: '#22c55e',
+    imageUrl: '/images/games/crazy-time.jpg'
   },
   {
     id: 'speed-blackjack-vip-1x',
@@ -318,7 +321,8 @@ export const AUTHENTIC_GAMES: AuthenticGame[] = [
     description: 'Dedicated branded 1xBet green felt tables with lightning fast card distribution and 21+3 side bets.',
     posterBg: 'linear-gradient(135deg, #002f5e 0%, #001f3f 50%, #001122 100%)',
     iconSymbol: '♠️',
-    accentColor: '#007acc'
+    accentColor: '#007acc',
+    imageUrl: '/images/games/speed-blackjack.jpg'
   }
 ];
 

@@ -36,9 +36,7 @@ export const FeaturedGrid: React.FC<FeaturedGridProps> = ({ onSelectGame }) => {
               Explore 1xBet games
             </h2>
             <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-fg-muted">
-              The 1xBet games section gives users access to the online gaming options
-              currently offered through the platform. Game availability can change over
-              time, so users should check the platform for the latest available selection.
+              The 1xBet games section gives users access to the online gaming options currently offered through the platform. Game availability can change over time, so users should check the platform for the latest available selection. Different games and features may also be subject to regional restrictions and applicable terms.
             </p>
           </div>
 

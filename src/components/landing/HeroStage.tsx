@@ -2,7 +2,18 @@
 
 import React, { useLayoutEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { 
+  ArrowRight, 
+  ChevronRight, 
+  Trophy, 
+  Radio, 
+  Rocket, 
+  Gift, 
+  Crown, 
+  Flame,
+  Dices,
+  Sparkles
+} from 'lucide-react';
 import { gsap, prefersReducedMotion } from '@/lib/gsap';
 import { AuthenticGame } from '@/lib/authenticGames';
 import { LiveTicker } from '@/components/game/LiveTicker';
@@ -14,13 +25,67 @@ interface HeroStageProps {
   onSelectGame?: (game: AuthenticGame) => void;
 }
 
-const CATEGORY_LINKS = [
-  { label: 'Sports', href: '/lobby' },
-  { label: 'Live Casino', href: '/live-casino' },
-  { label: '1xGames', href: '/1xgames' },
-  { label: 'Tournaments', href: '/tournaments' },
-  { label: 'Promotions', href: '/promotions' },
-  { label: 'VIP Club', href: '/vip' },
+const CATEGORY_HUBS = [
+  { 
+    id: 'sports',
+    label: 'Sports',
+    sub: 'Live & Pre-Match',
+    badge: '1,420+ LIVE',
+    badgeTone: 'rose',
+    href: '/sports',
+    icon: Trophy,
+    iconColor: 'text-brand-500 bg-brand-500/10',
+  },
+  { 
+    id: 'live-casino',
+    label: 'Live Casino',
+    sub: '4K Native Dealers',
+    badge: '195+ TABLES',
+    badgeTone: 'brand',
+    href: '#live-casino',
+    icon: Radio,
+    iconColor: 'text-rose-500 bg-rose-500/10',
+  },
+  { 
+    id: '1xgames',
+    label: '1xGames',
+    sub: 'Crash & Multipliers',
+    badge: 'HOT 10,000X',
+    badgeTone: 'volt',
+    href: '#1xgames',
+    icon: Rocket,
+    iconColor: 'text-cyan-600 bg-cyan-500/10',
+  },
+  { 
+    id: 'tournaments',
+    label: 'Tournaments',
+    sub: 'Daily Leaderboards',
+    badge: '$250K POOL',
+    badgeTone: 'amber',
+    href: '/tournaments',
+    icon: Flame,
+    iconColor: 'text-amber-500 bg-amber-500/10',
+  },
+  { 
+    id: 'promotions',
+    label: 'Promotions',
+    sub: '100% Welcome Match',
+    badge: 'BONUS + SPINS',
+    badgeTone: 'win',
+    href: '/promotions',
+    icon: Gift,
+    iconColor: 'text-emerald-500 bg-emerald-500/10',
+  },
+  { 
+    id: 'vip',
+    label: 'VIP Club',
+    sub: 'Tier Perks & Drops',
+    badge: 'CASHBACK 15%',
+    badgeTone: 'brass',
+    href: '/vip',
+    icon: Crown,
+    iconColor: 'text-brass-500 bg-brass-500/10',
+  },
 ];
 
 const FACTS = [
@@ -30,13 +95,7 @@ const FACTS = [
   { k: 'Support', v: 'Official channels' },
 ];
 
-/**
- * Hero.
- *
- * Deliberately image-free on a white field: the energy comes from the heavy
- * display type, the live multiplier board and the category rail. A fine
- * navy-tinted grid gives the white some structure without tinting it.
- */
+
 export const HeroStage: React.FC<HeroStageProps> = () => {
   const { openAuth } = useSite();
   const root = useRef<HTMLElement>(null);
@@ -108,6 +167,9 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
               one platform. Browse available sports and events, explore 1xBet games, manage
               your account and access supported features from desktop or mobile devices.
             </p>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg-muted">
+              Whether you are returning through 1xBet login, creating a new account with 1xBet registration, or looking for the 1xBet app, you can find the relevant options in one place.
+            </p>
 
             <div data-h="cta" className="mt-8 flex flex-wrap items-center gap-3">
               <button
@@ -174,22 +236,52 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
           </div>
         </div>
 
-        {/* Category rail closing the hero */}
-        <nav aria-label="Browse categories" className="mt-12 border-t border-line pt-5">
-          <div data-h="rail" className="rail">
-            {CATEGORY_LINKS.map((c) => (
+        {/* Full-width Category Hub closing the hero */}
+        <nav aria-label="Browse categories" className="mt-12 border-t border-line pt-6">
+          <div data-h="rail" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 w-full">
+            {CATEGORY_HUBS.map((c) => (
               <Link
-                key={c.label}
+                key={c.id}
                 href={c.href}
-                className="group inline-flex min-h-[46px] items-center gap-2 rounded-[6px] border
-                           border-line bg-canvas px-4 text-[14px] font-semibold text-fg-muted
-                           transition-colors hover:border-brand-500/50 hover:bg-surface-1 hover:text-fg
-                           focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+                className="group relative flex flex-col justify-between rounded-xl border border-line bg-canvas p-3.5 transition-all duration-300 hover:border-brand-500 hover:bg-surface-1 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 overflow-hidden"
               >
-                {c.label}
-                <ChevronRight
-                  className="h-3.5 w-3.5 text-fg-dim transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-brand-600"
+                {/* Top: Icon + Badge */}
+                <div className="flex items-center justify-between gap-1.5">
+                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg shadow-xs transition-transform group-hover:scale-110 ${c.iconColor}`}>
+                    <c.icon className="h-4 w-4" />
+                  </div>
+                  <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono ${
+                    c.badgeTone === 'rose' ? 'bg-rose-500/10 text-rose-600 border border-rose-500/20' :
+                    c.badgeTone === 'brand' ? 'bg-brand-500/10 text-brand-600 border border-brand-500/20' :
+                    c.badgeTone === 'volt' ? 'bg-cyan-500/10 text-cyan-600 border border-cyan-500/20' :
+                    c.badgeTone === 'amber' ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20' :
+                    c.badgeTone === 'win' ? 'bg-win-500/10 text-win-600 border border-win-500/20' :
+                    'bg-brass-500/10 text-brass-600 border border-brass-500/20'
+                  }`}>
+                    {c.badge}
+                  </span>
+                </div>
+
+                {/* Bottom: Title + Subtitle */}
+                <div className="mt-3 flex items-end justify-between">
+                  <div>
+                    <h3 className="text-[14px] font-bold text-fg group-hover:text-brand-600 transition-colors leading-tight">
+                      {c.label}
+                    </h3>
+                    <p className="text-[11px] text-fg-dim font-medium mt-0.5 truncate">
+                      {c.sub}
+                    </p>
+                  </div>
+                  <ChevronRight
+                    className="h-4 w-4 text-fg-dim transition-transform duration-300 group-hover:translate-x-1 group-hover:text-brand-600 shrink-0"
+                    aria-hidden
+                  />
+                </div>
+
+                {/* Bottom Accent Line */}
+                <span
                   aria-hidden
+                  className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-brand-500 transition-transform duration-300 ease-out group-hover:scale-x-100"
                 />
               </Link>
             ))}

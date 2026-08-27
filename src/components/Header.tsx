@@ -12,6 +12,7 @@ import {
   X,
   ChevronDown,
   Trophy,
+  Target,
   Globe,
   Smartphone,
   Radio,
@@ -64,6 +65,8 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const primaryNavLinks = [
+    { href: '/sports', label: 'Sports', icon: Trophy },
+    { href: '/cricket', label: 'Cricket', icon: Target },
     { href: '/casino', label: 'Casino', icon: Gamepad2 },
     { href: '/live-casino', label: 'Live Casino', icon: Radio, isLive: true },
     { href: '/1xgames', label: '1xGames', icon: Zap, isHot: true },
@@ -93,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header
       className={`sticky top-0 z-50 select-none w-full bg-white/88 backdrop-blur-xl transition-all duration-300 ${
-        scrolled ? 'border-b border-line-strong shadow-[0_8px_28px_rgba(0,0,0,0.5)]' : 'border-b border-line'
+        scrolled ? 'border-b border-line-strong shadow-[0_6px_20px_rgba(0,47,94,0.10)]' : 'border-b border-line'
       }`}
     >
       {/* 1. Utility bar */}
@@ -112,14 +115,14 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="hidden md:flex items-center gap-5 text-fg-muted">
               <Link
                 href="/app"
-                className="flex items-center gap-1.5 hover:text-white transition-colors whitespace-nowrap"
+                className="flex items-center gap-1.5 hover:text-fg transition-colors whitespace-nowrap"
               >
                 <Smartphone className="w-3.5 h-3.5 text-brand-600" />
                 <span>iOS &amp; Android App</span>
               </Link>
               <Link
                 href="/provably-fair"
-                className="flex items-center gap-1.5 hover:text-white transition-colors whitespace-nowrap"
+                className="flex items-center gap-1.5 hover:text-fg transition-colors whitespace-nowrap"
               >
                 <ShieldCheck className="w-3.5 h-3.5 text-brand-600" />
                 <span>Provably Fair RNG</span>
@@ -132,7 +135,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="relative">
               <button
                 onClick={() => { soundFX.playClick(); setLangDropdownOpen(!langDropdownOpen); }}
-                className="flex items-center gap-1.5 text-fg-muted hover:text-white cursor-pointer h-8 px-2 rounded-md hover:bg-surface-3 transition-colors whitespace-nowrap"
+                className="flex items-center gap-1.5 text-fg-muted hover:text-fg cursor-pointer h-8 px-2 rounded-md hover:bg-surface-3 transition-colors whitespace-nowrap"
                 aria-expanded={langDropdownOpen}
               >
                 <Globe className="w-3.5 h-3.5" />
@@ -150,7 +153,7 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={() => setLangDropdownOpen(false)}
                     aria-hidden
                   />
-                  <div className="absolute right-0 top-full mt-1.5 w-44 panel panel-2 rounded-[8px] p-1.5 z-50 animate-rise-in shadow-[0_16px_40px_rgba(0,0,0,0.6)]">
+                  <div className="absolute right-0 top-full mt-1.5 w-44 panel panel-2 rounded-[8px] p-1.5 z-50 animate-rise-in shadow-[0_14px_34px_rgba(0,47,94,0.16)]">
                     {languages.map((l) => (
                       <button
                         key={l.name}
@@ -176,7 +179,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={handleSoundToggle}
-              className="flex items-center gap-1.5 text-fg-muted hover:text-white cursor-pointer h-8 px-2 rounded-md hover:bg-surface-3 transition-colors whitespace-nowrap"
+              className="flex items-center gap-1.5 text-fg-muted hover:text-fg cursor-pointer h-8 px-2 rounded-md hover:bg-surface-3 transition-colors whitespace-nowrap"
               title={isMuted ? 'Unmute sound' : 'Mute sound'}
             >
               {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
@@ -211,7 +214,7 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-0.5">
+            <nav className="hidden xl:flex items-center gap-0.5">
               {primaryNavLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = pathname === link.href;
@@ -290,7 +293,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 -mr-1 rounded-[5px] text-fg hover:bg-surface-3 cursor-pointer transition-colors"
+              className="xl:hidden p-2 -mr-1 rounded-[5px] text-fg hover:bg-surface-3 cursor-pointer transition-colors"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -301,7 +304,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* 3. Mobile drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden pb-4 pt-2 border-t border-line animate-rise-in">
+          <div className="xl:hidden pb-4 pt-2 border-t border-line animate-rise-in">
             <nav className="space-y-0.5">
               {allNavLinks.map((link) => {
                 const Icon = link.icon;
