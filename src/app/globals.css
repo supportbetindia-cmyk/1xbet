@@ -448,15 +448,15 @@
      filled navy bar the sports page uses or the label stack on the homepage.
      ====================================================================== */
 
-  .bg-pitch { background-color: #0a7d54; }
-  .text-pitch { color: #0a7d54; }
-  .border-pitch { border-color: #0a7d54; }
+  .bg-pitch { background-color: var(--color-ck-pitch); }
+  .text-pitch { color: var(--color-ck-pitch); }
+  .border-pitch { border-color: var(--color-ck-pitch); }
 
   /* Section head: heavy left rule, oversized ghost numeral, stacked titles. */
   .ck-head {
     position: relative;
     padding-left: 22px;
-    border-left: 5px solid #0a7d54;
+    border-left: 5px solid var(--color-ck-pitch);
   }
 
   .ck-head-blue { border-left-color: var(--color-brand-500); }
@@ -479,7 +479,7 @@
   }
 
   .ck-card thead th {
-    background: #0a7d54;
+    background: var(--color-ck-pitch);
     color: #fff;
     text-align: left;
     padding: 10px 14px;
@@ -506,7 +506,7 @@
     height: 3px;
     background-image: repeating-linear-gradient(
       90deg,
-      #0a7d54 0 14px,
+      var(--color-ck-pitch) 0 14px,
       transparent 14px 24px
     );
     border-radius: 2px;
@@ -569,7 +569,7 @@
     gap: 6px;
     padding: 4px 9px;
     border-radius: 4px;
-    background: #0a7d54;
+    background: var(--color-ck-pitch);
     color: #fff;
     font-size: 11px;
     font-weight: 800;
@@ -1242,38 +1242,41 @@
    ========================================================================== */
 
 @theme {
-  --color-cs-gold: #e8c657;
-  --color-cs-violet: #b98bff;
-  --color-cs-felt: #10402f;
-  --color-cs-night: #08060d;
+  --color-cs-gold: #0068b0;
+  --color-cs-violet: #0b4478;
+  --color-cs-felt: #002f5e;
+  --color-cs-night: #050d18;
 
-  --color-bb-leather: #d95a1e;
-  --color-bb-wood: #c48b40;
-  --color-bb-court: #0b1522;
-  --color-bb-chalk: #f0f4fa;
+  --color-bb-leather: #0068b0;
+  --color-bb-wood: #0b4478;
+  --color-bb-court: #002f5e;
+  --color-bb-chalk: #eef4fa;
 
-  --color-hr-claret: #7a1d2e;
-  --color-hr-brass: #b88628;
-  --color-hr-turf: #0e2a1b;
-  --color-hr-silk: #f4ecdc;
-  --color-hr-night: #0a0e14;
+  --color-hr-claret: #0068b0;
+  --color-hr-brass: #0b4478;
+  --color-hr-turf: #002f5e;
+  --color-hr-silk: #eef4fa;
+  --color-hr-night: #04101d;
 
-  --color-sc-pitch: #1a6b3c;
-  --color-sc-lime: #4f7d10;
-  --color-sc-chalk: #eaf2e6;
-  --color-sc-night: #06170e;
+  --color-sc-pitch: #0068b0;
+  --color-sc-lime: #0b4478;
+  --color-sc-chalk: #eef4fa;
+  --color-sc-night: #04101d;
 
-  --color-bd-indigo: #2e2f7a;
-  --color-bd-cyan: #0b6f80;
-  --color-bd-cork: #9a6f2e;
-  --color-bd-night: #0a0b1f;
+  --color-bd-indigo: #002f5e;
+  --color-bd-cyan: #0068b0;
+  --color-bd-cork: #0b4478;
+  --color-bd-night: #050d18;
 
   /* Tennis court surfaces — dropped when the theme block was consolidated,
      which left every bg-tn-* / text-tn-* utility resolving to nothing. */
-  --color-tn-hard: #1866ab;
-  --color-tn-clay: #b0523c;
-  --color-tn-grass: #2f6d43;
-  --color-tn-ball: #7d8a10;
+  --color-tn-hard: #0068b0;
+  --color-tn-clay: #002f5e;
+  --color-tn-grass: #0b4478;
+  --color-tn-ball: #005490;
+
+  /* Cricket's turf green, remapped onto the logo blue. */
+  --color-ck-pitch: #0068b0;
 }
 
 @layer components {
@@ -1282,9 +1285,9 @@
     position: relative;
     overflow: hidden;
     background:
-      radial-gradient(90% 70% at 78% 0%, rgba(109, 52, 176, 0.32) 0%, transparent 62%),
-      radial-gradient(70% 60% at 12% 8%, rgba(168, 128, 26, 0.20) 0%, transparent 58%),
-      linear-gradient(180deg, #0d0916 0%, #08060d 62%, #06040a 100%);
+      radial-gradient(90% 70% at 78% 0%, rgba(74, 168, 232, 0.24) 0%, transparent 62%),
+      radial-gradient(70% 60% at 12% 8%, rgba(0, 122, 204, 0.18) 0%, transparent 58%),
+      linear-gradient(180deg, #0a2743 0%, #061c33 62%, #04121f 100%);
   }
 
   .cs-floor::before {
@@ -1305,9 +1308,9 @@
     --color-line-strong: rgba(255, 255, 255, 0.24);
     --color-canvas: rgba(255, 255, 255, 0.04);
     --color-surface-1: rgba(255, 255, 255, 0.07);
-    --color-cs-gold: #e8c657;
-    --color-cs-violet: #b98bff;
-    --color-accent-ink: #e8c657;
+    --color-cs-gold: #4aa8e8;
+    --color-cs-violet: #7cc4f0;
+    --color-accent-ink: #4aa8e8;
   }
 
   .cs-pip {
@@ -1357,10 +1360,14 @@
 
   .cs-felt {
     background:
-      radial-gradient(120% 100% at 50% 0%, #17553f 0%, #10402f 55%, #0b2c21 100%);
+      radial-gradient(120% 100% at 50% 0%, #0d3a5e 0%, #0a2c48 55%, #071f33 100%);
   }
 
-  .cs-cta-solid { color: #17110a; }
+  /* Dark ink was chosen for a gold fill. On the brand blue the label has to
+     be white in light scope, and only goes dark on the brightened blue
+     used inside .cs-dark. */
+  .cs-cta-solid { color: #ffffff; }
+  .cs-dark .cs-cta-solid { color: #04121f; }
 
   /* Basketball Theme */
   .bb-on-dark {
@@ -1372,9 +1379,9 @@
     --color-canvas: rgba(255, 255, 255, 0.045);
     --color-surface-1: rgba(255, 255, 255, 0.07);
     --color-surface-2: rgba(255, 255, 255, 0.11);
-    --color-bb-leather: #ff7a33;
-    --color-bb-wood: #d8a35c;
-    --color-accent-ink: #ff7a33;
+    --color-bb-leather: #4aa8e8;
+    --color-bb-wood: #7cc4f0;
+    --color-accent-ink: #4aa8e8;
   }
 
   /* Horse Racing Theme */
@@ -1386,9 +1393,9 @@
     --color-line-strong: rgba(255, 255, 255, 0.26);
     --color-canvas: rgba(255, 255, 255, 0.05);
     --color-surface-1: rgba(255, 255, 255, 0.08);
-    --color-hr-claret: #e2496a;
-    --color-hr-brass: #d8b04a;
-    --color-accent-ink: #d8b04a;
+    --color-hr-claret: #4aa8e8;
+    --color-hr-brass: #7cc4f0;
+    --color-accent-ink: #4aa8e8;
   }
 
   /* Soccer Theme */
@@ -1400,9 +1407,9 @@
     --color-line-strong: rgba(255, 255, 255, 0.26);
     --color-canvas: rgba(255, 255, 255, 0.05);
     --color-surface-1: rgba(255, 255, 255, 0.08);
-    --color-sc-pitch: #3fbb6d;
-    --color-sc-lime: #b6e34b;
-    --color-accent-ink: #3fbb6d;
+    --color-sc-pitch: #4aa8e8;
+    --color-sc-lime: #7cc4f0;
+    --color-accent-ink: #4aa8e8;
   }
 
   /* Badminton Theme */
@@ -1414,9 +1421,9 @@
     --color-line-strong: rgba(255, 255, 255, 0.26);
     --color-canvas: rgba(255, 255, 255, 0.05);
     --color-surface-1: rgba(255, 255, 255, 0.08);
-    --color-bd-cyan: #4fd8ee;
-    --color-bd-cork: #e0b464;
-    --color-accent-ink: #4fd8ee;
+    --color-bd-cyan: #4aa8e8;
+    --color-bd-cork: #7cc4f0;
+    --color-accent-ink: #4aa8e8;
   }
 }
 
@@ -1525,7 +1532,7 @@
   .bb-court {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(130% 105% at 50% -10%, #16344f 0%, #0c1d30 52%, #061220 100%);
+    background: radial-gradient(130% 105% at 50% -10%, #123a5c 0%, #08223d 52%, #041424 100%);
   }
   .bb-court::before {
     content: '';
@@ -1704,7 +1711,7 @@
   .hr-night {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(120% 90% at 50% -15%, #1d3b2c 0%, #12241c 55%, #0a120e 100%);
+    background: radial-gradient(120% 90% at 50% -15%, #123a5c 0%, #08223d 55%, #041424 100%);
   }
   .hr-night::before {
     content: '';
@@ -1767,8 +1774,8 @@
     position: relative;
     overflow: hidden;
     background:
-      radial-gradient(120% 90% at 50% -12%, rgba(63, 187, 109, 0.18) 0%, transparent 58%),
-      linear-gradient(180deg, #0b2a19 0%, #06170e 68%, #041009 100%);
+      radial-gradient(120% 90% at 50% -12%, rgba(74, 168, 232, 0.20) 0%, transparent 58%),
+      linear-gradient(180deg, #0a2f4e 0%, #05203a 68%, #03131f 100%);
   }
   .sc-night::before {
     content: '';
@@ -1812,8 +1819,8 @@
     position: relative;
     overflow: hidden;
     background:
-      radial-gradient(100% 70% at 50% -8%, rgba(11, 111, 128, 0.30) 0%, transparent 60%),
-      linear-gradient(180deg, #12134a 0%, #0a0b1f 62%, #07081a 100%);
+      radial-gradient(100% 70% at 50% -8%, rgba(74, 168, 232, 0.26) 0%, transparent 60%),
+      linear-gradient(180deg, #0a3050 0%, #06203a 62%, #041424 100%);
   }
   .bd-hall::before {
     content: '';

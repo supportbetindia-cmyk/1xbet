@@ -15,12 +15,12 @@ import { FurlongScrubber } from '@/components/racing/FurlongScrubber';
 
 /* Each section is issued its own silk, the way each runner in a field is. */
 const SILKS: { p: SilkPattern; base: string; mark: string }[] = [
-  { p: 'stripes',  base: '#8e1f38', mark: '#f2e3c8' },
-  { p: 'hoops',    base: '#1f4d33', mark: '#e9d79a' },
-  { p: 'chevron',  base: '#24446e', mark: '#ffffff' },
-  { p: 'sash',     base: '#94701f', mark: '#12241c' },
-  { p: 'quarters', base: '#5c2050', mark: '#f0e6d2' },
-  { p: 'spots',    base: '#0f3b52', mark: '#ffd9a0' },
+  { p: 'stripes',  base: '#0068b0', mark: '#eef4fa' },
+  { p: 'hoops',    base: '#002f5e', mark: '#a9d5f5' },
+  { p: 'chevron',  base: '#005490', mark: '#ffffff' },
+  { p: 'sash',     base: '#0b4478', mark: '#04121f' },
+  { p: 'quarters', base: '#003a6b', mark: '#d4eafa' },
+  { p: 'spots',    base: '#007acc', mark: '#ecf6fd' },
 ];
 
 const RACE_CHECKS = [
@@ -238,7 +238,7 @@ export default function HorseRacingPage() {
 
             <div className="flex flex-col lg:col-span-7">
               <div data-r="k" className="flex items-center gap-3">
-                <Silks pattern="stripes" base="#f2e3c8" mark="#8e1f38" className="h-10 w-9 shrink-0" />
+                <Silks pattern="stripes" base="#eef4fa" mark="#0068b0" className="h-10 w-9 shrink-0" />
                 <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-hr-brass">
                   Horse Racing Betting
                 </span>
@@ -506,7 +506,7 @@ export default function HorseRacingPage() {
 
           <div className="lg:col-span-5">
             <div className="hr-card flex items-center justify-center p-8">
-              <Silks pattern="quarters" base="#5c2050" mark="#f0e6d2" className="h-28 w-24" />
+              <Silks pattern="quarters" base="#003a6b" mark="#d4eafa" className="h-28 w-24" />
             </div>
           </div>
         </div>
@@ -645,7 +645,7 @@ export default function HorseRacingPage() {
         <div className="mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-10">
           {/* Head runs full width above the columns */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <Silks pattern="chevron" base="#24446e" mark="#ffffff" className="h-11 w-10 shrink-0" />
+            <Silks pattern="chevron" base="#005490" mark="#ffffff" className="h-11 w-10 shrink-0" />
             <span className="hr-cloth shrink-0 text-hr-claret">13</span>
             <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-fg-muted">
               Frequently Asked Questions

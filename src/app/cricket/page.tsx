@@ -12,8 +12,8 @@ import { Rail } from '@/components/ui/Rail';
 
 const FORMATS = [
   { name: 'T20', overs: '20', note: 'Twenty overs a side. A few deliveries can alter the balance of a game.', colour: '#007acc' },
-  { name: 'Limited overs', overs: '50', note: 'Longer innings, different market shapes from the shorter format.', colour: '#0a7d54' },
-  { name: 'Test', overs: '5 days', note: 'Multi-day cricket. Markets differ again from limited-overs fixtures.', colour: '#a8873c' },
+  { name: 'Limited overs', overs: '50', note: 'Longer innings, different market shapes from the shorter format.', colour: '#0068b0' },
+  { name: 'Test', overs: '5 days', note: 'Multi-day cricket. Markets differ again from limited-overs fixtures.', colour: '#0b4478' },
 ];
 
 const FIXTURE_CHECKLIST = [
@@ -511,7 +511,7 @@ export default function CricketPage() {
           <Rail className="mt-7" grid="sm:grid-cols-2 lg:grid-cols-3" gap="gap-3 sm:gap-4" card="82%" label="Why bet on cricket">
             {WHY.map(([t, b], i) => (
               <div key={t} className="g-card g-card-hover overflow-hidden">
-                <div className="h-1.5 w-full" style={{ background: i % 2 ? '#007acc' : '#0a7d54' }} aria-hidden />
+                <div className="h-1.5 w-full" style={{ background: i % 2 ? '#007acc' : '#002f5e' }} aria-hidden />
                 <div className="p-5">
                   <h3 className="text-[16px] font-extrabold tracking-[-0.02em] text-fg">{t}</h3>
                   <p className="mt-2 text-[15px] leading-relaxed text-fg-muted">{b}</p>

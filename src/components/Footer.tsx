@@ -127,9 +127,14 @@ export const Footer: React.FC = () => {
             change without notice.
           </p>
 
-          <p className="mt-5 text-[12px] text-fg-dim">
-            © {new Date().getFullYear()} 1xBet Interactive. Play responsibly.
-          </p>
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-2 text-[12px] text-fg-dim">
+            <p>
+              © {new Date().getFullYear()} 1xBet Interactive. Play responsibly.
+            </p>
+            <p>
+              Designed by <span className="font-medium text-fg-muted">Digivanta</span>
+            </p>
+          </div>
         </div>
 
       </div>

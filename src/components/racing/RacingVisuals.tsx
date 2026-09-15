@@ -15,8 +15,8 @@ export type SilkPattern =
  */
 export function Silks({
   pattern = 'stripes',
-  base = '#8e1f38',
-  mark = '#f2e3c8',
+  base = '#0068b0',
+  mark = '#eef4fa',
   className = '',
 }: {
   pattern?: SilkPattern;
@@ -138,12 +138,12 @@ export function TrackStraight({ className = '' }: { className?: string }) {
  */
 export function SilkField({ className = '' }: { className?: string }) {
   const FIELD: { p: SilkPattern; base: string; mark: string }[] = [
-    { p: 'stripes',  base: '#8e1f38', mark: '#f2e3c8' },
-    { p: 'hoops',    base: '#1f4d33', mark: '#e9d79a' },
-    { p: 'chevron',  base: '#24446e', mark: '#ffffff' },
-    { p: 'sash',     base: '#94701f', mark: '#12241c' },
-    { p: 'quarters', base: '#5c2050', mark: '#f0e6d2' },
-    { p: 'spots',    base: '#0f3b52', mark: '#ffd9a0' },
+    { p: 'stripes',  base: '#0068b0', mark: '#eef4fa' },
+    { p: 'hoops',    base: '#002f5e', mark: '#a9d5f5' },
+    { p: 'chevron',  base: '#005490', mark: '#ffffff' },
+    { p: 'sash',     base: '#0b4478', mark: '#04121f' },
+    { p: 'quarters', base: '#003a6b', mark: '#d4eafa' },
+    { p: 'spots',    base: '#007acc', mark: '#ecf6fd' },
   ];
 
   return (

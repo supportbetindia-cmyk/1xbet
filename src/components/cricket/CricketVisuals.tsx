@@ -14,10 +14,13 @@ const BALL_STYLE: Record<Ball, string> = {
   '.': 'bg-surface-3 text-fg-dim',
   '1': 'bg-surface-4 text-fg',
   '2': 'bg-surface-4 text-fg',
+  // Boundary, wicket and wide were brand blue / red / brass. On a single-hue
+  // palette they separate by weight instead: 4 and 6 climb the blue ramp, a
+  // wicket takes the darkest navy, a wide the lightest tint.
   '4': 'bg-brand-500 text-white',
-  '6': 'bg-pitch text-white',
-  W: 'bg-loss-600 text-white',
-  wd: 'bg-brass-500 text-white',
+  '6': 'bg-brand-700 text-white',
+  W: 'bg-navy-900 text-white',
+  wd: 'bg-brand-200 text-brand-900',
 };
 
 /**
@@ -58,8 +61,8 @@ export const PitchDiagram: React.FC<{ className?: string }> = ({ className }) =>
   >
     <defs>
       <radialGradient id="turf" cx="50%" cy="45%" r="62%">
-        <stop offset="0%" stopColor="#12a06c" />
-        <stop offset="100%" stopColor="#0a7d54" />
+        <stop offset="0%" stopColor="#2e9ae0" />
+        <stop offset="100%" stopColor="#0068b0" />
       </radialGradient>
     </defs>
 
@@ -104,18 +107,18 @@ export const PitchDiagram: React.FC<{ className?: string }> = ({ className }) =>
     />
 
     {/* Pitch */}
-    <rect x="146" y="102" width="28" height="116" rx="2" fill="#e8dcc0" />
+    <rect x="146" y="102" width="28" height="116" rx="2" fill="#dce8f4" />
     <rect x="146" y="102" width="28" height="116" rx="2" fill="none" stroke="#ffffff" strokeWidth="1.2" opacity="0.7" />
 
     {/* Creases */}
     {[112, 208].map((y) => (
-      <line key={y} x1="140" y1={y} x2="180" y2={y} stroke="#8a7a55" strokeWidth="1.6" />
+      <line key={y} x1="140" y1={y} x2="180" y2={y} stroke="#7593b7" strokeWidth="1.6" />
     ))}
 
     {/* Stumps */}
     {[108, 212].map((y) =>
       [155, 160, 165].map((x) => (
-        <line key={`${y}-${x}`} x1={x} y1={y - 5} x2={x} y2={y + 5} stroke="#3b3222" strokeWidth="1.4" />
+        <line key={`${y}-${x}`} x1={x} y1={y - 5} x2={x} y2={y + 5} stroke="#00335a" strokeWidth="1.4" />
       ))
     )}
 

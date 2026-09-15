@@ -133,8 +133,8 @@ export function FurlongScrubber({ className = '' }: { className?: string }) {
         >
           <Silks
             pattern="stripes"
-            base="#8e1f38"
-            mark="#f2e3c8"
+            base="#0068b0"
+            mark="#eef4fa"
             className="h-9 w-8 drop-shadow-[0_3px_6px_rgba(0,0,0,0.28)]"
           />
         </span>

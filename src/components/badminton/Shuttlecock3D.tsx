@@ -62,8 +62,8 @@ export function Shuttlecock3D({
             className="absolute left-1/2 bottom-1/2 block"
             style={{ transform: 'translate(-50%, 46%)' }}
           >
-            <span className="block h-[52px] w-[52px] rounded-full bg-[radial-gradient(circle_at_32%_28%,#f0d9a8,#b0813d_58%,#7d5a26)] shadow-[0_10px_24px_rgba(0,0,0,0.4)]" />
-            <span className="mx-auto -mt-[10px] block h-[10px] w-[46px] rounded-b-full bg-[#8a6329]" />
+            <span className="block h-[52px] w-[52px] rounded-full bg-[radial-gradient(circle_at_32%_28%,#a9d5f5,#0068b0_58%,#00335a)] shadow-[0_10px_24px_rgba(0,0,0,0.4)]" />
+            <span className="mx-auto -mt-[10px] block h-[10px] w-[46px] rounded-b-full bg-[#00335a]" />
           </span>
         </div>
       </div>

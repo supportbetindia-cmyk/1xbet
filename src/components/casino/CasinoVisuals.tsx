@@ -16,7 +16,7 @@ export function SuitGlyph({ suit, className = '' }: { suit: Suit; className?: st
   const red = suit === 'heart' || suit === 'diamond';
   return (
     <span
-      className={`${className} ${red ? 'text-[#e05a6b]' : 'text-cs-gold'}`}
+      className={`${className} ${red ? 'text-[#d84a5e]' : 'text-cs-gold'}`}
       aria-hidden
     >
       {GLYPH[suit]}
@@ -55,7 +55,7 @@ export function RouletteRing({ className = '' }: { className?: string }) {
         const a0 = (i / POCKETS) * Math.PI * 2 - Math.PI / 2;
         const a1 = ((i + 1) / POCKETS) * Math.PI * 2 - Math.PI / 2;
         const p = (r: number, a: number) => `${cx + r * Math.cos(a)} ${cy + r * Math.sin(a)}`;
-        const fill = n === 0 ? '#1a7a4f' : REDS.has(n) ? '#a51d2d' : '#141118';
+        const fill = n === 0 ? '#002f5e' : REDS.has(n) ? '#a51d2d' : '#141118';
         return (
           <path
             key={n}
@@ -93,7 +93,7 @@ export function RouletteRing({ className = '' }: { className?: string }) {
  * balance is represented.
  */
 export function ChipStack({ className = '' }: { className?: string }) {
-  const CHIPS = ['#a51d2d', '#1a7a4f', '#2b3a8f', '#5a2a86', '#b8912f'];
+  const CHIPS = ['#a51d2d', '#002f5e', '#0068b0', '#005490', '#2e9ae0'];
   return (
     <div className={`flex items-end gap-3 ${className}`} aria-hidden>
       {CHIPS.map((c, i) => (
