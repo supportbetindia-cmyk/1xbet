@@ -7,6 +7,8 @@ import { gsap, prefersReducedMotion } from '@/lib/gsap';
 import { useSite } from '@/components/SiteChrome';
 import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { BallStrip, PitchDiagram, FormatCards } from '@/components/cricket/CricketVisuals';
+import { useReveal } from '@/hooks/useReveal';
+import { Rail } from '@/components/ui/Rail';
 
 const FORMATS = [
   { name: 'T20', overs: '20', note: 'Twenty overs a side. A few deliveries can alter the balance of a game.', colour: '#007acc' },
@@ -65,18 +67,24 @@ function Sec({
 }: {
   id: string; n: string; kicker: string; title: string; blue?: boolean; children: React.ReactNode;
 }) {
+  // Section content rises in on scroll. Without this the whole page below the
+  // hero was completely static.
+  const ref = useReveal<HTMLElement>({ selector: '[data-rv]', stagger: 0.05, y: 16 });
+
   return (
-    <section id={id} className="scroll-mt-28">
-      <header className={`ck-head ${blue ? 'ck-head-blue' : ''}`}>
+    <section id={id} ref={ref} className="relative scroll-mt-28">
+      <span className="watermark" aria-hidden>{n}</span>
+
+      <header data-rv className={`relative ck-head ${blue ? 'ck-head-blue' : ''}`}>
         <span className="ck-num block">{n}</span>
         <p className={`mt-2 text-[11px] font-extrabold uppercase tracking-[0.16em] ${blue ? 'text-brand-600' : 'text-pitch'}`}>
           {kicker}
         </p>
-        <h2 className="mt-1 text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.035em] text-fg">
+        <h2 className="mt-1 text-[clamp(1.7rem,3.6vw,2.75rem)] font-extrabold tracking-[-0.04em] text-fg">
           {title}
         </h2>
       </header>
-      <div className="mt-7">{children}</div>
+      <div data-rv className="relative mt-7">{children}</div>
     </section>
   );
 }
@@ -111,15 +119,39 @@ export default function CricketPage() {
   useLayoutEffect(() => {
     const el = heroRef.current;
     if (!el || prefersReducedMotion()) return;
+    // Backgrounded tab: rAF is suspended, so a .from() would strip the hero to
+    // its start state and never play it back in. Leave it painted.
+    if (document.visibilityState === 'hidden') return;
+
+    // `gsap.from` writes opacity:0 inline as soon as the tween exists, so a
+    // timeline that never finishes leaves these invisible for good. Clearing on
+    // every exit path makes that state unreachable.
+    const HIDDEN = '[data-c="k"],[data-c="h"],[data-c="p"],[data-c="cta"] > *,[data-c="ball"] > *';
+    const reveal = () => {
+      el.querySelectorAll<HTMLElement>(HIDDEN).forEach((n) => {
+        n.style.opacity = '';
+        n.style.transform = '';
+      });
+    };
     const ctx = gsap.context(() => {
-      gsap.timeline({ defaults: { ease: 'power3.out' } })
+      gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        onComplete: reveal,
+        onInterrupt: reveal,
+      })
         .from('[data-c="k"]', { opacity: 0, x: -12, duration: 0.45 })
         .from('[data-c="h"]', { opacity: 0, y: 24, duration: 0.7 }, '-=0.2')
         .from('[data-c="p"]', { opacity: 0, y: 14, duration: 0.55, stagger: 0.07 }, '-=0.35')
         .from('[data-c="cta"] > *', { opacity: 0, y: 12, duration: 0.45, stagger: 0.06 }, '-=0.3')
         .from('[data-c="ball"] > *', { opacity: 0, scale: 0.5, duration: 0.35, stagger: 0.05 }, '-=0.3');
     }, el);
-    return () => ctx.revert();
+    const watchdog = window.setTimeout(reveal, 4000);
+
+    return () => {
+      window.clearTimeout(watchdog);
+      ctx.revert();
+      reveal();
+    };
   }, []);
 
   const faqEntries: AccordionEntry[] = FAQS.map(([q, a], i) => ({
@@ -130,7 +162,7 @@ export default function CricketPage() {
     <main className="flex-1 overflow-x-clip">
 
       {/* ===== Hero — no imagery ===== */}
-      <section ref={heroRef} className="relative overflow-hidden border-b border-line bg-canvas" aria-labelledby="ck-title">
+      <section ref={heroRef} data-hero className="relative overflow-hidden border-b border-line bg-canvas" aria-labelledby="ck-title">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -153,18 +185,21 @@ export default function CricketPage() {
           </h1>
 
           <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
-            <div className="space-y-4 lg:col-span-7">
+            <div className="flex flex-col space-y-4 lg:col-span-7">
               <p data-c="p" className="text-[18px] leading-relaxed text-fg">
                 Cricket brings together strategy, timing and moments that can change a match in
                 seconds. The cricket betting section on 1xBet gives users a dedicated place to
                 browse available cricket events, review match information and explore the
                 markets offered for each fixture.
               </p>
-              <div data-c="p"><P>From domestic competitions and T20 matches to international cricket and selected live events, the available options can vary by competition, match and location.</P></div>
+              <div className="hero-spill">
+                <div data-c="p"><P>From domestic competitions and T20 matches to international cricket and selected live events, the available options can vary by competition, match and location.</P></div>
               <div data-c="p"><P>You can browse upcoming cricket fixtures, check the available cricket betting markets, review current cricket odds and access selected live markets where available.</P></div>
               <div data-c="p"><P>Whether you follow cricket regularly or are interested in a particular competition, check the information shown for each match before participating. Availability of services and markets can vary according to location and applicable regulations.</P></div>
 
-              <div data-c="cta" className="flex flex-wrap items-center gap-3 pt-2">
+                </div>
+
+              <div data-c="cta" className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-3 pt-2">
                 <Link
                   href="#markets"
                   className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-[7px] bg-pitch px-8
@@ -189,7 +224,7 @@ export default function CricketPage() {
 
             {/* Over strip stands in for artwork — cricket's own visual shorthand */}
             <div className="lg:col-span-5">
-              <div className="g-card p-5">
+              <div className="g-card lift p-5">
                 <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-fg-dim">
                   How an over reads
                 </span>
@@ -207,18 +242,18 @@ export default function CricketPage() {
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-[1600px] space-y-16 px-4 py-14 sm:px-6 lg:px-10 lg:space-y-20 lg:py-20">
+      <div className="mx-auto w-full max-w-[1600px] space-y-9 px-4 py-14 sm:px-6 lg:px-10 lg:space-y-11 lg:py-20">
 
         {/* ===== 01 Markets ===== */}
         <Sec id="markets" n="01" kicker="Cricket Betting Markets" title="Explore Markets for Available Matches">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-7">
               <Lead>Every cricket match can offer different betting markets depending on the competition, format, teams and stage of the event.</Lead>
               <P>The cricket betting markets available on 1xBet may include options connected with the match and its performance. The exact markets shown can change before an event and, where live markets are available, while the match is being played.</P>
               <P>When viewing a cricket fixture, check the market name, available options, current odds and relevant event information before making a decision.</P>
               <P>Markets are not identical across every match. A market available for an IPL fixture may not necessarily be available for an international Test or T20 match.</P>
               <P>This makes the individual event page the best place to check what is currently available.</P>
-              <div className="pt-2"><Cta href="/lobby">Explore Cricket Markets</Cta></div>
+              <div className="pt-2"><Cta href="/casino">Explore Cricket Markets</Cta></div>
             </div>
 
             <div className="lg:col-span-5">
@@ -232,17 +267,17 @@ export default function CricketPage() {
 
         {/* ===== 02 Live ===== */}
         <Sec id="live" n="02" kicker="Live Cricket Betting" title="Follow the Match as It Happens" blue>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-7">
               <Lead>Live cricket betting allows users to view selected markets while a match is already in progress.</Lead>
               <P>Cricket can change quickly. A wicket, boundary, partnership, change in run rate or a shift in the match situation can affect the markets and odds displayed during the event.</P>
               <P>Because live markets can change quickly, the information shown on the platform should always be checked before participating. An option or price visible earlier in the match may no longer be available.</P>
               <P>Live cricket betting is not available for every match or in every location. The platform will display the live markets available for eligible events.</P>
-              <div className="pt-2"><Cta href="/lobby">Explore Live Cricket</Cta></div>
+              <div className="pt-2"><Cta href="/casino">Explore Live Cricket</Cta></div>
             </div>
 
             <div className="lg:col-span-5">
-              <div className="g-card p-5">
+              <div className="g-card lift p-5">
                 <span className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-fg-dim">
                   <Radio className="h-3.5 w-3.5 text-brand-600" aria-hidden />
                   What can move a market
@@ -263,7 +298,7 @@ export default function CricketPage() {
 
         {/* ===== 03 Odds ===== */}
         <Sec id="odds" n="03" kicker="Cricket Odds" title="Check Current Cricket Odds">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-7">
               <Lead>Cricket odds show the prices displayed for available betting markets. They can change as new information becomes available before or during a match.</Lead>
               <P>For upcoming matches, odds can be influenced by factors such as team information, competition context and market activity. During a live match, changes on the field can lead to movements in the available live cricket odds.</P>
@@ -298,29 +333,31 @@ export default function CricketPage() {
 
         {/* ===== 04 IPL ===== */}
         <Sec id="ipl" n="04" kicker="IPL Betting" title="Follow the Indian Premier League" blue>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-8">
               <Lead>The Indian Premier League is one of the best-known T20 cricket competitions, bringing together teams and players from around the world.</Lead>
               <P>Selected IPL betting markets may be available on 1xBet depending on the match, platform coverage and regional availability.</P>
               <P>Users can browse available IPL fixtures and review the markets and IPL betting odds displayed for each match.</P>
               <P>Where live markets are offered, the available options and odds can change as the IPL match progresses.</P>
               <P>The availability of IPL markets can vary by season, fixture and location, so always check the current event information on the platform.</P>
-              <div className="pt-2"><Cta href="/lobby">Explore IPL Betting</Cta></div>
+              <div className="pt-2"><Cta href="/casino">Explore IPL Betting</Cta></div>
             </div>
 
             <div className="lg:col-span-4">
-              <div className="g-card overflow-hidden bg-pitch p-6 text-white">
-                <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-white/70">
-                  Format
-                </span>
-                <p className="mt-2 font-mono text-[44px] font-extrabold leading-none">T20</p>
-                <p className="mt-3 text-[15px] leading-relaxed text-white/85">
-                  Twenty overs a side. Availability varies by season, fixture and location.
-                </p>
-                <div className="mt-5 h-px w-full bg-white/25" aria-hidden />
-                <p className="mt-4 text-[13px] text-white/70">
-                  Check the current event information on the platform.
-                </p>
+              <div className="feature-panel feature-panel-accent p-6 sm:p-8">
+                <div className="relative">
+                  <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-white/70">
+                    Format
+                  </span>
+                  <p className="figure-hero mt-3 text-[clamp(3.4rem,7vw,5rem)]">T20</p>
+                  <p className="mt-4 text-[15px] leading-relaxed text-white/85">
+                    Twenty overs a side. Availability varies by season, fixture and location.
+                  </p>
+                  <div className="mt-6 h-px w-full bg-white/25" aria-hidden />
+                  <p className="mt-4 text-[13px] text-white/70">
+                    Check the current event information on the platform.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -328,7 +365,7 @@ export default function CricketPage() {
 
         {/* ===== 05 T20 ===== */}
         <Sec id="t20" n="05" kicker="T20 Betting" title="Fast-Paced Cricket, Changing Markets">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-7">
               <Lead>T20 betting covers available markets for Twenty20 cricket matches.</Lead>
               <P>With only 20 overs per side, T20 matches can change quickly. A few deliveries can alter the balance of a game, which can also affect the markets and odds displayed during the event.</P>
@@ -336,7 +373,7 @@ export default function CricketPage() {
               <P>T20 coverage may include selected domestic and international competitions, subject to platform and regional availability.</P>
             </div>
             <div className="lg:col-span-5">
-              <div className="g-card p-5">
+              <div className="g-card lift p-5">
                 <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-fg-dim">
                   A few deliveries can alter the balance
                 </span>
@@ -355,7 +392,7 @@ export default function CricketPage() {
 
         {/* ===== 06 International ===== */}
         <Sec id="international" n="06" kicker="International Cricket Betting" title="Follow International Fixtures" blue>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-7">
               <Lead>Cricket is played across different countries and formats, creating a wide range of international fixtures throughout the year.</Lead>
               <P>International cricket betting covers available markets for selected international matches. The available options can vary depending on the format, competition, teams and individual fixture.</P>
@@ -365,7 +402,7 @@ export default function CricketPage() {
 
             {/* Field diagram — drawn, since the project has no cricket photography */}
             <div className="lg:col-span-5">
-              <div className="g-card overflow-hidden p-5">
+              <div className="g-card lift overflow-hidden p-5">
                 <PitchDiagram className="mx-auto block w-full max-w-[300px]" />
                 <p className="mt-4 text-center text-[13px] leading-relaxed text-fg-dim">
                   Formats and competitions differ across the international calendar, and the
@@ -378,7 +415,7 @@ export default function CricketPage() {
 
         {/* ===== 07 Match betting ===== */}
         <Sec id="match" n="07" kicker="Cricket Match Betting" title="Review the Match Before You Decide">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-7">
               <Lead>Cricket match betting gives users access to available markets associated with individual cricket fixtures.</Lead>
               <P>Before participating, take time to review the match information displayed on the platform. This can include the teams involved, competition, format, event status, available markets and current odds.</P>
@@ -402,7 +439,7 @@ export default function CricketPage() {
 
         {/* ===== 08 India ===== */}
         <Sec id="india" n="08" kicker="Cricket Betting in India" title="Cricket Betting India" blue>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <Lead>Cricket has a large following in India, with interest spanning domestic competitions, the IPL and international cricket.</Lead>
               <P>Cricket betting in India is subject to regional availability and applicable laws. Users should confirm that using the service is permitted in their location and that they meet the relevant eligibility requirements before participating.</P>
@@ -416,7 +453,7 @@ export default function CricketPage() {
 
         {/* ===== 09 App ===== */}
         <Sec id="app" n="09" kicker="Cricket Betting App" title="Follow Cricket on Mobile">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-7">
               <Lead>The cricket betting app provides a mobile option for users who want to access supported cricket markets from a compatible device.</Lead>
               <P>Through supported mobile access, registered users may be able to browse cricket fixtures, review available markets and check their account without relying solely on a desktop browser.</P>
@@ -425,7 +462,7 @@ export default function CricketPage() {
             </div>
             <div className="flex items-start lg:col-span-5">
               <Link
-                href="/app"
+                href="/#app"
                 className="group inline-flex min-h-[54px] w-full items-center justify-between gap-3 rounded-[7px]
                            border-2 border-navy-700 bg-canvas px-6 text-[16px] font-extrabold text-navy-700
                            transition-all hover:-translate-y-0.5 hover:bg-navy-700 hover:text-white
@@ -443,7 +480,7 @@ export default function CricketPage() {
 
         {/* ===== 10 Fixtures ===== */}
         <Sec id="fixtures" n="10" kicker="Find Upcoming Cricket Matches" title="Browse Available Fixtures" blue>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="space-y-4 lg:col-span-6">
               <Lead>The cricket section provides a place to find available upcoming fixtures and review the markets offered for each event.</Lead>
               <P>Depending on the current schedule and platform coverage, you may find matches from different competitions and formats.</P>
@@ -471,7 +508,7 @@ export default function CricketPage() {
         <Sec id="why" n="11" kicker="Why Choose 1xBet for Cricket?" title="A Dedicated Cricket Experience">
           <Lead>The cricket section brings the information most relevant to cricket users together in one place.</Lead>
 
-          <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Rail className="mt-7" grid="sm:grid-cols-2 lg:grid-cols-3" gap="gap-3 sm:gap-4" card="82%" label="Why bet on cricket">
             {WHY.map(([t, b], i) => (
               <div key={t} className="g-card g-card-hover overflow-hidden">
                 <div className="h-1.5 w-full" style={{ background: i % 2 ? '#007acc' : '#0a7d54' }} aria-hidden />
@@ -481,7 +518,7 @@ export default function CricketPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </Rail>
 
           <p className="mt-6 text-[15px] leading-relaxed text-fg-muted">
             The exact competitions, markets and features available can vary by location and
@@ -491,7 +528,7 @@ export default function CricketPage() {
 
         {/* ===== 12 Responsible ===== */}
         <Sec id="responsible" n="12" kicker="Cricket Betting and Responsible Use" title="Keep Your Decisions Within Your Limits" blue>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Rail grid="sm:grid-cols-2" gap="gap-3 sm:gap-4" card="82%" label="Responsible play guidance">
             {RESPONSIBLE.map((text, i) => (
               <div key={i} className="flex gap-4 rounded-[8px] border-2 border-line bg-canvas p-5">
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] bg-navy-700 font-mono text-[12px] font-bold text-white">
@@ -500,7 +537,7 @@ export default function CricketPage() {
                 <p className="text-[15px] leading-relaxed text-fg-muted">{text}</p>
               </div>
             ))}
-          </div>
+          </Rail>
           <p className="mt-5 flex items-center gap-2 text-[14px] font-semibold text-fg">
             <AlertTriangle className="h-4 w-4 text-brand-600" aria-hidden />
             <Link href="/responsible-gaming" className="underline underline-offset-2 hover:text-brand-600">
@@ -515,19 +552,23 @@ export default function CricketPage() {
         </Sec>
 
         {/* ===== Closing ===== */}
-        <section className="g-card overflow-hidden">
+        <section>
+          {/* Heading at the container edge — inside the card its padding pushed
+              it out of line with every other heading on the page. */}
+          <h2 className="text-[clamp(1.6rem,3.2vw,2.4rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-fg">
+            Explore Cricket Betting on 1xBet
+          </h2>
+
+          <div className="g-card mt-7 overflow-hidden">
           <div className="h-2 w-full bg-pitch" aria-hidden />
           <div className="grid grid-cols-1 gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:gap-14">
             <div>
-              <h2 className="text-[clamp(1.6rem,3.2vw,2.4rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-fg">
-                Explore Cricket Betting on 1xBet
-              </h2>
-              <div className="mt-4 space-y-3">
+              <div className="space-y-3">
                 <P>From cricket betting in India and international fixtures to IPL betting, T20 betting and selected live matches, 1xBet provides a dedicated place to browse available cricket markets.</P>
                 <P>Check upcoming fixtures, review cricket betting markets, compare the current cricket odds shown for available events and explore live cricket betting where supported.</P>
               </div>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
                 <button
                   onClick={openAuth}
                   className="inline-flex min-h-[52px] cursor-pointer items-center rounded-[7px] bg-pitch px-7
@@ -556,6 +597,7 @@ export default function CricketPage() {
                 platform, review the relevant terms and participate responsibly.
               </p>
             </div>
+          </div>
           </div>
         </section>
       </div>

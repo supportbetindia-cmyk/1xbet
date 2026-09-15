@@ -8,6 +8,7 @@ import { useSite } from '@/components/SiteChrome';
 import { SportBrowser } from '@/components/sports/SportBrowser';
 import { SportsRail, RailItem } from '@/components/sports/SportsRail';
 import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
+import { useReveal } from '@/hooks/useReveal';
 
 const SPORT_LIST = [
   'Cricket',
@@ -101,11 +102,13 @@ function Block({
   title: string;
   children: React.ReactNode;
 }) {
+  const ref = useReveal<HTMLElement>({ selector: '[data-rv]', stagger: 0.05, y: 16 });
+
   return (
-    <section id={id} className="scroll-mt-24">
+    <section id={id} ref={ref} className="scroll-mt-[68px] md:scroll-mt-[168px]">
       {/* Filled header bar. Replaces the hairline heading — this is where the
           section gets its colour and hard edge. */}
-      <div className="g-head">
+      <div data-rv className="g-head">
         <span className="g-num">{n}</span>
         <span className="min-w-0">
           <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-brand-200">
@@ -117,7 +120,7 @@ function Block({
         </span>
       </div>
 
-      <div className="g-card rounded-t-none border-t-0 p-5 sm:p-7">{children}</div>
+      <div data-rv className="g-card rounded-t-none border-t-0 p-5 sm:p-7">{children}</div>
     </section>
   );
 }
@@ -143,6 +146,20 @@ export default function SportsPage() {
   useLayoutEffect(() => {
     const el = heroRef.current;
     if (!el || prefersReducedMotion()) return;
+    // Backgrounded tab: rAF is suspended, so a .from() would strip the hero to
+    // its start state and never play it back in. Leave it painted.
+    if (document.visibilityState === 'hidden') return;
+
+    // `gsap.from` writes opacity:0 inline as soon as the tween exists, so a
+    // timeline that never finishes leaves these invisible for good. Clearing on
+    // every exit path makes that state unreachable.
+    const HIDDEN = '[data-s="k"],[data-s="h"],[data-s="p"],[data-s="c"] > *,[data-s="pill"]';
+    const reveal = () => {
+      el.querySelectorAll<HTMLElement>(HIDDEN).forEach((n) => {
+        n.style.opacity = '';
+        n.style.transform = '';
+      });
+    };
     const ctx = gsap.context(() => {
       gsap
         .timeline({ defaults: { ease: 'power3.out' } })
@@ -152,7 +169,13 @@ export default function SportsPage() {
         .from('[data-s="c"] > *', { opacity: 0, y: 12, duration: 0.45, stagger: 0.06 }, '-=0.3')
         .from('[data-s="pill"]', { opacity: 0, y: 8, duration: 0.35, stagger: 0.03 }, '-=0.25');
     }, el);
-    return () => ctx.revert();
+    const watchdog = window.setTimeout(reveal, 4000);
+
+    return () => {
+      window.clearTimeout(watchdog);
+      ctx.revert();
+      reveal();
+    };
   }, []);
 
   const faqEntries: AccordionEntry[] = FAQS.map(([q, a], i) => ({
@@ -169,6 +192,7 @@ export default function SportsPage() {
           viewport-filling hero would push all the content below the fold. */}
       <section
         ref={heroRef}
+        data-hero
         className="relative overflow-hidden border-b border-line bg-canvas"
         aria-labelledby="sports-title"
       >
@@ -184,7 +208,7 @@ export default function SportsPage() {
 
         <div className="relative mx-auto w-full max-w-[1600px] px-4 py-10 sm:px-6 sm:py-12 lg:px-10 lg:py-14">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-8">
+            <div className="flex flex-col lg:col-span-8">
               <div data-s="k" className="flex items-center gap-2.5">
                 <span className="badge-live">Live</span>
                 <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-600">
@@ -208,13 +232,16 @@ export default function SportsPage() {
                 markets offered for each match.
               </p>
 
-              <p data-s="p" className="mt-3 max-w-2xl text-[16px] leading-relaxed text-fg-muted">
+              <div className="hero-spill">
+                <p data-s="p" className="mt-3 max-w-2xl text-[16px] leading-relaxed text-fg-muted">
                 Users looking for sports betting India can check the sports and markets
                 available for their location, while those who prefer mobile access can explore
                 the supported sports betting app and other mobile options.
               </p>
 
-              <div data-s="c" className="mt-7 flex flex-wrap items-center gap-3">
+                </div>
+
+              <div data-s="c" className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-3">
                 <Link
                   href="#markets"
                   className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-[7px] bg-brand-500 px-8
@@ -287,7 +314,7 @@ export default function SportsPage() {
         <SportsRail items={RAIL} />
 
         <div className="py-12 lg:py-16">
-          <div className="min-w-0 space-y-14 lg:space-y-16">
+          <div className="min-w-0 space-y-8 lg:space-y-10">
 
             {/* ---------- Markets ---------- */}
             <Block id="markets" n="01" kicker="Explore markets" title="Different Sports, One Platform">
@@ -308,7 +335,7 @@ export default function SportsPage() {
                     event page for the current options.
                   </p>
                   <Link
-                    href="/lobby"
+                    href="/casino"
                     className="group inline-flex min-h-[44px] items-center gap-2 text-[15px] font-bold text-fg
                                transition-colors hover:text-brand-600
                                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
@@ -360,7 +387,7 @@ export default function SportsPage() {
                     platform displays live markets where they are supported.
                   </p>
                   <Link
-                    href="/lobby"
+                    href="/casino"
                     className="group inline-flex min-h-[44px] items-center gap-2 text-[15px] font-bold text-fg
                                transition-colors hover:text-brand-600
                                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
@@ -514,7 +541,7 @@ export default function SportsPage() {
 
                 <div className="flex items-start">
                   <Link
-                    href="/app"
+                    href="/#app"
                     className="group inline-flex min-h-[48px] w-full items-center justify-between gap-2 rounded-[4px]
                                border-2 border-fg px-5 text-[15px] font-bold text-fg transition-colors
                                hover:bg-fg hover:text-canvas
@@ -654,7 +681,7 @@ export default function SportsPage() {
                     1xBet provides access to available sports and markets through one platform.
                   </p>
 
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-6 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
                     <button
                       onClick={openAuth}
                       className="inline-flex min-h-[48px] cursor-pointer items-center rounded-[4px] bg-brand-500 px-7
@@ -664,7 +691,7 @@ export default function SportsPage() {
                       Register
                     </button>
                     <Link
-                      href="/lobby"
+                      href="/casino"
                       className="inline-flex min-h-[48px] items-center rounded-[4px] border-2 border-fg px-7
                                  text-[15px] font-bold text-fg transition-colors hover:bg-fg hover:text-canvas
                                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"

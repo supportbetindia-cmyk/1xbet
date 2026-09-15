@@ -41,7 +41,7 @@ export default function ResponsibleGamingPage() {
 
         {/* Hero — type only, no imagery */}
         <section className="panel-navy panel-navy-hairline overflow-hidden rounded-2xl shadow-xl">
-          <div className="max-w-3xl p-6 sm:p-10 lg:p-14">
+          <div className="max-w-3xl p-6 sm:p-8 lg:p-10">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-3 py-1.5 backdrop-blur-md">
               <LifeBuoy className="h-3.5 w-3.5 text-brand-300" strokeWidth={2} />
               <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-navy-100">
@@ -175,7 +175,7 @@ export default function ResponsibleGamingPage() {
             </p>
           </div>
 
-          <div className="mt-7">
+          <div className="mt-6">
             <DataTable
               columns={['Tool', 'Range', 'Takes effect', 'Time to reverse']}
               rows={LIMIT_ROWS}

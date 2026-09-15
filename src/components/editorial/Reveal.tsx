@@ -25,6 +25,12 @@ function useRevealTween(
     const el = ref.current;
     if (!el || prefersReducedMotion()) return;
 
+    // Backgrounded tab: rAF is suspended, so GSAP would hide and never reveal.
+    if (document.visibilityState === 'hidden') return;
+
+    // Already on screen and not a mount animation? Leave it alone.
+    if (!immediate && el.getBoundingClientRect().top < window.innerHeight * 0.9) return;
+
     const ctx = gsap.context(() => {
       gsap.set(el, { opacity: 0, y });
 

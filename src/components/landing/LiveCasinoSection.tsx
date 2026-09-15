@@ -18,6 +18,8 @@ import {
 import { AUTHENTIC_GAMES, AuthenticGame } from '@/lib/authenticGames';
 import { soundFX } from '@/lib/audio';
 import { useSite } from '@/components/SiteChrome';
+import NeonBorder from '@/components/ui/NeonBorder';
+import { Rail } from '@/components/ui/Rail';
 
 interface LiveCasinoSectionProps {
   onSelectGame: (game: AuthenticGame) => void;
@@ -171,7 +173,7 @@ export const LiveCasinoSection: React.FC<LiveCasinoSectionProps> = ({ onSelectGa
   };
 
   return (
-    <section id="live-casino" className="relative border-t border-line bg-canvas py-14 sm:py-18 lg:py-22 overflow-hidden">
+    <section id="live-casino" className="relative border-t border-line bg-canvas py-8 sm:py-9 lg:py-10 overflow-hidden">
       
       <div className="relative mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
         
@@ -203,7 +205,7 @@ export const LiveCasinoSection: React.FC<LiveCasinoSectionProps> = ({ onSelectGa
 
           {/* Right Action & Category Filter Pills */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 shrink-0">
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+            <div className="rail flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none [&>*]:shrink-0">
               {[
                 { id: 'all', label: 'All Tables', icon: Radio },
                 { id: 'roulette', label: 'Roulette', icon: CircleDot },
@@ -214,7 +216,7 @@ export const LiveCasinoSection: React.FC<LiveCasinoSectionProps> = ({ onSelectGa
                 <button
                   key={cat.id}
                   onClick={() => { soundFX.playClick(); setActiveCategory(cat.id); }}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-[8px] text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  className={`flex min-h-[44px] items-center gap-1.5 px-3.5 py-2 rounded-[8px] text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap sm:min-h-0 ${
                     activeCategory === cat.id
                       ? 'bg-navy-900 text-white shadow-md'
                       : 'bg-surface-1 border border-line text-fg-muted hover:border-brand-500/50 hover:text-fg'
@@ -227,8 +229,8 @@ export const LiveCasinoSection: React.FC<LiveCasinoSectionProps> = ({ onSelectGa
             </div>
 
             <Link
-              href="/live-casino"
-              className="inline-flex items-center justify-center gap-2 rounded-[8px] border border-line-strong bg-canvas px-5 py-2.5 text-[14px] font-bold text-fg transition-all hover:border-brand-500 hover:bg-surface-3 shadow-xs"
+              href="/casino"
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[8px] border border-line-strong bg-canvas px-5 py-2.5 text-[14px] font-bold text-fg transition-all hover:border-brand-500 hover:bg-surface-3 shadow-xs"
             >
               <span>All 195+ Tables</span>
               <ArrowRight className="h-4 w-4 text-brand-600" />
@@ -237,13 +239,23 @@ export const LiveCasinoSection: React.FC<LiveCasinoSectionProps> = ({ onSelectGa
         </div>
 
         {/* Live Casino Tables 8-Grid with Real High-Res Photos (Full Width) */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <Rail className="mt-8" grid="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" gap="gap-3 sm:gap-5" label="Live casino tables">
           {filteredTables.map((table) => (
-            <div
+            <NeonBorder
               key={table.id}
-              onClick={() => handleTableClick(table)}
-              className="group relative flex flex-col justify-between rounded-2xl border border-line bg-canvas overflow-hidden shadow-xs hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer"
+              color={table.accent}
+              secondaryColor="#007acc"
+              borderRadius={16}
+              borderWidth={1.5}
+              duration={4}
+              trailLength={20}
+              glowIntensity={0.8}
+              trackColor="transparent"
             >
+              <div
+                onClick={() => handleTableClick(table)}
+                className="group relative flex flex-col justify-between rounded-2xl border border-line bg-canvas overflow-hidden shadow-xs hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer h-full"
+              >
               {/* Card Top Artwork & Live Feed Frame with Real Photos */}
               <div className="relative h-48 w-full overflow-hidden bg-navy-950">
                 <img
@@ -310,8 +322,9 @@ export const LiveCasinoSection: React.FC<LiveCasinoSectionProps> = ({ onSelectGa
                 style={{ background: table.accent }}
               />
             </div>
+            </NeonBorder>
           ))}
-        </div>
+        </Rail>
 
         {/* Live Casino Statistics Banner */}
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-xl border border-line bg-surface-1">

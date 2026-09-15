@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
 import { useSite } from '@/components/SiteChrome';
+import NeonBorder from '@/components/ui/NeonBorder';
+import { Rail } from '@/components/ui/Rail';
 
 interface SportMatch {
   id: string;
@@ -125,7 +127,7 @@ export const SportsSection: React.FC = () => {
   };
 
   return (
-    <section id="sports" className="relative border-t border-line bg-surface-1 py-14 sm:py-18 lg:py-22 overflow-hidden">
+    <section id="sports" className="relative border-t border-line bg-surface-1 py-8 sm:py-9 lg:py-10 overflow-hidden">
       
       <div className="relative mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
         
@@ -157,7 +159,7 @@ export const SportsSection: React.FC = () => {
 
           {/* Right Action & Sport Category Filter Pills */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 shrink-0">
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+            <div className="rail flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none [&>*]:shrink-0">
               {[
                 { id: 'all', label: 'All Live', icon: Flame },
                 { id: 'cricket', label: 'Cricket IPL', icon: Trophy },
@@ -169,7 +171,7 @@ export const SportsSection: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => { soundFX.playClick(); setActiveTab(tab.id); }}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-[8px] text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  className={`flex min-h-[44px] items-center gap-1.5 px-3.5 py-2 rounded-[8px] text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap sm:min-h-0 ${
                     activeTab === tab.id
                       ? 'bg-navy-900 text-white shadow-md'
                       : 'bg-canvas border border-line text-fg-muted hover:border-brand-500/50 hover:text-fg'
@@ -182,7 +184,7 @@ export const SportsSection: React.FC = () => {
             </div>
 
             <Link
-              href="/lobby"
+              href="/casino"
               className="inline-flex items-center justify-center gap-2 rounded-[8px] border border-line-strong bg-canvas px-5 py-2.5 text-[14px] font-bold text-fg transition-all hover:border-brand-500 hover:bg-surface-3 shadow-xs"
             >
               <span>Full Sportsbook</span>
@@ -192,12 +194,22 @@ export const SportsSection: React.FC = () => {
         </div>
 
         {/* Live Match Cards Grid (Full Width) */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <Rail className="mt-8" grid="sm:grid-cols-2 lg:grid-cols-3" gap="gap-3 sm:gap-5" label="Live matches">
           {filteredMatches.map((match) => (
-            <div
+            <NeonBorder
               key={match.id}
-              className="group relative flex flex-col justify-between rounded-2xl border border-line bg-canvas p-5 shadow-xs transition-all duration-300 hover:border-brand-500/70 hover:shadow-xl hover:-translate-y-1"
+              color="#007acc"
+              secondaryColor="#004e8c"
+              borderRadius={16}
+              borderWidth={1.5}
+              duration={4.5}
+              trailLength={20}
+              glowIntensity={0.8}
+              trackColor="transparent"
             >
+              <div
+                className="group relative flex flex-col justify-between rounded-2xl border border-line bg-canvas p-5 shadow-xs transition-all duration-300 hover:border-brand-500/70 hover:shadow-xl hover:-translate-y-1 h-full"
+              >
               {/* Card Top: League & Live Clock */}
               <div className="flex items-center justify-between border-b border-line pb-3 text-xs">
                 <span className="font-bold text-fg-muted truncate max-w-[220px]">
@@ -347,8 +359,9 @@ export const SportsSection: React.FC = () => {
                 </button>
               </div>
             </div>
+            </NeonBorder>
           ))}
-        </div>
+        </Rail>
 
         {/* Live Sports Features Strip */}
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-xl border border-line bg-canvas">

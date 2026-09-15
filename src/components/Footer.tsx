@@ -5,35 +5,38 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, Lock } from 'lucide-react';
 
+/* Three columns, not one. The grid reserves five tracks and the brand takes
+   two — a single column left tracks four and five empty, which is what opened
+   the gap down the right-hand side. */
 const LINK_COLUMNS: { heading: string; links: { label: string; href: string }[] }[] = [
   {
-    heading: '1xGames',
+    heading: 'Sports',
     links: [
-      { label: '1xCrash Orbit', href: '/1xgames' },
-      { label: 'Gates of 1xOlympus', href: '/casino' },
-      { label: '1xMines Cyber Grid', href: '/1xgames' },
-      { label: 'Plinko Turbo Ultra', href: '/1xgames' },
-      { label: 'Infinite Blackjack', href: '/live-casino' },
+      { label: 'All Sports', href: '/sports' },
+      { label: 'Cricket', href: '/cricket' },
+      { label: 'Football', href: '/football' },
+      { label: 'Soccer', href: '/soccer' },
+      { label: 'Tennis', href: '/tennis' },
+      { label: 'Basketball', href: '/basketball' },
+      { label: 'Horse Racing', href: '/horse-racing' },
+      { label: 'Badminton', href: '/badminton' },
     ],
   },
   {
-    heading: 'VIP & promos',
+    heading: 'Casino & Games',
     links: [
-      { label: 'VIP Loyalty Club', href: '/vip' },
-      { label: 'Daily quests & XP', href: '/vip' },
-      { label: '200% welcome bonus', href: '/promotions' },
-      { label: '$100,000 Speedway', href: '/tournaments' },
-      { label: 'Instant rakeback', href: '/vip' },
+      { label: 'Online Casino', href: '/online-casino' },
+      { label: 'Casino Lobby', href: '/casino' },
+      { label: '1xGames', href: '/1xgames' },
+      { label: 'Promotions', href: '/promotions' },
     ],
   },
   {
-    heading: 'Support',
+    heading: 'Company',
     links: [
-      { label: '24/7 live agent chat', href: '/provably-fair' },
-      { label: 'Provably fair verifier', href: '/provably-fair' },
-      { label: 'Responsible gaming', href: '/responsible-gaming' },
-      { label: 'Deposits & withdrawals', href: '/#payments' },
-      { label: 'Terms of service', href: '/provably-fair' },
+      { label: 'About 1xBet', href: '/about' },
+      { label: 'Provably Fair', href: '/provably-fair' },
+      { label: 'Player Safety', href: '/responsible-gaming' },
     ],
   },
 ];
@@ -76,15 +79,16 @@ export const Footer: React.FC = () => {
           {/* Link columns */}
           {LINK_COLUMNS.map((col) => (
             <nav key={col.heading}>
-              <h4 className="text-[10px] font-medium uppercase tracking-[0.11em] text-fg">
+              <h4 className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-brand-600">
                 {col.heading}
               </h4>
+              <span className="mt-3 block h-px w-8 bg-brand-500/40" aria-hidden />
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-[13px] text-fg-muted transition-colors hover:text-fg"
+                      className="inline-flex min-h-[32px] items-center text-[13px] font-medium text-fg-muted transition-colors hover:text-brand-600"
                     >
                       {link.label}
                     </Link>
@@ -95,9 +99,6 @@ export const Footer: React.FC = () => {
           ))}
 
         </div>
-
-        {/* Studios */}
-       
 
         {/* Legal */}
         <div className="mt-10 border-t border-line pt-7">

@@ -17,6 +17,8 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useSite } from '@/components/SiteChrome';
+import NeonBorder from '@/components/ui/NeonBorder';
+import { Rail } from '@/components/ui/Rail';
 
 export const OverviewShowcase: React.FC = () => {
   const { openAuth } = useSite();
@@ -60,12 +62,12 @@ export const OverviewShowcase: React.FC = () => {
       icon: Smartphone,
       iconColor: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20',
       accentColor: '#10b981',
-      href: '/app'
+      href: '/#app'
     }
   ];
 
   return (
-    <section id="overview" className="relative border-t border-line bg-canvas py-14 sm:py-18 lg:py-22 overflow-hidden">
+    <section id="overview" className="relative border-t border-line bg-canvas py-8 sm:py-9 lg:py-10 overflow-hidden">
       
       {/* Background Decorative Gradients */}
       <div 
@@ -127,7 +129,7 @@ export const OverviewShowcase: React.FC = () => {
             </div>
 
             {/* Quick CTAs */}
-            <div className="pt-4 flex flex-wrap items-center gap-3">
+            <div className="pt-4 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-3">
               <button
                 onClick={openAuth}
                 className="inline-flex min-h-[48px] cursor-pointer items-center gap-2 rounded-[8px] bg-brand-500 px-6 text-[14px] font-bold text-white shadow-lg shadow-brand-500/25 transition-all hover:bg-brand-600 active:scale-[0.98]"
@@ -146,49 +148,61 @@ export const OverviewShowcase: React.FC = () => {
           </div>
 
           {/* Right Column: 4-Pillar Interactive Matrix */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4.5">
+          <Rail className="lg:col-span-7" grid="sm:grid-cols-2" gap="gap-3 sm:gap-4.5" label="Platform highlights">
             {ECOSYSTEM_PILLARS.map((pillar) => (
-              <Link
+              <NeonBorder
                 key={pillar.id}
-                href={pillar.href}
-                className="group relative flex flex-col justify-between rounded-2xl border border-line bg-surface-1 p-6 shadow-xs transition-all duration-300 hover:border-brand-500/70 hover:bg-canvas hover:shadow-xl hover:-translate-y-1 overflow-hidden"
+                color={pillar.accentColor}
+                secondaryColor="#007acc"
+                borderRadius={16}
+                borderWidth={2}
+                duration={4}
+                trailLength={22}
+                glowIntensity={0.9}
+                trackColor="transparent"
+                className="h-full"
               >
-                <div>
-                  {/* Top Icon & Metric */}
-                  <div className="flex items-center justify-between">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-110 ${pillar.iconColor}`}>
-                      <pillar.icon className="h-5 w-5" />
+                <Link
+                  href={pillar.href}
+                  className="group relative flex flex-col justify-between rounded-2xl border border-line bg-surface-1 p-6 shadow-xs transition-all duration-300 hover:border-brand-500/70 hover:bg-canvas hover:shadow-xl hover:-translate-y-1 overflow-hidden h-full"
+                >
+                  <div>
+                    {/* Top Icon & Metric */}
+                    <div className="flex items-center justify-between">
+                      <div className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-110 ${pillar.iconColor}`}>
+                        <pillar.icon className="h-5 w-5" />
+                      </div>
+
+                      <span className="text-[11px] font-mono font-bold text-fg-dim bg-canvas border border-line px-2.5 py-1 rounded-md">
+                        {pillar.metric}
+                      </span>
                     </div>
 
-                    <span className="text-[11px] font-mono font-bold text-fg-dim bg-canvas border border-line px-2.5 py-1 rounded-md">
-                      {pillar.metric}
-                    </span>
+                    {/* Title & Description */}
+                    <h3 className="mt-5 text-[17px] font-bold text-fg group-hover:text-brand-600 transition-colors">
+                      {pillar.title}
+                    </h3>
+                    
+                    <p className="mt-2 text-[13px] leading-relaxed text-fg-muted">
+                      {pillar.desc}
+                    </p>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="mt-5 text-[17px] font-bold text-fg group-hover:text-brand-600 transition-colors">
-                    {pillar.title}
-                  </h3>
-                  
-                  <p className="mt-2 text-[13px] leading-relaxed text-fg-muted">
-                    {pillar.desc}
-                  </p>
-                </div>
+                  {/* Bottom Link Action */}
+                  <div className="mt-5 pt-3 border-t border-line flex items-center justify-between text-xs font-bold text-brand-600 group-hover:text-brand-700">
+                    <span>Explore Section</span>
+                    <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
 
-                {/* Bottom Link Action */}
-                <div className="mt-5 pt-3 border-t border-line flex items-center justify-between text-xs font-bold text-brand-600 group-hover:text-brand-700">
-                  <span>Explore Section</span>
-                  <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </div>
-
-                {/* Hover Accent Line */}
-                <div 
-                  className="absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: pillar.accentColor }}
-                />
-              </Link>
+                  {/* Hover Accent Line */}
+                  <div 
+                    className="absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: pillar.accentColor }}
+                  />
+                </Link>
+              </NeonBorder>
             ))}
-          </div>
+          </Rail>
 
         </div>
 

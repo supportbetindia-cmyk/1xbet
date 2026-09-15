@@ -51,7 +51,7 @@ export const SportsRail: React.FC<SportsRailProps> = ({ items }) => {
   return (
     <nav
       aria-label="Sections on this page"
-      className="sticky top-[104px] z-30 -mx-4 border-y border-line bg-canvas/95 backdrop-blur-md sm:-mx-6 lg:-mx-10"
+      className="hidden md:block sticky md:top-[106px] z-30 -mx-4 border-y border-line bg-canvas/95 backdrop-blur-md sm:-mx-6 lg:-mx-10"
     >
       <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
         <ul className="rail gap-0 py-0">

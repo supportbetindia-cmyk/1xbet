@@ -39,9 +39,11 @@ export const metadata: Metadata = {
   },
 };
 
+// Left over from the dark build. On a phone this tints the browser chrome
+// near-black above a white page and makes the OS render form controls dark.
 export const viewport: Viewport = {
-  themeColor: "#070E1A",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 export default function RootLayout({

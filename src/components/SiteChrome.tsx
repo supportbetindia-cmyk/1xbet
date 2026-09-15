@@ -11,6 +11,7 @@ import { CheckCircle2, X } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/AuthModal';
+import { MobileTabBar } from '@/components/MobileTabBar';
 
 interface SiteContextValue {
   /** Signed-in player, or null. Rendered in the header on every route. */
@@ -76,6 +77,8 @@ export const SiteChrome: React.FC<{ children: React.ReactNode }> = ({
       {children}
 
       <Footer />
+
+      <MobileTabBar />
 
       <AuthModal
         isOpen={isAuthOpen}

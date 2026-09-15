@@ -21,7 +21,7 @@ interface Round {
  * and pauses automatically when the tab is hidden.
  */
 export const LiveTicker: React.FC = () => {
-  const [multiplier, setMultiplier] = useState(1);
+  const [multiplier, setMultiplier] = useState(2.14);
   const [busted, setBusted] = useState(false);
   const [history, setHistory] = useState<Round[]>([
     { id: 0, value: 2.14 },
@@ -35,11 +35,9 @@ export const LiveTicker: React.FC = () => {
   const state = useRef({ start: 0, target: 0, phase: 'run' as 'run' | 'hold', nextId: 5 });
 
   useEffect(() => {
-    // Static snapshot for reduced motion — the board still reads correctly.
-    if (prefersReducedMotion()) {
-      setMultiplier(2.14);
-      return;
-    }
+    // Reduced motion: leave the seeded static value in place and never start
+    // the loop. Setting state here instead would cascade a render.
+    if (prefersReducedMotion()) return;
 
     const pickTarget = () => {
       const r = Math.random();

@@ -34,7 +34,7 @@ const SPORTS: Sport[] = [
       'Football markets can change as match conditions develop, particularly where live betting is available.',
       'The availability of leagues, matches and markets can vary according to location and platform coverage.',
     ],
-    cta: { label: 'Explore Football Betting', href: '/lobby' },
+    cta: { label: 'Explore Football Betting', href: '/football' },
     note: 'Markets shift with match conditions where live betting is offered.',
   },
   {
@@ -66,7 +66,7 @@ const SPORTS: Sport[] = [
       'Where live markets are supported, changes in the match can affect the available options and live betting odds.',
       'Always check the current event page before participating.',
     ],
-    cta: { label: 'Explore Tennis Betting', href: '/lobby' },
+    cta: { label: 'Explore Tennis Betting', href: '/casino' },
     note: 'Options vary by tournament, match and stage of competition.',
   },
   {

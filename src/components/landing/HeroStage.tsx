@@ -18,6 +18,7 @@ import { gsap, prefersReducedMotion } from '@/lib/gsap';
 import { AuthenticGame } from '@/lib/authenticGames';
 import { LiveTicker } from '@/components/game/LiveTicker';
 import { useSite } from '@/components/SiteChrome';
+import NeonBorder from '@/components/ui/NeonBorder';
 
 interface HeroStageProps {
   /** Accepted so the page can wire selection uniformly, though the hero itself
@@ -35,6 +36,7 @@ const CATEGORY_HUBS = [
     href: '/sports',
     icon: Trophy,
     iconColor: 'text-brand-500 bg-brand-500/10',
+    neonColor: '#007acc',
   },
   { 
     id: 'live-casino',
@@ -45,6 +47,7 @@ const CATEGORY_HUBS = [
     href: '#live-casino',
     icon: Radio,
     iconColor: 'text-rose-500 bg-rose-500/10',
+    neonColor: '#f43f5e',
   },
   { 
     id: '1xgames',
@@ -55,6 +58,7 @@ const CATEGORY_HUBS = [
     href: '#1xgames',
     icon: Rocket,
     iconColor: 'text-cyan-600 bg-cyan-500/10',
+    neonColor: '#00e5ff',
   },
   { 
     id: 'tournaments',
@@ -62,9 +66,10 @@ const CATEGORY_HUBS = [
     sub: 'Daily Leaderboards',
     badge: '$250K POOL',
     badgeTone: 'amber',
-    href: '/tournaments',
+    href: '/promotions',
     icon: Flame,
     iconColor: 'text-amber-500 bg-amber-500/10',
+    neonColor: '#f59e0b',
   },
   { 
     id: 'promotions',
@@ -75,6 +80,7 @@ const CATEGORY_HUBS = [
     href: '/promotions',
     icon: Gift,
     iconColor: 'text-emerald-500 bg-emerald-500/10',
+    neonColor: '#10b981',
   },
   { 
     id: 'vip',
@@ -82,9 +88,10 @@ const CATEGORY_HUBS = [
     sub: 'Tier Perks & Drops',
     badge: 'CASHBACK 15%',
     badgeTone: 'brass',
-    href: '/vip',
+    href: '/promotions',
     icon: Crown,
     iconColor: 'text-brass-500 bg-brass-500/10',
+    neonColor: '#c4a45c',
   },
 ];
 
@@ -103,9 +110,30 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
   useLayoutEffect(() => {
     const el = root.current;
     if (!el || prefersReducedMotion()) return;
+    // Backgrounded tab: rAF is suspended, so a .from() would strip the hero to
+    // its start state and never play it back in. Leave it painted.
+    if (document.visibilityState === 'hidden') return;
+
+    // `gsap.from` writes opacity:0 inline the moment the tween exists, so a
+    // timeline that never finishes leaves these invisible for good — that is
+    // what hid the Register button. Clearing on every exit path makes the
+    // state unreachable.
+    const HIDDEN =
+      '[data-h="label"],[data-h="title"] > span,[data-h="copy"],[data-h="cta"] > *,' +
+      '[data-h="board"],[data-h="fact"],[data-h="rail"] > *';
+    const reveal = () => {
+      el.querySelectorAll<HTMLElement>(HIDDEN).forEach((n) => {
+        n.style.opacity = '';
+        n.style.transform = '';
+      });
+    };
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const tl = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        onComplete: reveal,
+        onInterrupt: reveal,
+      });
 
       tl.from('[data-h="label"]', { opacity: 0, x: -14, duration: 0.5 })
         .from('[data-h="title"] > span', { opacity: 0, y: 28, duration: 0.7, stagger: 0.07 }, '-=0.25')
@@ -116,7 +144,14 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
         .from('[data-h="rail"] > *', { opacity: 0, y: 10, duration: 0.4, stagger: 0.04 }, '-=0.3');
     }, el);
 
-    return () => ctx.revert();
+    // Backstop for the case the callbacks never fire at all.
+    const watchdog = window.setTimeout(reveal, 4000);
+
+    return () => {
+      window.clearTimeout(watchdog);
+      ctx.revert();
+      reveal();
+    };
   }, []);
 
   return (
@@ -139,7 +174,7 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
       />
 
       <div className="relative mx-auto w-full max-w-[1600px] px-4 pb-12 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pb-20 lg:pt-20">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-10">
 
           {/* ---------------- Copy ---------------- */}
           <div className="lg:col-span-7">
@@ -171,11 +206,11 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
               Whether you are returning through 1xBet login, creating a new account with 1xBet registration, or looking for the 1xBet app, you can find the relevant options in one place.
             </p>
 
-            <div data-h="cta" className="mt-8 flex flex-wrap items-center gap-3">
+            <div data-h="cta" className="mt-8 flex flex-nowrap items-center gap-2 sm:flex-wrap sm:gap-3">
               <button
                 onClick={openAuth}
-                className="group inline-flex min-h-[54px] cursor-pointer items-center gap-2.5 rounded-[6px]
-                           bg-brand-500 px-8 text-[15px] font-semibold text-white
+                className="group inline-flex min-h-[54px] cursor-pointer items-center gap-2 whitespace-nowrap rounded-[6px]
+                           bg-brand-500 px-4 text-[14px] font-semibold text-white sm:gap-2.5 sm:px-8 sm:text-[15px]
                            shadow-[0_8px_24px_rgba(0,122,204,0.28)] transition-all duration-200
                            hover:bg-brand-600 active:translate-y-px
                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
@@ -189,8 +224,8 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
 
               <button
                 onClick={openAuth}
-                className="inline-flex min-h-[54px] cursor-pointer items-center rounded-[6px] border
-                           border-line-strong bg-canvas px-8 text-[15px] font-semibold text-fg
+                className="inline-flex min-h-[54px] cursor-pointer items-center whitespace-nowrap rounded-[6px] border
+                           border-line-strong bg-canvas px-4 text-[14px] font-semibold text-fg sm:px-8 sm:text-[15px]
                            transition-colors duration-200 hover:border-brand-500/60 hover:bg-surface-1
                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
               >
@@ -198,9 +233,9 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
               </button>
 
               <Link
-                href="/lobby"
-                className="group inline-flex min-h-[54px] items-center gap-2 px-2 text-[15px] font-semibold
-                           text-fg-muted transition-colors hover:text-fg
+                href="/casino"
+                className="group inline-flex min-h-[54px] items-center gap-1.5 whitespace-nowrap px-1 text-[14px] font-semibold
+                           text-fg-muted sm:gap-2 sm:px-2 sm:text-[15px] transition-colors hover:text-fg
                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
               >
                 Explore games
@@ -240,50 +275,62 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
         <nav aria-label="Browse categories" className="mt-12 border-t border-line pt-6">
           <div data-h="rail" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 w-full">
             {CATEGORY_HUBS.map((c) => (
-              <Link
+              <NeonBorder
                 key={c.id}
-                href={c.href}
-                className="group relative flex flex-col justify-between rounded-xl border border-line bg-canvas p-3.5 transition-all duration-300 hover:border-brand-500 hover:bg-surface-1 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 overflow-hidden"
+                color={c.neonColor}
+                secondaryColor="#007acc"
+                borderRadius={12}
+                borderWidth={1.5}
+                duration={4}
+                trailLength={22}
+                glowIntensity={0.9}
+                trackColor="transparent"
+                className="h-full"
               >
-                {/* Top: Icon + Badge */}
-                <div className="flex items-center justify-between gap-1.5">
-                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg shadow-xs transition-transform group-hover:scale-110 ${c.iconColor}`}>
-                    <c.icon className="h-4 w-4" />
+                <Link
+                  href={c.href}
+                  className="group relative flex flex-col justify-between rounded-xl border border-line bg-canvas p-3.5 transition-all duration-300 hover:border-brand-500 hover:bg-surface-1 hover:shadow-lg hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 overflow-hidden h-full"
+                >
+                  {/* Top: Icon + Badge */}
+                  <div className="flex items-center justify-between gap-1.5">
+                    <div className={`flex h-8 w-8 items-center justify-center rounded-lg shadow-xs transition-transform group-hover:scale-110 ${c.iconColor}`}>
+                      <c.icon className="h-4 w-4" />
+                    </div>
+                    <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono ${
+                      c.badgeTone === 'rose' ? 'bg-rose-500/10 text-rose-600 border border-rose-500/20' :
+                      c.badgeTone === 'brand' ? 'bg-brand-500/10 text-brand-600 border border-brand-500/20' :
+                      c.badgeTone === 'volt' ? 'bg-cyan-500/10 text-cyan-600 border border-cyan-500/20' :
+                      c.badgeTone === 'amber' ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20' :
+                      c.badgeTone === 'win' ? 'bg-win-500/10 text-win-600 border border-win-500/20' :
+                      'bg-brass-500/10 text-brass-600 border border-brass-500/20'
+                    }`}>
+                      {c.badge}
+                    </span>
                   </div>
-                  <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono ${
-                    c.badgeTone === 'rose' ? 'bg-rose-500/10 text-rose-600 border border-rose-500/20' :
-                    c.badgeTone === 'brand' ? 'bg-brand-500/10 text-brand-600 border border-brand-500/20' :
-                    c.badgeTone === 'volt' ? 'bg-cyan-500/10 text-cyan-600 border border-cyan-500/20' :
-                    c.badgeTone === 'amber' ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20' :
-                    c.badgeTone === 'win' ? 'bg-win-500/10 text-win-600 border border-win-500/20' :
-                    'bg-brass-500/10 text-brass-600 border border-brass-500/20'
-                  }`}>
-                    {c.badge}
-                  </span>
-                </div>
 
-                {/* Bottom: Title + Subtitle */}
-                <div className="mt-3 flex items-end justify-between">
-                  <div>
-                    <h3 className="text-[14px] font-bold text-fg group-hover:text-brand-600 transition-colors leading-tight">
-                      {c.label}
-                    </h3>
-                    <p className="text-[11px] text-fg-dim font-medium mt-0.5 truncate">
-                      {c.sub}
-                    </p>
+                  {/* Bottom: Title + Subtitle */}
+                  <div className="mt-3 flex items-end justify-between">
+                    <div>
+                      <h3 className="text-[14px] font-bold text-fg group-hover:text-brand-600 transition-colors leading-tight">
+                        {c.label}
+                      </h3>
+                      <p className="text-[11px] text-fg-dim font-medium mt-0.5 truncate">
+                        {c.sub}
+                      </p>
+                    </div>
+                    <ChevronRight
+                      className="h-4 w-4 text-fg-dim transition-transform duration-300 group-hover:translate-x-1 group-hover:text-brand-600 shrink-0"
+                      aria-hidden
+                    />
                   </div>
-                  <ChevronRight
-                    className="h-4 w-4 text-fg-dim transition-transform duration-300 group-hover:translate-x-1 group-hover:text-brand-600 shrink-0"
+
+                  {/* Bottom Accent Line */}
+                  <span
                     aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-brand-500 transition-transform duration-300 ease-out group-hover:scale-x-100"
                   />
-                </div>
-
-                {/* Bottom Accent Line */}
-                <span
-                  aria-hidden
-                  className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-brand-500 transition-transform duration-300 ease-out group-hover:scale-x-100"
-                />
-              </Link>
+                </Link>
+              </NeonBorder>
             ))}
           </div>
         </nav>

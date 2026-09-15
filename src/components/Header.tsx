@@ -13,10 +13,14 @@ import {
   ChevronDown,
   Trophy,
   Target,
+  Goal,
+  Info,
   Globe,
   Smartphone,
   Radio,
   Gamepad2,
+  Dice5,
+  Feather,
   Percent,
   ShieldCheck,
   LifeBuoy,
@@ -64,20 +68,33 @@ export const Header: React.FC<HeaderProps> = ({
     if (!muted) soundFX.playClick();
   };
 
-  const primaryNavLinks = [
+  // Explicit type: the optional flags are inferred away when no entry in the
+  // literal happens to set them, which breaks link.isLive / link.isHot below.
+  type NavLink = {
+    href: string;
+    label: string;
+    icon: React.ElementType;
+    isLive?: boolean;
+    isHot?: boolean;
+  };
+
+  const primaryNavLinks: NavLink[] = [
     { href: '/sports', label: 'Sports', icon: Trophy },
     { href: '/cricket', label: 'Cricket', icon: Target },
-    { href: '/casino', label: 'Casino', icon: Gamepad2 },
-    { href: '/live-casino', label: 'Live Casino', icon: Radio, isLive: true },
-    { href: '/1xgames', label: '1xGames', icon: Zap, isHot: true },
-    { href: '/promotions', label: 'Promotions', icon: Percent },
-    { href: '/tournaments', label: 'Tournaments', icon: Trophy },
-    { href: '/vip', label: 'VIP Club', icon: Crown },
+    { href: '/football', label: 'Football', icon: Goal },
+    { href: '/soccer', label: 'Soccer', icon: Goal },
+    { href: '/tennis', label: 'Tennis', icon: Zap },
+    { href: '/basketball', label: 'Basketball', icon: Percent },
+    { href: '/horse-racing', label: 'Racing', icon: Crown },
+    { href: '/badminton', label: 'Badminton', icon: Feather },
+    { href: '/online-casino', label: 'Casino', icon: Dice5 },
+    { href: '/about', label: 'About', icon: Gamepad2 },
   ];
 
-  const allNavLinks = [
+  // No second /about entry: the drawer keys on href, and primaryNavLinks
+  // already carries it — a duplicate key makes React drop or double the row.
+  const allNavLinks: NavLink[] = [
     ...primaryNavLinks,
-    { href: '/app', label: 'Mobile App', icon: Smartphone },
     { href: '/provably-fair', label: 'Provably Fair', icon: ShieldCheck },
     { href: '/responsible-gaming', label: 'Player Safety', icon: LifeBuoy },
   ];
@@ -99,8 +116,9 @@ export const Header: React.FC<HeaderProps> = ({
         scrolled ? 'border-b border-line-strong shadow-[0_6px_20px_rgba(0,47,94,0.10)]' : 'border-b border-line'
       }`}
     >
-      {/* 1. Utility bar */}
-      <div className="bg-surface-1 text-fg text-[11px] border-b border-line">
+      {/* 1. Utility bar — desktop only. At 375px this strip cost 32px of an
+             812px screen for links that are all reachable from the drawer. */}
+      <div className="hidden md:block bg-surface-1 text-fg text-[11px] border-b border-line">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 h-8 flex items-center justify-between">
           <div className="flex items-center gap-5 min-w-0">
             <div className="flex items-center gap-2 whitespace-nowrap">
@@ -114,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <div className="hidden md:flex items-center gap-5 text-fg-muted">
               <Link
-                href="/app"
+                href="/#app"
                 className="flex items-center gap-1.5 hover:text-fg transition-colors whitespace-nowrap"
               >
                 <Smartphone className="w-3.5 h-3.5 text-brand-600" />
@@ -130,77 +148,22 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-1 shrink-0">
-            {/* Language */}
-            <div className="relative">
-              <button
-                onClick={() => { soundFX.playClick(); setLangDropdownOpen(!langDropdownOpen); }}
-                className="flex items-center gap-1.5 text-fg-muted hover:text-fg cursor-pointer h-8 px-2 rounded-md hover:bg-surface-3 transition-colors whitespace-nowrap"
-                aria-expanded={langDropdownOpen}
-              >
-                <Globe className="w-3.5 h-3.5" />
-                <span>{currentLang}</span>
-                <ChevronDown
-                  className={`w-3 h-3 transition-transform duration-200 ${langDropdownOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              {langDropdownOpen && (
-                <>
-                  {/* Click-away layer */}
-                  <div
-                    className="fixed inset-0 z-40 cursor-default"
-                    onClick={() => setLangDropdownOpen(false)}
-                    aria-hidden
-                  />
-                  <div className="absolute right-0 top-full mt-1.5 w-44 panel panel-2 rounded-[8px] p-1.5 z-50 animate-rise-in shadow-[0_14px_34px_rgba(0,47,94,0.16)]">
-                    {languages.map((l) => (
-                      <button
-                        key={l.name}
-                        onClick={() => {
-                          soundFX.playClick();
-                          setCurrentLang(l.name);
-                          setLangDropdownOpen(false);
-                        }}
-                        className={`w-full flex items-center gap-2.5 px-2.5 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
-                          currentLang === l.name
-                            ? 'bg-brand-500/10 text-brand-600 font-semibold'
-                            : 'font-medium text-fg-muted hover:bg-surface-3 hover:text-fg'
-                        }`}
-                      >
-                        <span className="text-sm leading-none">{l.flag}</span>
-                        <span>{l.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-
-            <button
-              onClick={handleSoundToggle}
-              className="flex items-center gap-1.5 text-fg-muted hover:text-fg cursor-pointer h-8 px-2 rounded-md hover:bg-surface-3 transition-colors whitespace-nowrap"
-              title={isMuted ? 'Unmute sound' : 'Mute sound'}
-            >
-              {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-              <span className="hidden sm:inline">{isMuted ? 'Muted' : 'Sound'}</span>
-            </button>
-          </div>
+          
         </div>
       </div>
 
       {/* 2. Main navigation */}
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[72px] gap-6">
+        <div className="flex items-center justify-between h-[56px] gap-4 md:h-[72px] md:gap-6">
 
-          <div className="flex items-center gap-8 xl:gap-10 min-w-0">
+          <div className="flex items-center gap-4 md:gap-8 xl:gap-10 min-w-0">
             <Link
               href="/"
               onClick={() => soundFX.playClick()}
               className="flex items-center shrink-0 rounded-md"
               aria-label="1xBet home"
             >
-              <div className="relative h-8 w-[116px] transition-opacity hover:opacity-80">
+              <div className="relative h-7 w-[100px] transition-opacity hover:opacity-80 md:h-8 md:w-[116px]">
                 {/* `priority` is deprecated as of Next 16 in favour of `preload`,
                     which states the intent plainly. */}
                 <Image
@@ -257,7 +220,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Right: actions */}
           <div className="flex items-center gap-2 shrink-0">
             <Link
-              href="/app"
+              href="/#app"
               onClick={() => soundFX.playClick()}
               className="hidden 2xl:flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] font-medium text-fg-muted hover:text-fg hover:bg-surface-3 transition-colors whitespace-nowrap"
             >
@@ -278,13 +241,13 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => { soundFX.playClick(); onOpenAuth?.(); }}
-                  className="min-h-[40px] px-4 rounded-[5px] text-[13px] font-semibold text-fg-muted hover:text-fg hover:bg-white/[0.07] transition-colors cursor-pointer whitespace-nowrap"
+                  className="hidden sm:block min-h-[40px] px-4 rounded-[5px] text-[13px] font-semibold text-fg-muted hover:text-fg hover:bg-white/[0.07] transition-colors cursor-pointer whitespace-nowrap"
                 >
                   Log in
                 </button>
                 <button
                   onClick={() => { soundFX.playClick(); onOpenAuth?.(); }}
-                  className="inline-flex items-center min-h-[40px] px-5 rounded-[5px] bg-brand-500 text-white text-[13px] font-semibold shadow-[0_6px_18px_rgba(0,122,204,0.26)] hover:bg-brand-600 transition-colors cursor-pointer whitespace-nowrap"
+                  className="inline-flex items-center min-h-[38px] px-4 md:min-h-[40px] md:px-5 rounded-[5px] bg-brand-500 text-white text-[13px] font-semibold shadow-[0_6px_18px_rgba(0,122,204,0.26)] hover:bg-brand-600 transition-colors cursor-pointer whitespace-nowrap"
                 >
                   Register
                 </button>
@@ -340,6 +303,10 @@ export const Header: React.FC<HeaderProps> = ({
                 );
               })}
             </nav>
+
+            {/* Language and sound live in the top strip on desktop, which is
+                hidden on phones — so they move in here rather than vanish. */}
+           
           </div>
         )}
       </div>

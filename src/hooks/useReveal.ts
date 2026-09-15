@@ -33,9 +33,9 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
 ) {
   const {
     selector,
-    stagger = 0.08,
-    y = 18,
-    duration = 0.85,
+    stagger = 0.05,
+    y = 16,
+    duration = 0.5,
     delay = 0,
     immediate = false,
   } = options;
@@ -49,8 +49,21 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
     // Reduced motion: leave the DOM untouched and animate nothing.
     if (prefersReducedMotion()) return;
 
+    // If the tab is backgrounded at mount, requestAnimationFrame is suspended
+    // and GSAP never advances — anything hidden here would stay hidden. Skip
+    // animating entirely; the user isn't looking, and the content stays visible.
+    if (document.visibilityState === 'hidden') return;
+
     const ctx = gsap.context(() => {
-      const targets = selector ? el.querySelectorAll(selector) : [el];
+      const all = selector ? Array.from(el.querySelectorAll(selector)) : [el];
+      if (!all.length) return;
+
+      // Only animate what starts below the fold. Hiding content that is
+      // already on screen risks a blank first paint if the engine stalls, and
+      // the entrance is invisible to the user anyway.
+      const targets = immediate
+        ? all
+        : all.filter((t) => t.getBoundingClientRect().top > window.innerHeight * 0.9);
       if (!targets.length) return;
 
       const common = {
@@ -72,7 +85,9 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
           ...common,
           scrollTrigger: {
             trigger: el,
-            start: isCoarsePointer() ? 'top 92%' : 'top 82%',
+            // Fire before the section is fully on screen: at 82% the
+            // content was still fading in after the reader reached it.
+            start: isCoarsePointer() ? 'top 97%' : 'top 90%',
             once: true,
           },
         });

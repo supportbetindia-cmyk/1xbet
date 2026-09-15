@@ -19,6 +19,8 @@ import {
 import { AUTHENTIC_GAMES, AuthenticGame } from '@/lib/authenticGames';
 import { soundFX } from '@/lib/audio';
 import { useSite } from '@/components/SiteChrome';
+import NeonBorder from '@/components/ui/NeonBorder';
+import { Rail } from '@/components/ui/Rail';
 
 interface OneXGamesSectionProps {
   onSelectGame: (game: AuthenticGame) => void;
@@ -163,7 +165,7 @@ export const OneXGamesSection: React.FC<OneXGamesSectionProps> = ({ onSelectGame
     : ORIGINALS_LIST.filter(g => g.category === activeFilter);
 
   return (
-    <section id="1xgames" className="relative border-t border-line bg-surface-1 py-14 sm:py-18 lg:py-22 overflow-hidden">
+    <section id="1xgames" className="relative border-t border-line bg-surface-1 py-8 sm:py-9 lg:py-10 overflow-hidden">
       
       {/* Background Decorative Glows */}
       <div 
@@ -205,7 +207,7 @@ export const OneXGamesSection: React.FC<OneXGamesSectionProps> = ({ onSelectGame
 
           {/* Right Action & Filter Pills */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 shrink-0">
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+            <div className="rail flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none [&>*]:shrink-0">
               {[
                 { id: 'all', label: 'All Originals', icon: Gamepad2 },
                 { id: 'crash', label: 'Crash', icon: Rocket },
@@ -216,7 +218,7 @@ export const OneXGamesSection: React.FC<OneXGamesSectionProps> = ({ onSelectGame
                 <button
                   key={f.id}
                   onClick={() => { soundFX.playClick(); setActiveFilter(f.id); }}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-[8px] text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  className={`flex min-h-[44px] items-center gap-1.5 px-3.5 py-2 rounded-[8px] text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap sm:min-h-0 ${
                     activeFilter === f.id
                       ? 'bg-brand-500 text-white shadow-md shadow-brand-500/20'
                       : 'bg-canvas border border-line text-fg-muted hover:border-brand-500/50 hover:text-fg'
@@ -317,13 +319,23 @@ export const OneXGamesSection: React.FC<OneXGamesSectionProps> = ({ onSelectGame
           </div>
 
           {/* 1xGames 6-Card Grid (7 Columns) with Real Image Artwork */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Rail className="lg:col-span-7" grid="sm:grid-cols-2 lg:grid-cols-3" gap="gap-3 sm:gap-4" label="1xGames titles">
             {filteredGames.map((game) => (
-              <div
+              <NeonBorder
                 key={game.id}
-                onClick={() => handleLaunch(game.id)}
-                className="group relative flex flex-col justify-between rounded-xl border border-line bg-canvas shadow-xs transition-all duration-300 hover:border-brand-500/70 hover:shadow-xl hover:-translate-y-1 cursor-pointer overflow-hidden"
+                color={game.accent}
+                secondaryColor="#007acc"
+                borderRadius={12}
+                borderWidth={1.5}
+                duration={4}
+                trailLength={20}
+                glowIntensity={0.8}
+                trackColor="transparent"
               >
+                <div
+                  onClick={() => handleLaunch(game.id)}
+                  className="group relative flex flex-col justify-between rounded-xl border border-line bg-canvas shadow-xs transition-all duration-300 hover:border-brand-500/70 hover:shadow-xl hover:-translate-y-1 cursor-pointer overflow-hidden h-full"
+                >
                 {/* Top Image Artwork Banner */}
                 <div className="relative h-32 w-full overflow-hidden bg-navy-950">
                   <img
@@ -387,8 +399,9 @@ export const OneXGamesSection: React.FC<OneXGamesSectionProps> = ({ onSelectGame
                   style={{ background: game.accent }}
                 />
               </div>
+              </NeonBorder>
             ))}
-          </div>
+          </Rail>
 
         </div>
 

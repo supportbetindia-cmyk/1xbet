@@ -17,6 +17,7 @@ import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { GameTheaterModal } from '@/components/GameTheaterModal';
 import { AuthenticGame } from '@/lib/authenticGames';
 import { useReveal } from '@/hooks/useReveal';
+import { ReadMore } from '@/components/ui/ReadMore';
 
 const REASONS: [string, string][] = [
   ['Sports and games in one place', 'Browse the sports events and 1xBet games currently available through the platform.'],
@@ -135,26 +136,28 @@ export default function Home() {
       <OverviewShowcase />
 
       {/* ---------- Access: Your 1xBet Account ---------- */}
-      <section className="border-t border-line bg-surface-1 py-14 sm:py-16 lg:py-20">
+      <section className="border-t border-line bg-surface-1 py-8 sm:py-9 lg:py-10">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
           <span className="label label-volt">Your 1xBet Account</span>
           <h2 className="mt-3 text-[clamp(1.7rem,3.4vw,2.6rem)] uppercase text-fg font-extrabold">
             One Account for Your Platform Access
           </h2>
-          <div className="mt-4 max-w-3xl space-y-3 text-[16px] leading-relaxed text-fg-muted">
-            <p className="text-[17px] font-medium text-fg">
-              Your 1xBet account gives you access to the features and services available to registered users.
-            </p>
-            <p>
-              After registration, you can use your account credentials to sign in, review account information and access supported platform features. Keeping your account details secure is an important part of using any online service.
-            </p>
-            <p>
-              Always access your account through the official 1xBet website or supported application. Never share your password or other sensitive login information with another person.
-            </p>
-            <p>
-              If you have an account-related problem, use the official support options provided by the platform.
-            </p>
-          </div>
+          <ReadMore label="Read more">
+            <div className="mt-4 max-w-3xl space-y-3 text-[16px] leading-relaxed text-fg-muted">
+              <p className="text-[17px] font-medium text-fg">
+                Your 1xBet account gives you access to the features and services available to registered users.
+              </p>
+              <p>
+                After registration, you can use your account credentials to sign in, review account information and access supported platform features. Keeping your account details secure is an important part of using any online service.
+              </p>
+              <p>
+                Always access your account through the official 1xBet website or supported application. Never share your password or other sensitive login information with another person.
+              </p>
+              <p>
+                If you have an account-related problem, use the official support options provided by the platform.
+              </p>
+            </div>
+          </ReadMore>
 
           <div className="mt-9 grid grid-cols-1 gap-5 lg:grid-cols-2">
             {ACCESS_DOORS.map((d) => (
@@ -193,7 +196,7 @@ export default function Home() {
       <MobileAppSection />
 
       {/* ---------- Why 1xBet ---------- */}
-      <section className="border-t border-line bg-canvas py-14 sm:py-16 lg:py-20">
+      <section className="border-t border-line bg-canvas py-8 sm:py-9 lg:py-10">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <div>
@@ -274,7 +277,7 @@ export default function Home() {
            The heading promises steps, so these are steps. Previously this ran
            as a two-column InfoBand whose left column held only a heading, and
            whose aside repeated the final paragraph verbatim. */}
-      <section className="border-t border-line bg-surface-1 py-14 sm:py-16 lg:py-20">
+      <section className="border-t border-line bg-surface-1 py-8 sm:py-9 lg:py-10">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
 
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -364,7 +367,7 @@ export default function Home() {
       </section>
 
       {/* ---------- FAQ ---------- */}
-      <section id="faq" className="border-t border-line bg-canvas py-14 sm:py-16 lg:py-20">
+      <section id="faq" className="border-t border-line bg-canvas py-8 sm:py-9 lg:py-10">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
             {/* Left column previously held a heading and one line, then ~700px
@@ -437,22 +440,27 @@ export default function Home() {
       </section>
 
       {/* ---------- Closing ---------- */}
-      <section className="border-t border-line bg-surface-1 py-14 sm:py-16 lg:py-20">
+      <section className="border-t border-line bg-surface-1 py-8 sm:py-9 lg:py-10">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
-          <div className="panel cut-corner relative overflow-hidden p-6 sm:p-10 lg:p-14">
+          {/* Heading at the container edge — the panel's 56px padding was
+              offsetting it from every other section heading on the page. */}
+          <div className="max-w-3xl">
+            <span className="label label-volt">1xBet India</span>
+            <h2 className="mt-3 text-[clamp(1.8rem,3.8vw,2.9rem)] uppercase">
+              Access the platform your way
+            </h2>
+          </div>
+
+          <div className="panel cut-corner relative mt-9 overflow-hidden p-6 sm:p-8 lg:p-10">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-6">
-                <span className="label label-volt">1xBet India</span>
-                <h2 className="mt-3 text-[clamp(1.8rem,3.8vw,2.9rem)] uppercase">
-                  Access the platform your way
-                </h2>
-                <p className="mt-5 text-[17px] leading-relaxed text-fg-muted">
+                <p className="text-[17px] leading-relaxed text-fg-muted">
                   Whether you&rsquo;re visiting for the first time or returning to an existing
                   account, 1xBet India brings available sports, games, account access and
                   mobile options together in one place.
                 </p>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-8 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
                   <button
                     onClick={openAuth}
                     className="inline-flex min-h-[52px] cursor-pointer items-center rounded-[6px] bg-brand-500 px-7
@@ -474,27 +482,32 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="space-y-4 text-[15px] leading-relaxed text-fg-muted lg:col-span-5 lg:col-start-8">
-                <p>
-                  Explore 1xBet games, browse available sports and events, or return to your
-                  account through 1xBet login. New users can follow 1xBet registration to
-                  create an account, subject to eligibility and regional requirements.
-                </p>
-                <p>
-                  Prefer mobile access? Check the availability of the 1xBet app, 1xBet India
-                  app or 1xBet mobile app for your device. If you&rsquo;re looking for 1xBet
-                  download instructions, always use the official source.
-                </p>
-                <p>
-                  And if you need assistance, 1xBet customer support is available through the
-                  official channels provided by the platform.
-                </p>
-                <p className="fine-print border-t border-line pt-4">
-                  Services, features and availability may change according to location and
-                  applicable regulations. Always check the latest information, review the
-                  relevant terms and use the platform responsibly.
-                </p>
-              </div>
+              {/* Placement belongs on the wrapper: ReadMore is the grid child,
+                  so col-span/col-start on the inner div did nothing and this
+                  column auto-placed into a single 1/12 track. */}
+              <ReadMore label="Read more" className="lg:col-span-5 lg:col-start-8">
+                <div className="space-y-4 text-[15px] leading-relaxed text-fg-muted">
+                  <p>
+                    Explore 1xBet games, browse available sports and events, or return to your
+                    account through 1xBet login. New users can follow 1xBet registration to
+                    create an account, subject to eligibility and regional requirements.
+                  </p>
+                  <p>
+                    Prefer mobile access? Check the availability of the 1xBet app, 1xBet India
+                    app or 1xBet mobile app for your device. If you&rsquo;re looking for 1xBet
+                    download instructions, always use the official source.
+                  </p>
+                  <p>
+                    And if you need assistance, 1xBet customer support is available through the
+                    official channels provided by the platform.
+                  </p>
+                  <p className="fine-print border-t border-line pt-4">
+                    Services, features and availability may change according to location and
+                    applicable regulations. Always check the latest information, review the
+                    relevant terms and use the platform responsibly.
+                  </p>
+                </div>
+              </ReadMore>
             </div>
           </div>
         </div>

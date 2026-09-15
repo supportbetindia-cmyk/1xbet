@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
+import { ReadMore } from '@/components/ui/ReadMore';
 
 interface InfoBandProps {
   label: string;
@@ -38,7 +39,7 @@ export const InfoBand: React.FC<InfoBandProps> = ({
   return (
     <section
       id={id}
-      className={`border-t border-line py-14 sm:py-16 lg:py-20 ${
+      className={`border-t border-line py-8 sm:py-9 lg:py-10 ${
         tone === 'raised' ? 'bg-surface-1' : 'bg-canvas'
       }`}
     >
@@ -68,9 +69,11 @@ export const InfoBand: React.FC<InfoBandProps> = ({
           </div>
 
           <div className={aside ? 'lg:col-span-5' : 'lg:col-span-8'}>
-            <div data-ib className="space-y-4 text-[16px] leading-relaxed text-fg-muted">
-              {children}
-            </div>
+            <ReadMore label="Read more">
+              <div data-ib className="space-y-4 text-[16px] leading-relaxed text-fg-muted">
+                {children}
+              </div>
+            </ReadMore>
           </div>
 
           {aside && (

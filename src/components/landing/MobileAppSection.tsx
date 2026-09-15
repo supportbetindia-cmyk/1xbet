@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useSite } from '@/components/SiteChrome';
 import { soundFX } from '@/lib/audio';
+import { Rail } from '@/components/ui/Rail';
 
 const FEATURES = [
   { label: 'Fast 1-Tap Bets', desc: 'Zero latency live odds', icon: Zap },
@@ -43,7 +44,7 @@ export const MobileAppSection: React.FC = () => {
   return (
     <section
       id="app"
-      className="relative overflow-hidden border-t border-line bg-canvas py-16 sm:py-20 lg:py-24"
+      className="relative overflow-hidden border-t border-line bg-canvas py-8 sm:py-9 lg:py-10"
     >
       {/* Navy hairline grid — structure on the white field, not a tint. */}
       <div
@@ -142,7 +143,7 @@ export const MobileAppSection: React.FC = () => {
                 </div>
 
                 {/* Download actions */}
-                <div className="mt-4 grid grid-cols-1 gap-2.5">
+                <div className="mt-4 grid grid-cols-2 gap-2.5 [&>*:last-child]:col-span-2 sm:grid-cols-1 sm:[&>*:last-child]:col-span-1">
                   <button
                     onClick={() => handleDownloadClick('Android APK')}
                     className="group inline-flex min-h-[52px] cursor-pointer items-center gap-3 rounded-[6px]
@@ -182,7 +183,7 @@ export const MobileAppSection: React.FC = () => {
                   </button>
 
                   <Link
-                    href="/app"
+                    href="/#app"
                     className="group inline-flex min-h-[46px] items-center justify-between gap-2 rounded-[6px]
                                border border-brand-500/30 bg-brand-500/8 px-5 text-[14px] font-semibold text-brand-600
                                transition-colors hover:bg-brand-500/14
@@ -221,7 +222,7 @@ export const MobileAppSection: React.FC = () => {
         </div>
 
         {/* ---------------- Bottom: download guidance + mobile access ---------------- */}
-        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2">
+        <Rail className="mt-8 md:mt-14" grid="md:grid-cols-2" gap="gap-3 md:gap-5" card="88%" label="Download and mobile access">
 
           <div className="panel p-6 transition-colors duration-300 hover:border-brand-500/45 sm:p-8">
             <div className="flex items-center gap-3">
@@ -263,7 +264,7 @@ export const MobileAppSection: React.FC = () => {
               </span>
               <button
                 onClick={openAuth}
-                className="flex cursor-pointer items-center gap-1 text-fg transition-colors hover:text-brand-600
+                className="flex min-h-[44px] cursor-pointer items-center gap-1 text-fg transition-colors hover:text-brand-600
                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
               >
                 Install Guide &rarr;
@@ -314,14 +315,14 @@ export const MobileAppSection: React.FC = () => {
               </span>
               <button
                 onClick={openAuth}
-                className="flex cursor-pointer items-center gap-1 text-fg transition-colors hover:text-brand-600
+                className="flex min-h-[44px] cursor-pointer items-center gap-1 text-fg transition-colors hover:text-brand-600
                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
               >
                 Open Web App &rarr;
               </button>
             </div>
           </div>
-        </div>
+        </Rail>
       </div>
     </section>
   );

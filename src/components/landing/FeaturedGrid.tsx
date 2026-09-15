@@ -26,7 +26,7 @@ export const FeaturedGrid: React.FC<FeaturedGridProps> = ({ onSelectGame }) => {
   const stack = AUTHENTIC_GAMES.filter((g) => g.id !== lead.id).slice(0, 6);
 
   return (
-    <section className="relative border-t border-line bg-canvas py-14 sm:py-16 lg:py-20">
+    <section className="relative border-t border-line bg-canvas py-8 sm:py-9 lg:py-10">
       <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
 
         <div className="flex flex-wrap items-end justify-between gap-4">

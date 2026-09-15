@@ -1236,3 +1236,863 @@
 }
 
 ::-webkit-scrollbar-thumb:hover { background: var(--color-volt-600); }
+
+/* ==========================================================================
+   SPORT & CASINO THEMES
+   ========================================================================== */
+
+@theme {
+  --color-cs-gold: #e8c657;
+  --color-cs-violet: #b98bff;
+  --color-cs-felt: #10402f;
+  --color-cs-night: #08060d;
+
+  --color-bb-leather: #d95a1e;
+  --color-bb-wood: #c48b40;
+  --color-bb-court: #0b1522;
+  --color-bb-chalk: #f0f4fa;
+
+  --color-hr-claret: #7a1d2e;
+  --color-hr-brass: #b88628;
+  --color-hr-turf: #0e2a1b;
+  --color-hr-silk: #f4ecdc;
+  --color-hr-night: #0a0e14;
+
+  --color-sc-pitch: #1a6b3c;
+  --color-sc-lime: #4f7d10;
+  --color-sc-chalk: #eaf2e6;
+  --color-sc-night: #06170e;
+
+  --color-bd-indigo: #2e2f7a;
+  --color-bd-cyan: #0b6f80;
+  --color-bd-cork: #9a6f2e;
+  --color-bd-night: #0a0b1f;
+
+  /* Tennis court surfaces — dropped when the theme block was consolidated,
+     which left every bg-tn-* / text-tn-* utility resolving to nothing. */
+  --color-tn-hard: #1866ab;
+  --color-tn-clay: #b0523c;
+  --color-tn-grass: #2f6d43;
+  --color-tn-ball: #7d8a10;
+}
+
+@layer components {
+  /* Casino Theme */
+  .cs-floor {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(90% 70% at 78% 0%, rgba(109, 52, 176, 0.32) 0%, transparent 62%),
+      radial-gradient(70% 60% at 12% 8%, rgba(168, 128, 26, 0.20) 0%, transparent 58%),
+      linear-gradient(180deg, #0d0916 0%, #08060d 62%, #06040a 100%);
+  }
+
+  .cs-floor::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 5px);
+  }
+
+  .cs-dark {
+    --color-fg: #ffffff;
+    --color-fg-muted: rgba(255, 255, 255, 0.76);
+    --color-fg-dim: rgba(255, 255, 255, 0.56);
+    --color-line: rgba(255, 255, 255, 0.12);
+    --color-line-strong: rgba(255, 255, 255, 0.24);
+    --color-canvas: rgba(255, 255, 255, 0.04);
+    --color-surface-1: rgba(255, 255, 255, 0.07);
+    --color-cs-gold: #e8c657;
+    --color-cs-violet: #b98bff;
+    --color-accent-ink: #e8c657;
+  }
+
+  .cs-pip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    width: 46px;
+    height: 62px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid var(--color-line-strong);
+    background: linear-gradient(160deg, var(--color-surface-1), var(--color-canvas));
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+
+  .cs-pip-suit { font-size: 15px; line-height: 1; }
+
+  .cs-card {
+    position: relative;
+    border-radius: 6px;
+    border: 1px solid var(--color-line);
+    background: linear-gradient(158deg, var(--color-surface-1) 0%, var(--color-canvas) 100%);
+    transition: border-color 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+  }
+
+  .cs-card::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 3px;
+    border: 1px solid color-mix(in oklab, var(--color-cs-gold) 20%, transparent);
+    pointer-events: none;
+    transition: inherit;
+  }
+
+  .cs-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--color-cs-gold) 45%, transparent);
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.42);
+  }
+
+  .cs-felt {
+    background:
+      radial-gradient(120% 100% at 50% 0%, #17553f 0%, #10402f 55%, #0b2c21 100%);
+  }
+
+  .cs-cta-solid { color: #17110a; }
+
+  /* Basketball Theme */
+  .bb-on-dark {
+    --color-fg: #ffffff;
+    --color-fg-muted: rgba(255, 255, 255, 0.78);
+    --color-fg-dim: rgba(255, 255, 255, 0.58);
+    --color-line: rgba(255, 255, 255, 0.14);
+    --color-line-strong: rgba(255, 255, 255, 0.26);
+    --color-canvas: rgba(255, 255, 255, 0.045);
+    --color-surface-1: rgba(255, 255, 255, 0.07);
+    --color-surface-2: rgba(255, 255, 255, 0.11);
+    --color-bb-leather: #ff7a33;
+    --color-bb-wood: #d8a35c;
+    --color-accent-ink: #ff7a33;
+  }
+
+  /* Horse Racing Theme */
+  .hr-on-dark {
+    --color-fg: #ffffff;
+    --color-fg-muted: rgba(255, 255, 255, 0.78);
+    --color-fg-dim: rgba(255, 255, 255, 0.58);
+    --color-line: rgba(255, 255, 255, 0.14);
+    --color-line-strong: rgba(255, 255, 255, 0.26);
+    --color-canvas: rgba(255, 255, 255, 0.05);
+    --color-surface-1: rgba(255, 255, 255, 0.08);
+    --color-hr-claret: #e2496a;
+    --color-hr-brass: #d8b04a;
+    --color-accent-ink: #d8b04a;
+  }
+
+  /* Soccer Theme */
+  .sc-on-dark {
+    --color-fg: #ffffff;
+    --color-fg-muted: rgba(255, 255, 255, 0.78);
+    --color-fg-dim: rgba(255, 255, 255, 0.56);
+    --color-line: rgba(255, 255, 255, 0.13);
+    --color-line-strong: rgba(255, 255, 255, 0.26);
+    --color-canvas: rgba(255, 255, 255, 0.05);
+    --color-surface-1: rgba(255, 255, 255, 0.08);
+    --color-sc-pitch: #3fbb6d;
+    --color-sc-lime: #b6e34b;
+    --color-accent-ink: #3fbb6d;
+  }
+
+  /* Badminton Theme */
+  .bd-on-dark {
+    --color-fg: #ffffff;
+    --color-fg-muted: rgba(255, 255, 255, 0.78);
+    --color-fg-dim: rgba(255, 255, 255, 0.56);
+    --color-line: rgba(255, 255, 255, 0.13);
+    --color-line-strong: rgba(255, 255, 255, 0.26);
+    --color-canvas: rgba(255, 255, 255, 0.05);
+    --color-surface-1: rgba(255, 255, 255, 0.08);
+    --color-bd-cyan: #4fd8ee;
+    --color-bd-cork: #e0b464;
+    --color-accent-ink: #4fd8ee;
+  }
+}
+
+
+/* ==========================================================================
+   NEON BEAM
+   Drives NeonBorder. The rects declare pathLength={100} and a dash pattern, so
+   travelling the offset from 0 to -100 walks the lit segment exactly once
+   round the perimeter regardless of the element's real size.
+   ========================================================================== */
+
+@keyframes neonBeamLoop {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -100; }
+}
+
+
+/* ==========================================================================
+   RESTORED PAGE SYSTEMS
+   These component classes were lost from this file while the theme tokens were
+   consolidated into a single @theme block. Without them the `*-on-dark` rules
+   still set white text, but the dark grounds they pair with were gone — which
+   rendered the basketball and soccer heroes as white text on white.
+   ========================================================================== */
+
+@layer components {
+
+  /* ---- Tennis: draw sheet + net mesh ---------------------------------- */
+  .tn-mesh {
+    background-image:
+      repeating-linear-gradient(45deg, rgba(0, 47, 94, 0.16) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(-45deg, rgba(0, 47, 94, 0.16) 0 1px, transparent 1px 6px);
+  }
+  .tn-band {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--color-canvas);
+  }
+  .tn-seed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 46px;
+    padding-inline: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+  .tn-kicker {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0.85rem;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-fg);
+    white-space: nowrap;
+  }
+  .tn-card {
+    position: relative;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 8px;
+    background: var(--color-canvas);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .tn-card::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .tn-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-tn-hard);
+    box-shadow: 0 14px 32px rgba(0, 47, 94, 0.12);
+  }
+  .tn-pip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 30px;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-fg-muted);
+    background: var(--color-canvas);
+  }
+  .tn-pip[data-on="true"] {
+    border-color: var(--color-tn-hard);
+    background: var(--color-tn-hard);
+    color: #fff;
+  }
+
+  /* ---- Basketball: courtside broadcast --------------------------------- */
+  .bb-court {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(130% 105% at 50% -10%, #16344f 0%, #0c1d30 52%, #061220 100%);
+  }
+  .bb-court::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 11px);
+  }
+  .bb-court::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(75% 60% at 50% 30%, transparent 40%, rgba(4, 12, 22, 0.72) 100%);
+  }
+  .bb-rule {
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(
+      to right,
+      currentColor 0%,
+      currentColor 22%,
+      color-mix(in oklab, currentColor 22%, transparent) 62%,
+      transparent 100%
+    );
+  }
+  .bb-index {
+    font-family: var(--font-mono);
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    color: color-mix(in oklab, currentColor 26%, transparent);
+  }
+  .bb-card {
+    position: relative;
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    background-image: linear-gradient(158deg, var(--color-canvas) 0%, var(--color-surface-1) 100%);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .bb-card::before,
+  .bb-card::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--color-bb-leather);
+    transition: inherit;
+  }
+  .bb-card::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+    border-top-left-radius: 3px;
+  }
+  .bb-card::after {
+    right: -1px;
+    bottom: -1px;
+    border-left: 0;
+    border-top: 0;
+    border-bottom-right-radius: 3px;
+  }
+  .bb-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(16, 36, 58, 0.16);
+  }
+  .bb-card:hover::before,
+  .bb-card:hover::after {
+    width: 22px;
+    height: 22px;
+  }
+  .bb-wood {
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-bb-wood) 22%, transparent) 0 1px,
+      transparent 1px 9px
+    );
+  }
+  .bb-q {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 30px;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-fg-muted);
+  }
+  .bb-q[data-on="true"] {
+    border-color: var(--color-bb-leather);
+    background: var(--color-bb-leather);
+    color: #fff;
+  }
+  .bb-watermark {
+    position: absolute;
+    top: -0.18em;
+    right: 0;
+    z-index: 0;
+    font-family: var(--font-mono);
+    font-size: clamp(6rem, 15vw, 13rem);
+    font-weight: 700;
+    line-height: 0.78;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px color-mix(in oklab, var(--color-bb-leather) 20%, transparent);
+    pointer-events: none;
+    user-select: none;
+  }
+  .bb-glow {
+    filter: drop-shadow(0 0 16px color-mix(in oklab, var(--color-bb-leather) 50%, transparent));
+  }
+  .bb-on-dark .bb-rule {
+    box-shadow: 0 0 14px color-mix(in oklab, currentColor 45%, transparent);
+  }
+  .bb-on-dark .bb-index {
+    color: color-mix(in oklab, currentColor 42%, transparent);
+  }
+  .bb-cta-solid { color: #ffffff; }
+  .bb-on-dark .bb-cta-solid,
+  .bb-on-dark .bb-q[data-on="true"] { color: #071523; }
+
+  /* ---- Horse racing: silks + running rail ------------------------------ */
+  .hr-rail {
+    position: relative;
+    height: 14px;
+  }
+  .hr-rail::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--color-line-strong);
+  }
+  .hr-rail::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(to right, currentColor 0 2px, transparent 2px 34px);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 55%, transparent 100%);
+    opacity: 0.55;
+  }
+  .hr-cloth {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    border-radius: 2px;
+    border: 2px solid currentColor;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .hr-card {
+    position: relative;
+    border: 1px solid var(--color-line);
+    border-top: 3px solid var(--color-hr-claret);
+    border-radius: 2px;
+    background: var(--color-canvas);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .hr-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(14, 21, 18, 0.14);
+  }
+  .hr-night {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(120% 90% at 50% -15%, #1d3b2c 0%, #12241c 55%, #0a120e 100%);
+  }
+  .hr-night::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(88deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 7px),
+      repeating-linear-gradient(92deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 11px);
+  }
+  .hr-cta-solid { color: #ffffff; }
+  .hr-on-dark .hr-cta-solid { color: #12080c; }
+
+  /* ---- Casino: card flip (the rest of the casino block survived) -------- */
+  .cs-flip { perspective: 1200px; }
+  .cs-flip-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cs-flip-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .cs-flip-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+  }
+
+  /* ---- Soccer: ball panels + pitch ------------------------------------- */
+  .sc-hex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 58px;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-fg);
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-line-strong);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  .sc-hex-fill {
+    background: var(--color-sc-pitch);
+    border-color: transparent;
+    color: #fff;
+  }
+  .sc-stripes {
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-sc-pitch) 7%, transparent) 0 44px,
+      transparent 44px 88px
+    );
+  }
+  .sc-night {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 50% -12%, rgba(63, 187, 109, 0.18) 0%, transparent 58%),
+      linear-gradient(180deg, #0b2a19 0%, #06170e 68%, #041009 100%);
+  }
+  .sc-night::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 44px, transparent 44px 88px);
+  }
+  .sc-card {
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-sc-pitch);
+    background: var(--color-canvas);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-left-color 0.25s ease;
+  }
+  .sc-card:hover {
+    transform: translateY(-3px);
+    border-left-color: var(--color-sc-lime);
+    box-shadow: 0 16px 34px rgba(6, 23, 14, 0.16);
+  }
+  .sc-cta-solid { color: #ffffff; }
+  .sc-on-dark .sc-cta-solid { color: #04140b; }
+
+  /* ---- Badminton: shuttle, hall, 3D tilt ------------------------------- */
+  .bd-cork {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 9999px;
+    border: 2px solid var(--color-bd-cork);
+    background: color-mix(in oklab, var(--color-bd-cork) 12%, transparent);
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-bd-cork);
+  }
+  .bd-hall {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(100% 70% at 50% -8%, rgba(11, 111, 128, 0.30) 0%, transparent 60%),
+      linear-gradient(180deg, #12134a 0%, #0a0b1f 62%, #07081a 100%);
+  }
+  .bd-hall::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(closest-side, rgba(255, 255, 255, 0.07), transparent),
+      radial-gradient(closest-side, rgba(255, 255, 255, 0.05), transparent);
+    background-size: 42% 55%, 34% 45%;
+    background-position: 18% 0%, 78% 12%;
+    background-repeat: no-repeat;
+  }
+  .bd-shuttle { perspective: 760px; }
+  .bd-shuttle-spin {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: bd-spin 14s linear infinite;
+  }
+  .bd-feather {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform-origin: 50% 100%;
+    backface-visibility: visible;
+  }
+  .bd-float { animation: bd-float 6s ease-in-out infinite; }
+  .bd-tilt { perspective: 900px; }
+  .bd-tilt-inner {
+    transform-style: preserve-3d;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .bd-tilt-lift { transform: translateZ(26px); }
+  .bd-card {
+    border-radius: 6px;
+    border: 1px solid var(--color-line);
+    background: linear-gradient(158deg, var(--color-surface-1), var(--color-canvas));
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .bd-tilt:hover .bd-card {
+    border-color: color-mix(in oklab, var(--color-bd-cyan) 50%, transparent);
+    box-shadow: 0 24px 48px rgba(10, 11, 31, 0.28);
+  }
+  .bd-cta-solid { color: #ffffff; }
+  .bd-on-dark .bd-cta-solid { color: #05121a; }
+}
+
+@keyframes bd-spin {
+  from { transform: rotateX(-14deg) rotateY(0deg); }
+  to   { transform: rotateX(-14deg) rotateY(360deg); }
+}
+
+@keyframes bd-float {
+  0%, 100% { transform: translateY(-6px); }
+  50%      { transform: translateY(10px); }
+}
+
+@keyframes bb-run-in {
+  from { transform: scaleY(0.2); opacity: 0.3; }
+  to   { transform: scaleY(1);   opacity: 1; }
+}
+
+.bb-run > span {
+  transform-origin: bottom;
+  animation: bb-run-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ==========================================================================
+   PHONE LAYER — swipe rails and the hero copy spill
+   ========================================================================== */
+
+.rail {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.rail::-webkit-scrollbar { display: none; }
+
+@media (width < 40rem) {
+  .rail-cards > * { width: var(--rail-card, 78%); }
+  .rail { scroll-padding-left: 1rem; }
+
+  h1, h2 {
+    letter-spacing: -0.035em;
+    overflow-wrap: break-word;
+  }
+
+  main > section:not([data-hero]),
+  main > div > section:not([data-hero]) {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .hero-spill {
+    order: 9999;
+    margin-inline: -1rem;
+    margin-top: 1.75rem;
+    padding: 1.5rem 1rem 0.25rem;
+    --color-fg: #0d1b2a;
+    --color-fg-muted: #4a5f7d;
+    --color-fg-dim: #5e7290;
+    --color-line: rgba(0, 47, 94, 0.13);
+    --color-line-strong: rgba(0, 47, 94, 0.22);
+    --color-canvas: #ffffff;
+    --color-surface-1: #f5f8fc;
+    background: var(--color-surface-1);
+    border-top: 1px solid var(--color-line);
+    color: var(--color-fg-muted);
+  }
+  .hero-spill:last-child { padding-bottom: 1.75rem; }
+  .hero-spill p { color: var(--color-fg-muted); }
+  .hero-spill p:first-child { color: var(--color-fg); }
+}
+
+@media (width < 48rem) {
+  body { padding-bottom: calc(4rem + env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bd-shuttle-spin,
+  .bd-float,
+  .bb-run > span { animation: none; }
+  .bd-tilt-inner,
+  .cs-flip-inner { transition: none; }
+}
+
+
+/* ==========================================================================
+   RESTORED — FOOTBALL SYSTEM + SHARED DISPLAY CLASSES
+   Also lost when the theme block was consolidated. `.watermark` and `.fb-num`
+   both render the section index, so with neither defined the football heads
+   printed the number twice as plain text.
+   ========================================================================== */
+
+@layer components {
+
+  /* Oversized ghost index sitting behind a section head. */
+  .watermark {
+    position: absolute;
+    top: -0.12em;
+    right: 0;
+    z-index: 0;
+    font-family: var(--font-display), var(--font-sans);
+    font-size: clamp(6rem, 16vw, 14rem);
+    font-weight: 800;
+    line-height: 0.78;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(0, 47, 94, 0.07);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Hover lift shared by card grids. */
+  .lift {
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 44px rgba(0, 47, 94, 0.13);
+  }
+
+  /* Navy feature slab with a faint grid, masked so it fades inward. */
+  .feature-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    color: #fff;
+    background:
+      radial-gradient(120% 100% at 100% 0%, #0d3d6b 0%, #06294a 55%, #041c34 100%);
+  }
+  .feature-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(90% 80% at 80% 0%, #000 0%, transparent 78%);
+    mask-image: radial-gradient(90% 80% at 80% 0%, #000 0%, transparent 78%);
+  }
+  .feature-panel-accent {
+    background:
+      radial-gradient(120% 100% at 100% 0%, #126b4a 0%, #0a4a33 55%, #063324 100%);
+  }
+
+  /* Large stat/figure display. */
+  .figure-hero {
+    font-family: var(--font-mono);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-fg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Football: shirt numbers and pitch furniture --------------------- */
+
+  /* Head runs horizontally: shirt square, then kicker over title. */
+  .fb-head {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  /* The shirt number. Squared off, heavy, mono — a squad sheet, not a chip. */
+  .fb-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 58px;
+    min-height: 58px;
+    border-radius: 4px;
+    background: var(--color-brand-500);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    box-shadow: 0 8px 20px rgba(0, 122, 204, 0.24);
+  }
+
+  /* Alternate strip. */
+  .fb-num-alt {
+    background: var(--color-fg);
+    box-shadow: 0 8px 20px rgba(13, 27, 42, 0.22);
+  }
+
+  /* Mown pitch stripes for the hero ground. */
+  .fb-stripes {
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(0, 122, 204, 0.05) 0 56px,
+      transparent 56px 112px
+    );
+  }
+
+  /* Minute marker — the clock bug from a broadcast. */
+  .fb-min {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: var(--color-fg);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* Heavy divider under a block. */
+  .fb-rule {
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(
+      to right,
+      var(--color-brand-500) 0%,
+      var(--color-brand-500) 18%,
+      var(--color-line) 18%,
+      var(--color-line) 100%
+    );
+  }
+
+  /* Booking cards. */
+  .fb-card {
+    display: inline-block;
+    width: 11px;
+    height: 15px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(13, 27, 42, 0.28);
+  }
+  .fb-card-y { background: #e8b32a; }
+  .fb-card-r { background: #c8341f; }
+}
