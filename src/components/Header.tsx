@@ -25,8 +25,10 @@ import {
   ShieldCheck,
   LifeBuoy,
   Zap,
+  HomeIcon,
 } from 'lucide-react';
 import { soundFX } from '@/lib/audio';
+import Home from '@/app/page';
 
 interface HeaderProps {
   onOpenAuth?: () => void;
@@ -79,20 +81,18 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const primaryNavLinks: NavLink[] = [
+    { href: '/', label: 'Home', icon:HomeIcon  },
+    { href: '/about', label: 'About', icon: Gamepad2 },
     { href: '/sports', label: 'Sports', icon: Trophy },
     { href: '/cricket', label: 'Cricket', icon: Target },
     { href: '/football', label: 'Football', icon: Goal },
-    { href: '/soccer', label: 'Soccer', icon: Goal },
     { href: '/tennis', label: 'Tennis', icon: Zap },
     { href: '/basketball', label: 'Basketball', icon: Percent },
-    { href: '/horse-racing', label: 'Racing', icon: Crown },
     { href: '/badminton', label: 'Badminton', icon: Feather },
     { href: '/online-casino', label: 'Casino', icon: Dice5 },
-    { href: '/about', label: 'About', icon: Gamepad2 },
   ];
 
-  // No second /about entry: the drawer keys on href, and primaryNavLinks
-  // already carries it — a duplicate key makes React drop or double the row.
+  
   const allNavLinks: NavLink[] = [
     ...primaryNavLinks,
     { href: '/provably-fair', label: 'Provably Fair', icon: ShieldCheck },
@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-1.5 hover:text-fg transition-colors whitespace-nowrap"
               >
                 <Smartphone className="w-3.5 h-3.5 text-brand-600" />
-                <span>iOS &amp; Android App</span>
+               <a href="#app"> <span>iOS &amp; Android App</span></a>
               </Link>
               <Link
                 href="/provably-fair"

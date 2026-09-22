@@ -126,8 +126,6 @@ export default function Home() {
       {/* 3. Full-Width Sports & In-Play Live Match Odds Center */}
     
 
-      {/* 4. Popular Games Grid */}
-      <FeaturedGrid onSelectGame={setTheaterGame} />
 
       {/* 5. Dynamic Category Browser */}
       <CategoryBrowser onSelectGame={setTheaterGame} />
