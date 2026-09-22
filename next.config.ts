@@ -1,22 +1,21 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import type { NextConfig } from "next";
 
-export function middleware(request: NextRequest) {
-  const hostname = request.headers.get("host") || "";
-
-  if (
-    hostname === "1xbetgames.co" ||
-    hostname === "1xbetgames.co:443"
-  ) {
-    const url = request.nextUrl.clone();
-    url.hostname = "www.1xbetgames.co";
-
-    return NextResponse.redirect(url, 301);
-  }
-
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: "/:path*",
+const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "1xbetgames.co",
+          },
+        ],
+        destination: "https://www.1xbetgames.co/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
+
+export default nextConfig;
