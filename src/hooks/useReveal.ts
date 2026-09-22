@@ -16,18 +16,6 @@ interface RevealOptions {
   immediate?: boolean;
 }
 
-/**
- * Scroll-triggered reveal built on gsap.context().
- *
- * Two things matter here and are easy to get wrong:
- *
- * 1. Nothing is rendered hidden in the server HTML. The `from` state is applied
- *    by GSAP after mount, so if JS never runs — or the tab is backgrounded and
- *    rAF is suspended — the content is simply visible. Setting opacity:0 in SSR
- *    markup risks shipping an invisible page.
- * 2. `ctx.revert()` on unmount kills the tweens, restores inline styles and
- *    disposes the ScrollTriggers, so route changes don't leak instances.
- */
 export function useReveal<T extends HTMLElement = HTMLDivElement>(
   options: RevealOptions = {}
 ) {
@@ -49,9 +37,6 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
     // Reduced motion: leave the DOM untouched and animate nothing.
     if (prefersReducedMotion()) return;
 
-    // If the tab is backgrounded at mount, requestAnimationFrame is suspended
-    // and GSAP never advances — anything hidden here would stay hidden. Skip
-    // animating entirely; the user isn't looking, and the content stays visible.
     if (document.visibilityState === 'hidden') return;
 
     const ctx = gsap.context(() => {
