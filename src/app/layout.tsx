@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/1xbet.svg",
   },
+  verification: {
+    google: "mmvP9t_z162pvkaFlg_UogH7p0dV3adOYy3paBVfhf0",
+  },
 };
 
 // Left over from the dark build. On a phone this tints the browser chrome
