@@ -42,8 +42,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Left over from the dark build. On a phone this tints the browser chrome
-// near-black above a white page and makes the OS render form controls dark.
+
 export const viewport: Viewport = {
   themeColor: "#ffffff",
   colorScheme: "light",
