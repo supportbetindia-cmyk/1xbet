@@ -131,9 +131,9 @@ export const Footer: React.FC = () => {
             <p>
               © {new Date().getFullYear()} 1xBet Interactive. Play responsibly.
             </p>
-            <p>
+             <a target='_blank' href='https://digivanta.co'>
               Designed by <span className="font-medium text-fg-muted">Digivanta</span>
-            </p>
+           </a>
           </div>
         </div>
 
