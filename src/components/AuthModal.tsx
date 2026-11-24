@@ -40,7 +40,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [selectedBonus, setSelectedBonus] = useState<'casino' | 'sports' | 'none'>('casino');
   const [promoCode, setPromoCode] = useState<string>('1XBONUS');
   const [country, setCountry] = useState<string>('Germany');
-  const [currency, setCurrency] = useState<string>('EUR (€)');
+  const [currency, setCurrency] = useState<string>('INR (₹)');
 
   const [loginUser, setLoginUser] = useState<string>('User_884920');
   const [loginPass, setLoginPass] = useState<string>('');
@@ -161,7 +161,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                           onChange={(e) => setCurrency(e.target.value)}
                           className={`${fieldCls} mt-1.5 cursor-pointer`}
                         >
-                          <option>EUR (€)</option>
+                          <option>INR (₹)</option>
                           <option>USD ($)</option>
                           <option>USDT (₮)</option>
                           <option>BTC (₿)</option>
@@ -258,14 +258,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       id: 'casino' as const,
                       icon: Gift,
                       tag: 'Casino + 1xGames',
-                      title: '100% up to €1,500 + 150 FS',
+                      title: '100% up to ₹1,30,000 + 150 FS',
                       body: 'Valid on Aviator, Gates of Olympus, and all 1xOriginals.',
                     },
                     {
                       id: 'sports' as const,
                       icon: ShieldCheck,
                       tag: 'Sports betting',
-                      title: '100% up to €100',
+                      title: '100% up to ₹9,000',
                       body: 'On first deposit with minimum 3 accumulator legs.',
                     },
                   ].map((b) => {

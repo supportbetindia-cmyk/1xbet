@@ -7,10 +7,10 @@ import type { Metadata } from 'next';
  */
 export const metadata: Metadata = {
   title: {
-    absolute: 'Online Sports Betting | Live Sports Betting & Odds | 1xBet',
+    absolute: "Online Sports Betting Platform | Sports Betting Games | 1xBet",
   },
   description:
-    'Explore online sports betting on 1xBet with live sports betting, football, cricket, tennis, basketball, esports and available betting markets.',
+    "Explore online sports betting with 1xBet. Discover exciting sports betting games, check the latest odds, and enjoy a user-friendly online sports betting platform.",
 };
 
 export default function SportsLayout({

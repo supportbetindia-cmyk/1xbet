@@ -15,6 +15,14 @@ import {
 import { Currency, CrashBet } from '@/lib/types';
 import { soundFX } from '@/lib/audio';
 
+// Crypto codes have no single-glyph symbol, so they fall through to the
+// `currency + ' '` branch in formatCur rather than getting an entry here.
+const CURRENCY_SYMBOL: Partial<Record<Currency, string>> = {
+  INR: '₹',
+  USD: '$',
+  EUR: '€',
+};
+
 interface CrashGameProps {
   balance: number;
   currency: Currency;
@@ -423,7 +431,7 @@ export const CrashGame: React.FC<CrashGameProps> = ({
   ]);
 
   const formatCur = (num: number) =>
-    `${currency === 'USD' ? '$' : currency === 'EUR' ? '€' : currency + ' '}${num.toFixed(2)}`;
+    `${CURRENCY_SYMBOL[currency] ?? currency + ' '}${num.toFixed(2)}`;
 
   // ==========================================
   // TRAJECTORY & PLANE POSITIONING MATH (SVG %)
@@ -810,7 +818,7 @@ export const CrashGame: React.FC<CrashGameProps> = ({
                   </span>
                   Bet Panel 1
                 </span>
-                <span className="text-[11px] font-mono text-ink-500">Min $1.00</span>
+                <span className="text-[11px] font-mono text-ink-500">Min ₹100</span>
               </div>
 
               {/* Stake input */}
@@ -936,7 +944,7 @@ export const CrashGame: React.FC<CrashGameProps> = ({
                     </span>
                     Bet Panel 2
                   </span>
-                  <span className="text-[11px] font-mono text-ink-500">Min $1.00</span>
+                  <span className="text-[11px] font-mono text-ink-500">Min ₹100</span>
                 </div>
 
                 <div className="relative">

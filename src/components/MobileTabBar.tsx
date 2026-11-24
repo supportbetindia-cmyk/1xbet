@@ -9,9 +9,9 @@ import { soundFX } from '@/lib/audio';
 
 const TABS = [
   { href: '/', label: 'Home', icon: Home },
-  { href: '/sports', label: 'Sports', icon: Trophy },
+  { href: '/sports-betting', label: 'Sports', icon: Trophy },
   { href: '/casino', label: 'Casino', icon: Dice5 },
-  { href: '/1xgames', label: '1xGames', icon: Zap },
+  { href: '/1xgames-online', label: '1xGames', icon: Zap },
 ] as const;
 
 /**

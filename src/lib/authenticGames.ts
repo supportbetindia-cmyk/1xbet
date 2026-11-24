@@ -340,12 +340,12 @@ export interface RealBetItem {
 }
 
 export const INITIAL_REAL_BETS: RealBetItem[] = [
-  { id: 'b-101', gameTitle: 'Aviator 1xPro', gameIcon: '✈️', user: 'Pilot_Alex', time: '1s ago', betAmount: 50.00, multiplier: 4.85, payout: 242.50, isWin: true, currency: 'USD' },
-  { id: 'b-102', gameTitle: 'Gates of Olympus', gameIcon: '⚡', user: 'Zeus_Winner', time: '3s ago', betAmount: 20.00, multiplier: 125.00, payout: 2500.00, isWin: true, currency: 'USD' },
+  { id: 'b-101', gameTitle: 'Aviator 1xPro', gameIcon: '✈️', user: 'Pilot_Alex', time: '1s ago', betAmount: 50.00, multiplier: 4.85, payout: 242.50, isWin: true, currency: 'INR' },
+  { id: 'b-102', gameTitle: 'Gates of Olympus', gameIcon: '⚡', user: 'Zeus_Winner', time: '3s ago', betAmount: 20.00, multiplier: 125.00, payout: 2500.00, isWin: true, currency: 'INR' },
   { id: 'b-103', gameTitle: '1xMines Grid', gameIcon: '💎', user: 'Crypto_Satoshi', time: '6s ago', betAmount: 100.00, multiplier: 0.00, payout: 0.00, isWin: false, currency: 'USDT' },
-  { id: 'b-104', gameTitle: 'Wanted Dead or a Wild', gameIcon: '🤠', user: 'Vortex_99', time: '8s ago', betAmount: 10.00, multiplier: 320.00, payout: 3200.00, isWin: true, currency: 'USD' },
-  { id: 'b-105', gameTitle: '1xPlinko Ultra', gameIcon: '⚪', user: 'Lucky_Drop', time: '11s ago', betAmount: 25.00, multiplier: 29.00, payout: 725.00, isWin: true, currency: 'USD' },
-  { id: 'b-106', gameTitle: 'Crazy Time Live', gameIcon: '🎡', user: 'HighRoller_K', time: '14s ago', betAmount: 500.00, multiplier: 10.00, payout: 5000.00, isWin: true, currency: 'EUR' },
-  { id: 'b-107', gameTitle: 'Tombstone RIP', gameIcon: '⚰️', user: 'Nolimit_Fan', time: '17s ago', betAmount: 2.00, multiplier: 1200.00, payout: 2400.00, isWin: true, currency: 'USD' },
-  { id: 'b-108', gameTitle: 'Sweet Bonanza 1000', gameIcon: '🍭', user: 'Sugar_Queen', time: '20s ago', betAmount: 40.00, multiplier: 18.50, payout: 740.00, isWin: true, currency: 'USD' },
+  { id: 'b-104', gameTitle: 'Wanted Dead or a Wild', gameIcon: '🤠', user: 'Vortex_99', time: '8s ago', betAmount: 10.00, multiplier: 320.00, payout: 3200.00, isWin: true, currency: 'INR' },
+  { id: 'b-105', gameTitle: '1xPlinko Ultra', gameIcon: '⚪', user: 'Lucky_Drop', time: '11s ago', betAmount: 25.00, multiplier: 29.00, payout: 725.00, isWin: true, currency: 'INR' },
+  { id: 'b-106', gameTitle: 'Crazy Time Live', gameIcon: '🎡', user: 'HighRoller_K', time: '14s ago', betAmount: 500.00, multiplier: 10.00, payout: 5000.00, isWin: true, currency: 'INR' },
+  { id: 'b-107', gameTitle: 'Tombstone RIP', gameIcon: '⚰️', user: 'Nolimit_Fan', time: '17s ago', betAmount: 2.00, multiplier: 1200.00, payout: 2400.00, isWin: true, currency: 'INR' },
+  { id: 'b-108', gameTitle: 'Sweet Bonanza 1000', gameIcon: '🍭', user: 'Sugar_Queen', time: '20s ago', betAmount: 40.00, multiplier: 18.50, payout: 740.00, isWin: true, currency: 'INR' },
 ];

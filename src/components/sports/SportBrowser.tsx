@@ -34,7 +34,7 @@ const SPORTS: Sport[] = [
       'Football markets can change as match conditions develop, particularly where live betting is available.',
       'The availability of leagues, matches and markets can vary according to location and platform coverage.',
     ],
-    cta: { label: 'Explore Football Betting', href: '/football' },
+    cta: { label: 'Explore Football Betting', href: '/football-betting' },
     note: 'Markets shift with match conditions where live betting is offered.',
   },
   {
@@ -50,7 +50,7 @@ const SPORTS: Sport[] = [
       'Different cricket formats and competitions can have different markets. Live cricket markets may also be available for selected matches, with options changing as the game progresses.',
       'For detailed cricket-related information, users can explore the dedicated cricket section.',
     ],
-    cta: { label: 'Explore Cricket Betting', href: '/cricket' },
+    cta: { label: 'Explore Cricket Betting', href: '/cricket-betting' },
     note: 'Formats differ — the markets for a T20 need not match a Test.',
   },
   {

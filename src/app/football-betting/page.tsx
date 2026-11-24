@@ -557,7 +557,7 @@ export default function FootballPage() {
                   Register
                 </button>
                 <Link
-                  href="/sports"
+                  href="/sports-betting"
                   className="inline-flex min-h-[52px] items-center rounded-[6px] border-[3px] border-fg px-7
                              text-[15px] font-extrabold text-fg transition-all hover:bg-fg hover:text-canvas
                              focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"

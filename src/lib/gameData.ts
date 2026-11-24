@@ -38,7 +38,7 @@ export const FEATURED_GAMES: GameItem[] = [
     provider: 'Pragmatic 1x',
     rtp: '96.8%',
     volatility: 'High',
-    jackpot: '$2,489,120.45',
+    jackpot: '₹24,89,120.45',
     image: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%)',
     badge: 'MEGA JACKPOT',
     isHot: true,
@@ -84,7 +84,7 @@ export const FEATURED_GAMES: GameItem[] = [
     provider: 'Pragmatic 1x',
     rtp: '96.5%',
     volatility: 'Very High',
-    jackpot: '$940,300.00',
+    jackpot: '₹9,40,300.00',
     image: 'linear-gradient(135deg, #78350f 0%, #d97706 50%, #fbbf24 100%)',
     badge: '1000x MULTIS',
     isHot: true,
@@ -130,7 +130,7 @@ export const FEATURED_GAMES: GameItem[] = [
     provider: 'Pragmatic 1x',
     rtp: '96.6%',
     volatility: 'High',
-    jackpot: '$512,900.10',
+    jackpot: '₹5,12,900.10',
     image: 'linear-gradient(135deg, #881337 0%, #e11d48 50%, #fb7185 100%)',
     badge: 'FREE SPINS',
     isHot: false,
@@ -187,13 +187,13 @@ export const FEATURED_GAMES: GameItem[] = [
 ];
 
 export const LIVE_WINS_FEED: LiveWin[] = [
-  { id: 'w1', player: 'Alex***7', avatar: '⚡', game: '1xCrash: Neon Orbit', bet: '$50.00', multiplier: '28.45x', payout: '$1,422.50', time: '1s ago', currency: 'USD' },
-  { id: 'w2', player: 'Cyber***9', avatar: '👑', game: 'Gates of 1xOlympus', bet: '$20.00', multiplier: '500.00x', payout: '$10,000.00', time: '4s ago', currency: 'USD' },
+  { id: 'w1', player: 'Alex***7', avatar: '⚡', game: '1xCrash: Neon Orbit', bet: '₹50.00', multiplier: '28.45x', payout: '₹1,422.50', time: '1s ago', currency: 'INR' },
+  { id: 'w2', player: 'Cyber***9', avatar: '👑', game: 'Gates of 1xOlympus', bet: '₹20.00', multiplier: '500.00x', payout: '₹10,000.00', time: '4s ago', currency: 'INR' },
   { id: 'w3', player: 'Vortex***X', avatar: '🚀', game: 'Plinko Turbo Ultra', bet: '0.005 BTC', multiplier: '130.00x', payout: '0.650 BTC', time: '8s ago', currency: 'BTC' },
-  { id: 'w4', player: 'Elena***2', avatar: '💎', game: 'Quantum 1xMegaways', bet: '$100.00', multiplier: '45.20x', payout: '$4,520.00', time: '12s ago', currency: 'USD' },
+  { id: 'w4', player: 'Elena***2', avatar: '💎', game: 'Quantum 1xMegaways', bet: '₹100.00', multiplier: '45.20x', payout: '₹4,520.00', time: '12s ago', currency: 'INR' },
   { id: 'w5', player: 'Satoshi***K', avatar: '🎯', game: '1xMines: Cyber Grid', bet: '150 USDT', multiplier: '18.90x', payout: '2,835 USDT', time: '15s ago', currency: 'USDT' },
-  { id: 'w6', player: 'Lucky***8', avatar: '🍀', game: 'Cyber Wheel VIP', bet: '$10.00', multiplier: '250.00x', payout: '$2,500.00', time: '19s ago', currency: 'USD' },
-  { id: 'w7', player: 'MaxBet***1', avatar: '🔥', game: '1xCrash: Neon Orbit', bet: '$200.00', multiplier: '14.80x', payout: '$2,960.00', time: '23s ago', currency: 'USD' },
+  { id: 'w6', player: 'Lucky***8', avatar: '🍀', game: 'Cyber Wheel VIP', bet: '₹10.00', multiplier: '250.00x', payout: '₹2,500.00', time: '19s ago', currency: 'INR' },
+  { id: 'w7', player: 'MaxBet***1', avatar: '🔥', game: '1xCrash: Neon Orbit', bet: '₹200.00', multiplier: '14.80x', payout: '₹2,960.00', time: '23s ago', currency: 'INR' },
   { id: 'w8', player: 'Night***0', avatar: '🐺', game: 'Neon Live Roulette', bet: '0.02 ETH', multiplier: '36.00x', payout: '0.72 ETH', time: '27s ago', currency: 'ETH' }
 ];
 
@@ -206,7 +206,7 @@ export const VIP_TIERS: VIPTier[] = [
     maxXP: 1000,
     cashback: '5%',
     rakeback: '2%',
-    levelBonus: '$10 Cash',
+    levelBonus: '₹1,000 Cash',
     benefits: ['Daily Lucky Spin', 'Standard Support', 'Instant Crypto Withdrawals']
   },
   {
@@ -217,7 +217,7 @@ export const VIP_TIERS: VIPTier[] = [
     maxXP: 5000,
     cashback: '8%',
     rakeback: '4%',
-    levelBonus: '$50 Cash + 50 FS',
+    levelBonus: '₹5,000 Cash + 50 FS',
     benefits: ['2x Daily Wheel Spins', 'Priority Withdrawal Queue', 'Weekly Reload Bonus']
   },
   {
@@ -228,7 +228,7 @@ export const VIP_TIERS: VIPTier[] = [
     maxXP: 20000,
     cashback: '12%',
     rakeback: '7%',
-    levelBonus: '$250 Cash + 100 FS',
+    levelBonus: '₹25,000 Cash + 100 FS',
     benefits: ['Dedicated VIP Host', 'Higher Bet Limits', 'Zero Deposit Fees', 'Birthday Gift']
   },
   {
@@ -239,7 +239,7 @@ export const VIP_TIERS: VIPTier[] = [
     maxXP: 100000,
     cashback: '16%',
     rakeback: '10%',
-    levelBonus: '$1,000 Crypto Drop',
+    levelBonus: '₹1,00,000 Crypto Drop',
     benefits: ['Custom VIP Tournaments', 'Personal Concierge 24/7', 'Luxury Merchandise']
   },
   {
@@ -250,7 +250,7 @@ export const VIP_TIERS: VIPTier[] = [
     maxXP: 500000,
     cashback: '22%',
     rakeback: '15%',
-    levelBonus: '$5,000 All-Access Pass',
+    levelBonus: '₹5,00,000 All-Access Pass',
     benefits: ['Exclusive Supercar Giveaways', 'No Max Withdrawal Cap', 'Custom Table Limits']
   }
 ];
@@ -259,7 +259,7 @@ export const DAILY_QUESTS: Quest[] = [
   {
     id: 'q1',
     title: 'Cosmic Pilot',
-    description: 'Play 5 rounds of 1xCrash with minimum $1 bet',
+    description: 'Play 5 rounds of 1xCrash with minimum ₹100 bet',
     reward: '25 Free Spins',
     xpReward: 150,
     progress: 3,
@@ -271,7 +271,7 @@ export const DAILY_QUESTS: Quest[] = [
     id: 'q2',
     title: 'Wheel Master',
     description: 'Spin the Daily Lucky Wheel once today',
-    reward: '$10 Instant Bonus',
+    reward: '₹1,000 Instant Bonus',
     xpReward: 200,
     progress: 1,
     target: 1,
@@ -282,7 +282,7 @@ export const DAILY_QUESTS: Quest[] = [
     id: 'q3',
     title: 'Slot Explorer',
     description: 'Hit a 20x or higher multiplier on any Slot game',
-    reward: '$50 VIP Credits',
+    reward: '₹5,000 VIP Credits',
     xpReward: 300,
     progress: 1,
     target: 1,
@@ -292,7 +292,7 @@ export const DAILY_QUESTS: Quest[] = [
   {
     id: 'q4',
     title: 'High Roller Challenge',
-    description: 'Wager a total of $500 across any 1xGames',
+    description: 'Wager a total of ₹50,000 across any 1xGames',
     reward: 'Level Up Mystery Box',
     xpReward: 500,
     progress: 340,

@@ -83,13 +83,13 @@ export const Header: React.FC<HeaderProps> = ({
   const primaryNavLinks: NavLink[] = [
     { href: '/', label: 'Home', icon:HomeIcon  },
     { href: '/about', label: 'About', icon: Gamepad2 },
-    { href: '/sports', label: 'Sports', icon: Trophy },
-    { href: '/cricket', label: 'Cricket', icon: Target },
-    { href: '/football', label: 'Football', icon: Goal },
-    { href: '/tennis', label: 'Tennis', icon: Zap },
-    { href: '/basketball', label: 'Basketball', icon: Percent },
-    { href: '/badminton', label: 'Badminton', icon: Feather },
-    { href: '/online-casino', label: 'Casino', icon: Dice5 },
+    { href: '/sports-betting', label: 'Sports', icon: Trophy },
+    { href: '/cricket-betting', label: 'Cricket', icon: Target },
+    { href: '/football-betting', label: 'Football', icon: Goal },
+    { href: '/tennis-betting', label: 'Tennis', icon: Zap },
+    { href: '/basketball-betting', label: 'Basketball', icon: Percent },
+    { href: '/badminton-betting', label: 'Badminton', icon: Feather },
+    { href: '/online-casino-games', label: 'Casino', icon: Dice5 },
   ];
 
   
@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-1.5 hover:text-fg transition-colors whitespace-nowrap"
               >
                 <Smartphone className="w-3.5 h-3.5 text-brand-600" />
-               <a href="#app"> <span>iOS &amp; Android App</span></a>
+                <span>iOS &amp; Android App</span>
               </Link>
               <Link
                 href="/provably-fair"

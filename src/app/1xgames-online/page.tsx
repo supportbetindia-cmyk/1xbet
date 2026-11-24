@@ -162,7 +162,7 @@ export default function OneXGamesPage() {
         {/* Interactive Crash Flight Arena */}
         <CrashGame
           balance={1250}
-          currency="USD"
+          currency="INR"
           onUpdateBalance={() => {}}
           onOpenDeposit={() => openAuth()}
         />
@@ -198,7 +198,7 @@ export default function OneXGamesPage() {
         isOpen={!!activeTheaterGame}
         onClose={() => setActiveTheaterGame(null)}
         balance={1250}
-        currency="USD"
+        currency="INR"
         onUpdateBalance={() => {}}
         onOpenDeposit={() => openAuth()}
       />

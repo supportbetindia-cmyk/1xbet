@@ -136,7 +136,7 @@ export default function CasinoPage() {
         isOpen={!!activeTheaterGame}
         onClose={() => setActiveTheaterGame(null)}
         balance={1250}
-        currency="USD"
+        currency="INR"
         onUpdateBalance={() => {}}
         onOpenDeposit={() => openAuth()}
       />

@@ -517,7 +517,7 @@ export default function Home() {
         isOpen={!!theaterGame}
         onClose={() => setTheaterGame(null)}
         balance={1250}
-        currency="USD"
+        currency="INR"
         onUpdateBalance={() => {}}
         onOpenDeposit={openAuth}
       />

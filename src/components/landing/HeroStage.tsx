@@ -33,7 +33,7 @@ const CATEGORY_HUBS = [
     sub: 'Live & Pre-Match',
     badge: '1,420+ LIVE',
     badgeTone: 'rose',
-    href: '/sports',
+    href: '/sports-betting',
     icon: Trophy,
     iconColor: 'text-brand-500 bg-brand-500/10',
     neonColor: '#007acc',
@@ -64,7 +64,7 @@ const CATEGORY_HUBS = [
     id: 'tournaments',
     label: 'Tournaments',
     sub: 'Daily Leaderboards',
-    badge: '$250K POOL',
+    badge: '₹2 CRORE POOL',
     badgeTone: 'amber',
     href: '/promotions',
     icon: Flame,
@@ -189,9 +189,12 @@ export const HeroStage: React.FC<HeroStageProps> = () => {
               data-h="title"
               className="mt-5 text-[clamp(2.6rem,7vw,5.2rem)] uppercase"
             >
-              <span className="block">Sports betting,</span>
-              <span className="block">games &amp;</span>
-              <span className="block text-brand-600">mobile access</span>
+              {/* Trailing {' '} on each line is load-bearing: JSX strips the
+                  newline between sibling spans, so without it crawlers and
+                  screen readers read "Sports betting,online casino& games". */}
+              <span className="block">Sports betting,{' '}</span>
+              <span className="block">online casino{' '}</span>
+              <span className="block text-brand-600">&amp; games</span>
             </h1>
 
             <p

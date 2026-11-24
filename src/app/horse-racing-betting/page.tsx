@@ -690,7 +690,7 @@ export default function HorseRacingPage() {
 
           <div className="grid grid-cols-2 gap-2.5 pt-2 sm:flex sm:flex-wrap sm:gap-3">
             <Cta href="#markets" solid>Explore Horse Racing</Cta>
-            <Cta href="/sports">Explore Sports</Cta>
+            <Cta href="/sports-betting">Explore Sports</Cta>
           </div>
         </div>
       </Sec>

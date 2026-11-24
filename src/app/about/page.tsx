@@ -20,17 +20,17 @@ const SPORT_LIST = [
 ];
 
 const SPORTS: { name: string; body: string; colour: string; href: string }[] = [
-  { name: 'Cricket', colour: '#0a7d54', href: '/cricket',
+  { name: 'Cricket', colour: '#0a7d54', href: '/cricket-betting',
     body: 'Explore available cricket matches and markets across supported competitions and formats.' },
-  { name: 'Football & Soccer', colour: '#007acc', href: '/football',
+  { name: 'Football & Soccer', colour: '#007acc', href: '/football-betting',
     body: 'Browse available football and soccer fixtures, competitions and markets, including selected live events where supported.' },
-  { name: 'Tennis', colour: '#1866ab', href: '/tennis',
+  { name: 'Tennis', colour: '#1866ab', href: '/tennis-betting',
     body: 'Follow available tennis matches and tournaments and review the markets offered for individual fixtures.' },
-  { name: 'Basketball', colour: '#b64d1a', href: '/basketball',
+  { name: 'Basketball', colour: '#b64d1a', href: '/basketball-betting',
     body: 'Browse available basketball games and competitions and check the markets and current information provided for each event.' },
-  { name: 'Badminton', colour: '#0b82e0', href: '/sports',
+  { name: 'Badminton', colour: '#0b82e0', href: '/sports-betting',
     body: 'Explore available badminton matches and supported markets across selected competitions.' },
-  { name: 'Horse Racing', colour: '#8e1f38', href: '/horse-racing',
+  { name: 'Horse Racing', colour: '#8e1f38', href: '/horse-racing-betting',
     body: 'Browse supported racing events and review the markets and information available for individual races.' },
 ];
 
@@ -269,7 +269,7 @@ export default function AboutPage() {
 
           <div data-a="cta" className="mt-7 grid grid-cols-2 gap-2.5 [&>a]:justify-center sm:mt-8 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
             <Cta href="#categories" solid>Explore 1xBet</Cta>
-            <Cta href="/sports" dark>Explore Sports</Cta>
+            <Cta href="/sports-betting" dark>Explore Sports</Cta>
           </div>
 
           {/* Supported sports, centred under the copy rather than in a side panel */}
@@ -336,7 +336,7 @@ export default function AboutPage() {
                   Each event can have its own markets, odds and availability. Users should check the
                   individual event page for the latest information.
                 </p>
-                <div className="mt-auto pt-6"><Cta href="/sports">Explore Sports Betting</Cta></div>
+                <div className="mt-auto pt-6"><Cta href="/sports-betting">Explore Sports Betting</Cta></div>
               </div>
             </div>
           </NeonBorder>
@@ -366,7 +366,7 @@ export default function AboutPage() {
                 </p>
                 <div className="mt-auto pt-6">
                   <Link
-                    href="/sports#live"
+                    href="/sports-betting#live"
                     className="group inline-flex min-h-[50px] items-center gap-2.5 rounded-[7px] bg-white px-6
                                text-[15px] font-extrabold text-navy-800 transition-all hover:-translate-y-0.5
                                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -466,7 +466,7 @@ export default function AboutPage() {
             Sports, competitions and markets can vary according to the sporting calendar,
             location and current platform coverage.
           </p>
-          <Cta href="/sports">View All Sports</Cta>
+          <Cta href="/sports-betting">View All Sports</Cta>
         </div>
       </Band>
 
@@ -529,7 +529,7 @@ export default function AboutPage() {
 
                 <div className="pt-3">
                   <Link
-                    href="/sports#live"
+                    href="/sports-betting#live"
                     className="group inline-flex min-h-[50px] items-center gap-2.5 rounded-[7px] bg-white px-6
                                text-[15px] font-extrabold text-navy-800 transition-all hover:-translate-y-0.5
                                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -804,7 +804,7 @@ export default function AboutPage() {
                 <div className="mt-8 flex flex-wrap gap-3">
                   {[
                     { label: 'Explore 1xBet', href: '#categories' },
-                    { label: 'Explore Sports', href: '/sports' },
+                    { label: 'Explore Sports', href: '/sports-betting' },
                     { label: 'Explore Casino', href: '/casino' },
                   ].map((c, i) => (
                     <Link

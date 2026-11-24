@@ -434,7 +434,7 @@ export const GameTheaterModal: React.FC<GameTheaterModalProps> = ({
           <div className="flex items-center gap-2">
             <span className="text-ink-400">Balance:</span>
             <span className="font-mono font-bold text-white text-sm">
-              {mode === 'real' ? `$${balance.toFixed(2)} ${currency}` : '$10,000.00 DEMO'}
+              {mode === 'real' ? `₹${balance.toFixed(2)} ${currency}` : '₹10,000.00 DEMO'}
             </span>
           </div>
 

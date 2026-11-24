@@ -1,4 +1,4 @@
-export type Currency = 'USD' | 'EUR' | 'BTC' | 'ETH' | 'USDT';
+export type Currency = 'INR' | 'USD' | 'EUR' | 'BTC' | 'ETH' | 'USDT';
 
 export interface GameItem {
   id: string;

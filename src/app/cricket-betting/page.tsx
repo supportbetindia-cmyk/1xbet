@@ -579,7 +579,7 @@ export default function CricketPage() {
                   Register
                 </button>
                 <Link
-                  href="/sports"
+                  href="/sports-betting"
                   className="inline-flex min-h-[52px] items-center rounded-[7px] border-2 border-navy-700 px-7
                              text-[15px] font-extrabold text-navy-700 transition-all hover:bg-navy-700 hover:text-white
                              focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"

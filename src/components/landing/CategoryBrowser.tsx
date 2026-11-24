@@ -84,7 +84,7 @@ export const CategoryBrowser: React.FC<CategoryBrowserProps> = ({ onSelectGame }
             </Link>
 
             <Link
-              href="/1xgames"
+              href="/1xgames-online"
               className="inline-flex min-h-[46px] cursor-pointer items-center gap-2 rounded-[8px] border border-line-strong bg-canvas px-6 text-[14px] font-bold text-fg transition-all hover:border-brand-500 hover:bg-surface-3"
             >
               <span>Explore 1xBet Games</span>

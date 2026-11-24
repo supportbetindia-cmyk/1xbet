@@ -29,10 +29,10 @@ const PROMOS: PromoCard[] = [
     tag: 'NEW PLAYER PACKAGE',
     tagColor: 'bg-brass-500',
     title: 'Casino Welcome Package',
-    amount: '100% UP TO €1,500 + 150 FS',
+    amount: '100% UP TO ₹1,30,000 + 150 FS',
     description: 'Triple your first deposits across your first 4 payments. Includes 150 Free Spins on Pragmatic Play Gates of Olympus and Sweet Bonanza.',
     code: '1XBONUS',
-    minDeposit: '€10',
+    minDeposit: '₹100',
     wagering: '35x Bonus',
     expiry: '30 Days'
   },
@@ -41,10 +41,10 @@ const PROMOS: PromoCard[] = [
     tag: 'GLOBAL NETWORK PROMO',
     tagColor: 'bg-brand-600',
     title: 'Pragmatic Play Drops & Wins',
-    amount: '€2,000,000 MONTHLY POOL',
+    amount: '₹15 CRORE MONTHLY POOL',
     description: 'Daily prize drops and weekly tournaments across iconic qualifying slots. Random multiplier drops up to 2,500x your stake anytime.',
     code: 'AUTO-OPT IN',
-    minDeposit: '€0.50 per spin',
+    minDeposit: '₹50 per spin',
     wagering: '0x Wagering (Cash)',
     expiry: 'Ongoing 2026'
   },
@@ -65,10 +65,10 @@ const PROMOS: PromoCard[] = [
     tag: 'WEEKEND SPECIAL',
     tagColor: 'bg-brand-600',
     title: 'Sunday High-Roller Reload',
-    amount: '50% BONUS UP TO €500',
+    amount: '50% BONUS UP TO ₹45,000',
     description: 'Power up your weekend with extra betting ammunition on all 1xOriginals, Live Casino tables, and classic roulette games.',
     code: 'RELOAD500',
-    minDeposit: '€25',
+    minDeposit: '₹2,000',
     wagering: '25x Bonus',
     expiry: 'Sundays Only'
   }

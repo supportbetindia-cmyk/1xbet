@@ -654,7 +654,7 @@ export default function BasketballPage() {
 
           <div className="grid grid-cols-2 gap-2.5 pt-2 sm:flex sm:flex-wrap sm:gap-3">
             <Cta href="#markets" solid>Explore Basketball Betting</Cta>
-            <Cta href="/sports">Explore Sports</Cta>
+            <Cta href="/sports-betting">Explore Sports</Cta>
           </div>
         </div>
       </Sec>

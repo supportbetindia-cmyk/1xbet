@@ -29,11 +29,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "1xBet India | Sports Betting & Online Games | 1xBet",
+    default: "1xBet | Online sports betting | Casino Games in India",
     template: "%s · 1xBet",
   },
   description:
-    "Explore 1xBet India for sports betting and online games. Access your 1xBet account, app, registration, login and customer support options.",
+    "Explore 1xBet India for sports betting, casino games, and online entertainment. Access 1xBet Login India, download the 1xBet App, and enjoy easy account access.",
   icons: {
     icon: "/1xbet.svg",
   },
