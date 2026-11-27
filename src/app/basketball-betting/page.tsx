@@ -11,6 +11,7 @@ import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
 import { HalfCourt, QuarterBar, ScoringRun } from '@/components/basketball/BasketballVisuals';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 /* Leather / hardwood / court navy. Rotated section to section so the page has
    a range rather than one flat accent. */
@@ -72,6 +73,8 @@ const FAQS: [string, string][] = [
   ['Can basketball betting markets change?', 'Yes. Markets can change depending on the event, timing, game conditions and platform availability. Live markets can change particularly quickly.'],
   ['Are basketball betting outcomes guaranteed?', 'No. Basketball games have uncertain outcomes. Odds and markets do not guarantee a particular result.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* ---------------------------------------------------------------- shells -- */
 
@@ -201,6 +204,10 @@ export default function BasketballPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ============================ Hero ============================ */}
       <section

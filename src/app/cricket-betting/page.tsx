@@ -9,6 +9,7 @@ import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { BallStrip, PitchDiagram, FormatCards } from '@/components/cricket/CricketVisuals';
 import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 const FORMATS = [
   { name: 'T20', overs: '20', note: 'Twenty overs a side. A few deliveries can alter the balance of a game.', colour: '#007acc' },
@@ -59,6 +60,8 @@ const FAQS: [string, string][] = [
   ['Do cricket betting markets remain the same?', 'No. Markets can change depending on the event, match conditions, timing and platform availability. Live markets can change particularly quickly.'],
   ['Are cricket betting outcomes guaranteed?', 'No. Cricket matches have uncertain outcomes. Odds and betting markets do not guarantee a particular result.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* Section shell: ghost numeral against a heavy left rule. Neither the sports
    page's filled navy bar nor the homepage's label stack. */
@@ -160,6 +163,10 @@ export default function CricketPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ===== Hero — no imagery ===== */}
       <section ref={heroRef} data-hero className="relative overflow-hidden border-b border-line bg-canvas" aria-labelledby="ck-title">

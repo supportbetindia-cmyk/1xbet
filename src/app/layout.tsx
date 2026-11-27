@@ -28,6 +28,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.1xbetgames.co"),
   title: {
     default: "1xBet | Online sports betting | Casino Games in India",
     template: "%s · 1xBet",
@@ -39,6 +40,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "mmvP9t_z162pvkaFlg_UogH7p0dV3adOYy3paBVfhf0",
+  },
+  alternates: {
+    canonical: "./",
   },
 };
 

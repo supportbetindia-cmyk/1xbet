@@ -11,6 +11,7 @@ import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
 import { FormationPitch } from '@/components/soccer/FormationPitch';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 const MATCH_CHECKS = [
   'Teams and competition',
@@ -76,6 +77,8 @@ const FAQS: [string, string][] = [
   ['Can soccer betting markets change?', 'Yes. Markets can change depending on the event, timing, match conditions and platform availability. Live markets can change particularly quickly.'],
   ['Are soccer betting outcomes guaranteed?', 'No. Soccer matches have uncertain outcomes. Odds and markets do not guarantee a particular result.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* ---------------------------------------------------------------- shells -- */
 
@@ -206,6 +209,10 @@ export default function SoccerPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ========================= Hero ========================= */}
       <section

@@ -9,6 +9,7 @@ import { SportBrowser } from '@/components/sports/SportBrowser';
 import { SportsRail, RailItem } from '@/components/sports/SportsRail';
 import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { useReveal } from '@/hooks/useReveal';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 const SPORT_LIST = [
   'Cricket',
@@ -83,6 +84,8 @@ const FAQS: [string, string][] = [
   ['Are sports betting outcomes guaranteed?', 'No. Sporting events have uncertain outcomes. Odds and markets do not guarantee a particular result.'],
   ['Can sports betting markets change?', 'Yes. Markets can change depending on the event, timing, match conditions and platform availability. Live markets can change particularly quickly.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* ---------------------------------------------------------------------------
    Block: the page's one repeating unit. A rule across the top with the section
@@ -186,6 +189,10 @@ export default function SportsPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ===================== Masthead =====================
           Short by design. A sportsbook puts the coupon near the top; a

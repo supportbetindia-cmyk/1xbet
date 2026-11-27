@@ -13,6 +13,7 @@ import { useReveal } from '@/hooks/useReveal';
 import StarBurst from '@/components/ui/Background';
 import NeonBorder from '@/components/ui/NeonBorder';
 import { Rail } from '@/components/ui/Rail';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 const SPORT_LIST = [
   'Cricket', 'Football', 'Soccer', 'Tennis',
@@ -66,6 +67,8 @@ const FAQS: [string, string][] = [
   ['Is betting or gaming on 1xBet risk-free?', 'No. Betting and casino gaming involve financial risk. There are no guaranteed outcomes, and users can lose money.'],
   ['How can I contact 1xBet customer support?', 'Users can access the customer-support options provided through the official 1xBet platform for account and service-related assistance.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* Section shell. No numerals — all three sport pages use them, so this page
    is identified by a solid accent bar and a wider heading measure instead. */
@@ -190,6 +193,10 @@ export default function AboutPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ================= Hero — single centred column ================= */}
       <section ref={heroRef} data-hero className="relative overflow-hidden bg-[#001124] text-white" aria-labelledby="about-title">

@@ -12,6 +12,7 @@ import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
 import { Shuttlecock3D, FlightArc } from '@/components/badminton/Shuttlecock3D';
 import { TiltCard } from '@/components/badminton/TiltCard';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 const MATCH_CHECKS = [
   'Players and match details',
@@ -65,6 +66,8 @@ const FAQS: [string, string][] = [
   ['Can badminton betting markets change?', 'Yes. Markets can change depending on the event, timing, match conditions and platform availability. Live markets can change particularly quickly.'],
   ['Are badminton betting outcomes guaranteed?', 'No. Badminton matches have uncertain outcomes. Odds and markets do not guarantee a particular result.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* ---------------------------------------------------------------- shells -- */
 
@@ -207,6 +210,10 @@ export default function BadmintonPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ========================= Hero ========================= */}
       <section

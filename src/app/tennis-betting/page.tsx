@@ -11,6 +11,7 @@ import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
 import { CourtDiagram, PointLadder, MomentumBar } from '@/components/tennis/TennisVisuals';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 /* The three court surfaces drive the accent instead of one brand hue — it is
    the one colour system that belongs to tennis and to no other page here. */
@@ -72,6 +73,8 @@ const FAQS: [string, string][] = [
   ['Are tennis betting outcomes guaranteed?', 'No. Tennis matches have uncertain outcomes. Odds and markets do not guarantee a particular result.'],
   ['Can tennis betting markets change?', 'Yes. Markets can change depending on the event, timing, match conditions and platform availability. Live markets can change particularly quickly.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* ---------------------------------------------------------------- shells -- */
 
@@ -191,6 +194,10 @@ export default function TennisPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ============================ Hero ============================
           Light, no imagery: the court diagram is drawn geometry, so the hero

@@ -12,6 +12,7 @@ import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
 import { RouletteRing, ChipStack, SuitGlyph, Suit } from '@/components/casino/CasinoVisuals';
 import { FlipCard } from '@/components/casino/FlipCard';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 /* Suits cycle through the sections the way they cycle through a deck. */
 const SUITS: Suit[] = ['spade', 'heart', 'diamond', 'club'];
@@ -141,6 +142,8 @@ const FAQS: [string, string][] = [
   ['How can I check whether online casinos are permitted in my location?', 'Check the current laws and regulatory requirements applicable to your specific jurisdiction. Do not assume that a service being accessible online means it is legally permitted where you live.'],
 ];
 
+const FAQ_JSONLD = faqJsonLd(FAQS);
+
 /* ---------------------------------------------------------------- shells -- */
 
 /**
@@ -265,6 +268,10 @@ export default function OnlineCasinoPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ========================= Hero ========================= */}
       <section

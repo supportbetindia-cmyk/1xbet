@@ -18,6 +18,7 @@ import { GameTheaterModal } from '@/components/GameTheaterModal';
 import { AuthenticGame } from '@/lib/authenticGames';
 import { useReveal } from '@/hooks/useReveal';
 import { ReadMore } from '@/components/ui/ReadMore';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 const REASONS: [string, string][] = [
   ['Sports and games in one place', 'Browse the sports events and 1xBet games currently available through the platform.'],
@@ -50,6 +51,20 @@ const FAQS: [string, string][] = [
   ['How can I contact 1xBet customer support?', 'Users can access 1xBet customer support through the official support channels provided by the platform. Available support methods can vary by region.'],
   ['Is 1xBet available everywhere?', 'No. The availability of 1xBet services, games, sports and betting markets can vary according to jurisdiction, local regulations and platform availability.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
+
+const WEBSITE_JSONLD = JSON.stringify({
+  '@context': 'https://schema.org/',
+  '@type': 'WebSite',
+  name: '1xBet',
+  url: 'https://www.1xbetgames.co/',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://www.1xbetgames.co/sports{search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+}).replace(/</g, '\\u003c');
 
 const ACCESS_DOORS = [
   {
@@ -114,6 +129,14 @@ export default function Home() {
 
   return (
     <main className="flex-1 overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: WEBSITE_JSONLD }}
+      />
 
       {/* Hero with Full-Width Category Navigation Hub */}
       <HeroStage onSelectGame={setTheaterGame} />

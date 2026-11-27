@@ -12,6 +12,7 @@ import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
 import { Silks, SilkField, TrackStraight, SilkPattern } from '@/components/racing/RacingVisuals';
 import { FurlongScrubber } from '@/components/racing/FurlongScrubber';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 /* Each section is issued its own silk, the way each runner in a field is. */
 const SILKS: { p: SilkPattern; base: string; mark: string }[] = [
@@ -89,6 +90,8 @@ const FAQS: [string, string][] = [
   ['Are horse racing odds a guarantee of the result?', 'No. Horse racing odds do not guarantee an outcome. Race results are uncertain and financial losses are possible.'],
   ['How can I check whether horse racing betting is permitted in my location?', 'Check the current laws and regulatory requirements that apply to your specific jurisdiction before participating. Do not assume that availability on a website means the activity is legally permitted where you live.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* ---------------------------------------------------------------- shells -- */
 
@@ -225,6 +228,10 @@ export default function HorseRacingPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ====================== Hero — night meeting ====================== */}
       <section

@@ -9,6 +9,7 @@ import { Accordion, AccordionEntry } from '@/components/ui/Accordion';
 import { MatchTimeline, CardPair, PitchMarkings, MatchEvent } from '@/components/football/FootballVisuals';
 import { useReveal } from '@/hooks/useReveal';
 import { Rail } from '@/components/ui/Rail';
+import { faqJsonLd } from '@/lib/faqJsonLd';
 
 const TIMELINE: MatchEvent[] = [
   { minute: 12, kind: 'goal', label: 'Goal' },
@@ -63,6 +64,8 @@ const FAQS: [string, string][] = [
   ['What is live soccer betting?', 'Live soccer betting refers to selected football markets available while a match is in progress. Markets and odds can change quickly during live play.'],
   ['Are football betting outcomes guaranteed?', 'No. Football matches have uncertain outcomes. Odds and markets do not guarantee a particular result.'],
 ];
+
+const FAQ_JSONLD = faqJsonLd(FAQS);
 
 /* Section head: shirt number in a solid square, titles stacked beside it,
    heavy rule beneath the block. Horizontal — unlike the cricket page's stacked
@@ -164,6 +167,10 @@ export default function FootballPage() {
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSONLD }}
+      />
 
       {/* ===== Hero ===== */}
       <section ref={heroRef} data-hero className="relative overflow-hidden border-b-[3px] border-fg bg-canvas" aria-labelledby="fb-title">
